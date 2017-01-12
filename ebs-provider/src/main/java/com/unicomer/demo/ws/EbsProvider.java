@@ -3,6 +3,7 @@
  */
 package com.unicomer.demo.ws;
 
+import javax.ejb.Local;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
@@ -20,6 +21,7 @@ import com.unicomer.demo.message.GetVendorResponse;
 @WebService(name = "EbsProvider", targetNamespace = "http://ws.demo.unicomer.com/")
 @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
 @XmlSeeAlso({ com.unicomer.demo.message.ObjectFactory.class })
+@Local
 public interface EbsProvider {
 	@WebMethod(operationName = "GetVendor", action = "process")
 	@WebResult(name = "GetVendorResponse", targetNamespace = "http://ws.demo.unicomer.com/", partName = "payload")

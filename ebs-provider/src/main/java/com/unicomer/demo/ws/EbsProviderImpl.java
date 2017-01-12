@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import javax.ejb.Stateless;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -20,6 +21,7 @@ import com.unicomer.demo.repository.VendorRepository;
 @WebService(name = "EbsProvider", targetNamespace = "http://ws.demo.unicomer.com/")
 @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
 @XmlSeeAlso({ com.unicomer.demo.message.ObjectFactory.class })
+@Stateless
 public class EbsProviderImpl implements EbsProvider {
 	
 	private VendorRepository vendorRepository = new VendorRepository();
