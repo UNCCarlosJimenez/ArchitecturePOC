@@ -2,9 +2,12 @@ package com.unicomer.demo.common.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
+
+import com.unicomer.demo.common.header.RequestHeader;
 
 @SuppressWarnings("serial")
-public class Vendor implements Serializable {
+public class UnicomerVendor implements Serializable {
 	/**
 	 * 
 	 */
@@ -509,5 +512,77 @@ public class Vendor implements Serializable {
 		
 		return sb.toString();
 	}
+	
+	/**
+	 * Mensaje de peticion para operaciones del recurso Vendor
+	 * 
+	 * @author carlosj_rodriguez
+	 *
+	 */
+	public static class RequestVendorMessage extends RequestHeader implements Serializable {
+		private UnicomerVendor data;
+		
+		/**
+		 * @return the data
+		 */
+		public UnicomerVendor getData() {
+			return data;
+		}
 
+		/**
+		 * @param data the data to set
+		 */
+		public void setData(UnicomerVendor data) {
+			this.data = data;
+		}
+
+		@Override
+		public String toString() {
+			StringBuilder sb = new StringBuilder(super.toString());
+			if (this.data != null) {
+				sb.append(", data=[{");
+				sb.append(this.data.toString());
+				sb.append("}]");
+			}
+			return sb.toString();
+		}
+	}
+	
+	
+	/**
+	 * Mensaje de respuesta para operaciones del recurso Vendor
+	 * 
+	 * @author carlosj_rodriguez
+	 *
+	 */
+	public static class ResponseVendorMessage extends RequestHeader implements Serializable {
+		private List<UnicomerVendor> data;
+		
+		/**
+		 * @return the data
+		 */
+		public List<UnicomerVendor> getData() {
+			return data;
+		}
+
+		/**
+		 * @param data the data to set
+		 */
+		public void setData(List<UnicomerVendor> data) {
+			this.data = data;
+		}
+
+		@Override
+		public String toString() {
+			StringBuilder sb = new StringBuilder(super.toString());
+			if (this.data != null) {
+				sb.append(", data=[{");
+				sb.append(this.data.toString());
+				sb.append("}]");
+			}
+			return sb.toString();
+		}
+	}
+	
+	
 }
