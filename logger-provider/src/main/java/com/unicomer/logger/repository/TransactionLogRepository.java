@@ -15,5 +15,5 @@ import com.unicomer.logger.domain.TransactionLogDomain;
  *
  */
 public interface TransactionLogRepository extends JpaRepository<TransactionLogDomain, BigDecimal> {
-	List<TransactionLogDomain> findByGlobalReferenceId(String globalReferenceId);
+	public List<TransactionLogDomain> findByGlobalReferenceId(String globalReferenceId);
 }

@@ -202,14 +202,14 @@ public class LoggerRestController {
 	}
 	
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/logs/{originReferenceId}",
+	@RequestMapping(method = RequestMethod.GET, value = "/logs/{globalReferenceId}",
 			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
 			consumes={MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public List<TransactionLogDomain> startTrace(@PathVariable(name="originReferenceId") String originReferenceId, HttpServletResponse servletResponse) {
+	public List<TransactionLogDomain> startTrace(@PathVariable(name="globalReferenceId") String globalReferenceId, HttpServletResponse servletResponse) {
 		List<TransactionLogDomain> response = new ArrayList<TransactionLogDomain>();
 		try{
-			logger.info("originReferenceId="+originReferenceId);
-			response=loggerService.findAll();
+			logger.info("globalReferenceId="+globalReferenceId);
+			response=loggerService.findByGlobalReferenceId(globalReferenceId);
 			servletResponse.setStatus(HttpServletResponse.SC_OK);
 		}catch (Exception e) {
 			logger.error(e.getMessage(), e);
