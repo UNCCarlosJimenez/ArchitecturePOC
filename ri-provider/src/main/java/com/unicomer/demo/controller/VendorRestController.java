@@ -22,25 +22,7 @@ public class VendorRestController {
 	@Value(value="${spring.jpa.properties.hibernate.dialect}") String hibernateDialect;
 	@Value("${application.environment}") String environmentName;
 	@Value("${application.instances}") Integer numberOfInstances;
-	
-	@RequestMapping(method = RequestMethod.GET, value = "/config/dialect",
-			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public String getDialect(){
-		return hibernateDialect;
-	}
-	
-	@RequestMapping(method = RequestMethod.GET, value = "/config/custom",
-			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public String getCustom(){
-		return environmentName;
-	}
-	
-	@RequestMapping(method = RequestMethod.GET, value = "/config/instances/{times}",
-			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public Integer getInstances(@PathVariable Integer times){
-		return numberOfInstances*times;
-	}
-	
+		
 	@RequestMapping(method = RequestMethod.GET, value = "/vendors",
 			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public Set<RiVendor> getVendors() {
