@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VendorViewDlg" widgetVar="VendorViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewVendorTitle}">
+            <h:form id="VendorViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{vendorController.selected != null}">
+                        <h:outputText value="#{bundle.ViewVendorLabel_vendorId}"/>
+                        <h:outputText value="#{vendorController.selected.vendorId}" title="#{bundle.ViewVendorTitle_vendorId}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_name}"/>
+                        <h:outputText value="#{vendorController.selected.name}" title="#{bundle.ViewVendorTitle_name}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_address}"/>
+                        <h:outputText value="#{vendorController.selected.address}" title="#{bundle.ViewVendorTitle_address}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_country}"/>
+                        <h:outputText value="#{vendorController.selected.country}" title="#{bundle.ViewVendorTitle_country}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_city}"/>
+                        <h:outputText value="#{vendorController.selected.city}" title="#{bundle.ViewVendorTitle_city}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_state}"/>
+                        <h:outputText value="#{vendorController.selected.state}" title="#{bundle.ViewVendorTitle_state}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_zipCode}"/>
+                        <h:outputText value="#{vendorController.selected.zipCode}" title="#{bundle.ViewVendorTitle_zipCode}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_postalCode}"/>
+                        <h:outputText value="#{vendorController.selected.postalCode}" title="#{bundle.ViewVendorTitle_postalCode}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_representativePhone}"/>
+                        <h:outputText value="#{vendorController.selected.representativePhone}" title="#{bundle.ViewVendorTitle_representativePhone}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_representativeFax}"/>
+                        <h:outputText value="#{vendorController.selected.representativeFax}" title="#{bundle.ViewVendorTitle_representativeFax}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_priority}"/>
+                        <h:outputText value="#{vendorController.selected.priority}" title="#{bundle.ViewVendorTitle_priority}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_dunsNumber}"/>
+                        <h:outputText value="#{vendorController.selected.dunsNumber}" title="#{bundle.ViewVendorTitle_dunsNumber}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_abreviation}"/>
+                        <h:outputText value="#{vendorController.selected.abreviation}" title="#{bundle.ViewVendorTitle_abreviation}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_contactName}"/>
+                        <h:outputText value="#{vendorController.selected.contactName}" title="#{bundle.ViewVendorTitle_contactName}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_type}"/>
+                        <h:outputText value="#{vendorController.selected.type}" title="#{bundle.ViewVendorTitle_type}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_socialSecurityNumber}"/>
+                        <h:outputText value="#{vendorController.selected.socialSecurityNumber}" title="#{bundle.ViewVendorTitle_socialSecurityNumber}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_taxId}"/>
+                        <h:outputText value="#{vendorController.selected.taxId}" title="#{bundle.ViewVendorTitle_taxId}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_terms}"/>
+                        <h:outputText value="#{vendorController.selected.terms}" title="#{bundle.ViewVendorTitle_terms}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_factor}"/>
+                        <h:outputText value="#{vendorController.selected.factor}" title="#{bundle.ViewVendorTitle_factor}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_freeOnBoardPoint}"/>
+                        <h:outputText value="#{vendorController.selected.freeOnBoardPoint}" title="#{bundle.ViewVendorTitle_freeOnBoardPoint}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_shippingPoint}"/>
+                        <h:outputText value="#{vendorController.selected.shippingPoint}" title="#{bundle.ViewVendorTitle_shippingPoint}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_shippingVia}"/>
+                        <h:outputText value="#{vendorController.selected.shippingVia}" title="#{bundle.ViewVendorTitle_shippingVia}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_globalFreightPerc}"/>
+                        <h:outputText value="#{vendorController.selected.globalFreightPerc}" title="#{bundle.ViewVendorTitle_globalFreightPerc}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_globalDiscountPerc}"/>
+                        <h:outputText value="#{vendorController.selected.globalDiscountPerc}" title="#{bundle.ViewVendorTitle_globalDiscountPerc}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_minShip}"/>
+                        <h:outputText value="#{vendorController.selected.minShip}" title="#{bundle.ViewVendorTitle_minShip}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_minShipUnit}"/>
+                        <h:outputText value="#{vendorController.selected.minShipUnit}" title="#{bundle.ViewVendorTitle_minShipUnit}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_reviewCycle}"/>
+                        <h:outputText value="#{vendorController.selected.reviewCycle}" title="#{bundle.ViewVendorTitle_reviewCycle}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_returnVendorName}"/>
+                        <h:outputText value="#{vendorController.selected.returnVendorName}" title="#{bundle.ViewVendorTitle_returnVendorName}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_returnAddress}"/>
+                        <h:outputText value="#{vendorController.selected.returnAddress}" title="#{bundle.ViewVendorTitle_returnAddress}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_returnCountry}"/>
+                        <h:outputText value="#{vendorController.selected.returnCountry}" title="#{bundle.ViewVendorTitle_returnCountry}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_returnCity}"/>
+                        <h:outputText value="#{vendorController.selected.returnCity}" title="#{bundle.ViewVendorTitle_returnCity}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_returnState}"/>
+                        <h:outputText value="#{vendorController.selected.returnState}" title="#{bundle.ViewVendorTitle_returnState}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_returnPortalCode}"/>
+                        <h:outputText value="#{vendorController.selected.returnPortalCode}" title="#{bundle.ViewVendorTitle_returnPortalCode}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_returnZipCode}"/>
+                        <h:outputText value="#{vendorController.selected.returnZipCode}" title="#{bundle.ViewVendorTitle_returnZipCode}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_returnEmail}"/>
+                        <h:outputText value="#{vendorController.selected.returnEmail}" title="#{bundle.ViewVendorTitle_returnEmail}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_remitVendorName}"/>
+                        <h:outputText value="#{vendorController.selected.remitVendorName}" title="#{bundle.ViewVendorTitle_remitVendorName}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_remitAddress}"/>
+                        <h:outputText value="#{vendorController.selected.remitAddress}" title="#{bundle.ViewVendorTitle_remitAddress}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_remitCountry}"/>
+                        <h:outputText value="#{vendorController.selected.remitCountry}" title="#{bundle.ViewVendorTitle_remitCountry}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_remitCity}"/>
+                        <h:outputText value="#{vendorController.selected.remitCity}" title="#{bundle.ViewVendorTitle_remitCity}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_remitState}"/>
+                        <h:outputText value="#{vendorController.selected.remitState}" title="#{bundle.ViewVendorTitle_remitState}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_remitPostalCode}"/>
+                        <h:outputText value="#{vendorController.selected.remitPostalCode}" title="#{bundle.ViewVendorTitle_remitPostalCode}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_remitZipCode}"/>
+                        <h:outputText value="#{vendorController.selected.remitZipCode}" title="#{bundle.ViewVendorTitle_remitZipCode}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_remitEmail}"/>
+                        <h:outputText value="#{vendorController.selected.remitEmail}" title="#{bundle.ViewVendorTitle_remitEmail}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_status}"/>
+                        <h:outputText value="#{vendorController.selected.status}" title="#{bundle.ViewVendorTitle_status}"/>
+                        <h:outputText value="#{bundle.ViewVendorLabel_fiscalReg}"/>
+                        <h:outputText value="#{vendorController.selected.fiscalReg}" title="#{bundle.ViewVendorTitle_fiscalReg}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="VendorViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

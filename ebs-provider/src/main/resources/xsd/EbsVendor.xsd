@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	xmlns:ebs="http://ws.demo.unicomer.com/"
+	targetNamespace="http://ws.demo.unicomer.com/">
+
+	<xs:complexType name="requestHeader">
+		<xs:sequence>
+			<xs:element name="transaction" type="xs:string" minOccurs="0" />
+			<xs:element name="application" type="xs:string" minOccurs="0" />
+			<xs:element name="store" type="xs:string" minOccurs="0" />
+			<xs:element name="posId" type="xs:string" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="responseHeader">
+		<xs:sequence>
+			<xs:element name="responseCode" type="xs:int" minOccurs="0" />
+			<xs:element name="responseDescription" type="xs:string"
+				minOccurs="0" />
+			<xs:element name="serviceCode" type="xs:int" minOccurs="0" />
+			<xs:element name="serviceDescription" type="xs:string"
+				minOccurs="0" />
+			<xs:element name="transaction" type="xs:string"
+				minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="omcInterfaceVendor">
+		<xs:sequence>
+			<xs:element name="id" type="xs:int" minOccurs="1" />
+			<xs:element name="lookupCode" type="xs:string" minOccurs="0" />
+			<xs:element name="name" type="xs:string" minOccurs="0" />
+			<xs:element name="segment" type="xs:string" minOccurs="0" />
+			<xs:element name="transactionType" type="xs:string"
+				minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="getVendorRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="RequestHeader" type="ebs:requestHeader" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="Vendor" minOccurs="1" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="id" type="xs:string" nillable="true" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="getVendorResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ResponseHeader" type="ebs:responseHeader" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="Vendor" type="ebs:omcInterfaceVendor" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="addVendorRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="RequestHeader" type="ebs:requestHeader" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="Vendor" type="ebs:omcInterfaceVendor" minOccurs="1" maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="addVendorResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ResponseHeader" type="ebs:responseHeader" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="Vendor" type="ebs:omcInterfaceVendor" minOccurs="1" maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="updateVendorRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="RequestHeader" type="ebs:requestHeader" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="Vendor" type="ebs:omcInterfaceVendor" minOccurs="1" maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="updateVendorResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ResponseHeader" type="ebs:responseHeader" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="Vendor" type="ebs:omcInterfaceVendor" minOccurs="1" maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="deleteVendorRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="RequestHeader" type="ebs:requestHeader" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="Vendor" type="ebs:omcInterfaceVendor" minOccurs="1" maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="deleteVendorResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ResponseHeader" type="ebs:responseHeader" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+</xs:schema>
+

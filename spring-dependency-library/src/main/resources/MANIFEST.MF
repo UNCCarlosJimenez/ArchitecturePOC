@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Specification-Title: spring-dependency-library
+Specification-Version: 1.0
+Implementation-Title: spring-dependency-library Implementation
+Implementation-Version: 1.0
+Implementation-Vendor: Unicomer
+Extension-Name: spring-dependency-library

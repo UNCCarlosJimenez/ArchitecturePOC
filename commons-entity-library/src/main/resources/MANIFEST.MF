@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Specification-Title: commons-entity-library
+Specification-Version: 1.0
+Implementation-Title: commons-entity-library Implementation
+Implementation-Version: 1.0
+Implementation-Vendor: Unicomer
+Extension-Name: commons-entity-library
