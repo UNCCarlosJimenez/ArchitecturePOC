@@ -12,7 +12,7 @@ import org.springframework.ws.transport.http.HttpComponentsMessageSender;
 import com.unicomer.demo.buying.message.ebs.GetVendorRequest;
 import com.unicomer.demo.buying.message.ebs.GetVendorResponse;
 import com.unicomer.demo.buying.message.ebs.RequestHeader;
-import com.unicomer.demo.common.entity.Vendor;
+import com.unicomer.demo.common.entity.UnicomerVendor;
 
 @Component
 public class EbsClient extends WebServiceGatewaySupport {
@@ -25,7 +25,7 @@ public class EbsClient extends WebServiceGatewaySupport {
 	@Value("${ebs.service.endpoint}")
 	String serviceEndpoint;
 	
-	public GetVendorResponse getVendor(Vendor vendor) {
+	public GetVendorResponse getVendor(UnicomerVendor vendor) {
 		GetVendorRequest request = new GetVendorRequest();
 		RequestHeader header = new RequestHeader();
 

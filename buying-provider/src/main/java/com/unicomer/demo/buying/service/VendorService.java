@@ -2,19 +2,19 @@ package com.unicomer.demo.buying.service;
 
 import java.util.List;
 
-import com.unicomer.demo.common.entity.Vendor;
+import com.unicomer.demo.common.entity.UnicomerVendor;
 
 
 public interface VendorService {
 //	public Page<Vendor> listAllByPage(Pageable pageable);
 	
-	public List<Vendor> findAll();
+	public List<UnicomerVendor> findAll();
 	
-	public Vendor save(Vendor vendor);
+	public UnicomerVendor save(UnicomerVendor vendor);
 	
 	public boolean exists(String id);
 	
-	public Vendor findOne(String id);
+	public UnicomerVendor findOne(String id);
 	
 	public void delete(String id);
 }

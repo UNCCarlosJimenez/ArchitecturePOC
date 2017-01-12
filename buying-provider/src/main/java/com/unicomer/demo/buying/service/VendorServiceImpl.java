@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.unicomer.demo.buying.dao.RiClient;
 import com.unicomer.demo.buying.dao.SwimClient;
-import com.unicomer.demo.common.entity.Vendor;
+import com.unicomer.demo.common.entity.UnicomerVendor;
 import com.unicomer.demo.swim.domain.SwimVendor;
 
 @Service("vendorService")
@@ -20,9 +20,9 @@ public class VendorServiceImpl implements VendorService {
 	RiClient riClient;
 
 	@Override
-	public List<Vendor> findAll() {
+	public List<UnicomerVendor> findAll() {
 		System.out.println("buying-provider@VendorServiceImpl: Inicio de findAll()");
-		List<Vendor> resultList = new ArrayList<Vendor>();
+		List<UnicomerVendor> resultList = new ArrayList<UnicomerVendor>();
 		/**
 		 * 
 		 */
@@ -33,7 +33,7 @@ public class VendorServiceImpl implements VendorService {
 			Iterator<SwimVendor> it = swimVendors.iterator();
 			while (it.hasNext()) {
 				SwimVendor swimVendor = it.next();
-				Vendor vendor = new Vendor();
+				UnicomerVendor vendor = new UnicomerVendor();
 
 				vendor.setVendorId(swimVendor.getVendorId());
 				vendor.setName(swimVendor.getName());
@@ -48,8 +48,8 @@ public class VendorServiceImpl implements VendorService {
 	}
 
 	@Override
-	public Vendor save(Vendor vendor) {
-		Vendor result = new Vendor();
+	public UnicomerVendor save(UnicomerVendor vendor) {
+		UnicomerVendor result = new UnicomerVendor();
 
 		return result;
 	}
@@ -70,13 +70,13 @@ public class VendorServiceImpl implements VendorService {
 	}
 
 	@Override
-	public Vendor findOne(String id) {
-		Vendor result = null;
+	public UnicomerVendor findOne(String id) {
+		UnicomerVendor result = null;
 		try {
 			List<SwimVendor> swimVendors = swimClient.getVendor(id).getData();
 			if (swimVendors.size() > 0) {
 				SwimVendor vendor = swimVendors.get(0);
-				result = new Vendor();
+				result = new UnicomerVendor();
 				result.setVendorId(vendor.getVendorId());
 			}
 		} catch (Exception e) {
