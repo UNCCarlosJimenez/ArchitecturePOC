@@ -8,23 +8,22 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.unicomer.demo.domain.SwimVendor;
-import com.unicomer.demo.service.VendorService;
+import com.unicomer.demo.domain.SwimVendorDomain;
 
 /**
  * @author oracle
  *
  */
 public interface VendorService {
-	public Page<SwimVendor> listAllByPage(Pageable pageable);
+	public Page<SwimVendorDomain> listAllByPage(Pageable pageable);
 	
-	public List<SwimVendor> findAll();
+	public List<SwimVendorDomain> findAll();
 	
-	public SwimVendor save(SwimVendor vendor);
+	public SwimVendorDomain save(SwimVendorDomain vendor);
 	
 	public boolean exists(String id);
 	
-	public SwimVendor findOne(String id);
+	public SwimVendorDomain findOne(String id);
 	
 	public void delete(String id);
 }

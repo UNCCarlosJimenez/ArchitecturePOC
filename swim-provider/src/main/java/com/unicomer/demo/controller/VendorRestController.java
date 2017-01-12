@@ -9,37 +9,64 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.unicomer.demo.domain.SwimVendor;
-import com.unicomer.demo.domain.SwimVendor.ResponseMessage;
+import com.unicomer.demo.client.LoggerClient;
+import com.unicomer.demo.common.entity.TransactionLogEndTrace;
+import com.unicomer.demo.common.entity.TransactionLogInfoTrace;
+import com.unicomer.demo.domain.SwimVendorDomain;
+import com.unicomer.demo.domain.SwimVendorDomain.ResponseMessage;
 import com.unicomer.demo.service.VendorService;
 
 @RestController
 public class VendorRestController {
 	@Autowired VendorService vendorService;
-	
+	@Autowired LoggerClient logger;
+	@Value("${spring.application.name}") String applicationName;
+		
 	@RequestMapping(method = RequestMethod.GET, value = "/vendors/all",
 			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public SwimVendor.ResponseMessage getVendors(HttpServletResponse servletResponse) {
+	public SwimVendorDomain.ResponseMessage getVendors(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
+			@RequestHeader(name="X-Forwarded-For", defaultValue="none", required=false) String forwardedFor) {
+		
+		String localTransactionId=UUID.randomUUID().toString();
+		long startTime = System.currentTimeMillis();		
+		logger.startTrace(new TransactionLogInfoTrace(
+				this.getClass().getCanonicalName(), 
+				"",
+				"",
+				servletRequest.getRemoteAddr(), 
+				"getVendors", 
+				"Inicio de /vendors/all", 
+				localTransactionId, 
+				localTransactionId, 
+				"", 
+				"v1", 
+				applicationName
+			)
+		);
+		
 		servletResponse.setStatus(HttpServletResponse.SC_OK);
 		ResponseMessage response = new ResponseMessage();
 		
 		try{
-			List<SwimVendor> vendorList = new ArrayList<SwimVendor>();
-			Iterator<SwimVendor> it = vendorService.findAll().iterator();
+			List<SwimVendorDomain> vendorList = new ArrayList<SwimVendorDomain>();
+			Iterator<SwimVendorDomain> it = vendorService.findAll().iterator();
 			while (it.hasNext()) {
-				SwimVendor vendor = it.next();
-				vendor.add(linkTo(methodOn(VendorRestController.class).getVendorById(vendor.getVendorId(), servletResponse)).withSelfRel());
+				SwimVendorDomain vendor = it.next();
+				vendor.add(linkTo(methodOn(VendorRestController.class).getVendorById(vendor.getVendorId(), servletRequest, servletResponse)).withSelfRel());
 				vendorList.add(vendor);
 			}
 			
@@ -64,34 +91,98 @@ public class VendorRestController {
 			response.setServiceCode(500);
 			response.setServiceDescription(e.getMessage());
 			servletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			
+			logger.errorTrace(new TransactionLogInfoTrace(
+					this.getClass().getCanonicalName(), 
+					"",
+					e.getStackTrace().toString(),
+					servletRequest.getRemoteAddr(), 
+					"getVendors", 
+					"Ha ocurrido un problema: " + e.getMessage(), 
+					localTransactionId, 
+					localTransactionId, 
+					"", 
+					"v1", 
+					applicationName
+				)
+			);
 		}
 		
-		response.setTransactionId(UUID.randomUUID().toString());
+		response.setTransactionId(localTransactionId);
 		response.setDate(Calendar.getInstance().getTime());		
+		
+		long duration = System.currentTimeMillis() - startTime;
+		logger.endTrace(new TransactionLogEndTrace(
+				this.getClass().getCanonicalName(), 
+				response.getData().size() + " registros recuperados",
+				"",
+				servletRequest.getRemoteAddr(), 
+				"getVendors", 
+				"Fin de /vendors/all", 
+				localTransactionId, 
+				localTransactionId, 
+				"", 
+				"v1", 
+				applicationName,
+				duration,
+				servletResponse.getStatus()
+			)
+		);
+		
 		return response;
 	}
 	
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/vendors",
 			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public SwimVendor.ResponseMessage getVendorsPageable(HttpServletResponse servletResponse, Pageable pageable) {
+	public SwimVendorDomain.ResponseMessage getVendorsPageable(HttpServletRequest servletRequest, HttpServletResponse servletResponse, Pageable pageable) {
 		servletResponse.setStatus(HttpServletResponse.SC_OK);
 		ResponseMessage response = new ResponseMessage();
 		
+		String localTransactionId=UUID.randomUUID().toString();
+		long startTime = System.currentTimeMillis();		
+		logger.startTrace(new TransactionLogInfoTrace(
+				this.getClass().getCanonicalName(), 
+				"",
+				"",
+				servletRequest.getRemoteAddr(), 
+				"getVendors", 
+				"Inicio de /vendors", 
+				localTransactionId, 
+				localTransactionId, 
+				"", 
+				"v1", 
+				applicationName
+			)
+		);
+		
 		try{
-			List<SwimVendor> vendorList = new ArrayList<SwimVendor>();
-			Iterator<SwimVendor> it;
+			List<SwimVendorDomain> vendorList = new ArrayList<SwimVendorDomain>();
+			Iterator<SwimVendorDomain> it;
 			
 			if(pageable.getPageSize()==20 && pageable.getPageNumber()==0){
-				System.out.println("vendorService.findAll()");
+				logger.infoTrace(new TransactionLogInfoTrace(
+						this.getClass().getCanonicalName(), 
+						"",
+						"",
+						servletRequest.getRemoteAddr(), 
+						"getVendors", 
+						"Se ha detectado el tamaño de pageable por defecto, por lo que se recuperarán todos los registros", 
+						localTransactionId, 
+						localTransactionId, 
+						"", 
+						"v1", 
+						applicationName
+					)
+				);
 				it = vendorService.findAll().iterator();
 			}else{
-				System.out.println("vendorService.listAllByPage()");
 				it = vendorService.listAllByPage(pageable).iterator();
 			}
 			
 			while (it.hasNext()) {
-				SwimVendor vendor = it.next();
-				vendor.add(linkTo(methodOn(VendorRestController.class).getVendorById(vendor.getVendorId(), servletResponse)).withSelfRel());
+				SwimVendorDomain vendor = it.next();
+				vendor.add(linkTo(methodOn(VendorRestController.class).getVendorById(vendor.getVendorId(), null, servletResponse)).withSelfRel());
 				vendorList.add(vendor);
 			}
 			
@@ -116,26 +207,81 @@ public class VendorRestController {
 			response.setServiceCode(500);
 			response.setServiceDescription(e.getMessage());
 			servletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			
+			logger.errorTrace(new TransactionLogInfoTrace(
+					this.getClass().getCanonicalName(), 
+					"",
+					e.getCause().getMessage(),
+					servletRequest.getRemoteAddr(), 
+					"getVendors", 
+					"Ha ocurrido un problema: " + e.getMessage(), 
+					localTransactionId, 
+					localTransactionId, 
+					"", 
+					"v1", 
+					applicationName
+				)
+			);
+			e.printStackTrace();
 		}
 		
-		response.setTransactionId(UUID.randomUUID().toString());
-		response.setDate(Calendar.getInstance().getTime());		
+		response.setTransactionId(localTransactionId);
+		response.setDate(Calendar.getInstance().getTime());
+		
+		long duration = System.currentTimeMillis() - startTime;
+		logger.endTrace(new TransactionLogEndTrace(
+				this.getClass().getCanonicalName(), 
+				"",
+				"",
+				servletRequest.getRemoteAddr(), 
+				"getVendors", 
+				"Fin de /vendors", 
+				localTransactionId, 
+				localTransactionId, 
+				"", 
+				"v1", 
+				applicationName,
+				duration,
+				servletResponse.getStatus()
+			)
+		);
+		
 		return response;
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/vendors",
 			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
 			consumes={MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public ResponseMessage addVendor(@RequestBody SwimVendor.RequestMessage request, HttpServletResponse servletResponse) {
+	public ResponseMessage addVendor(@RequestBody SwimVendorDomain.RequestMessage request, HttpServletRequest servletRequest, HttpServletResponse servletResponse) {
 		servletResponse.setStatus(HttpServletResponse.SC_CREATED);
 		ResponseMessage response = new ResponseMessage();
 		
+		String localTransactionId=UUID.randomUUID().toString();
+		long startTime = System.currentTimeMillis();		
+		logger.startTrace(new TransactionLogInfoTrace(
+				this.getClass().getCanonicalName(), 
+				request.toString(),
+				"",
+				servletRequest.getRemoteAddr(), 
+				"addVendor", 
+				"Inicio de POST /vendors", 
+				request.getTransaction(),
+				localTransactionId,
+				"", 
+				"v1", 
+				applicationName
+			)
+		);
+		
 		try{
-			SwimVendor vendorResponse = vendorService.save(request.getData());
-			ArrayList<SwimVendor> vendorList = new ArrayList<SwimVendor>();
+			if(request.getTransaction().isEmpty())
+				request.setTransaction(localTransactionId);
+			
+			SwimVendorDomain vendorResponse = vendorService.save(request.getData());
+			ArrayList<SwimVendorDomain> vendorList = new ArrayList<SwimVendorDomain>();
 			
 			if (vendorResponse!=null){
-				vendorResponse.add(linkTo(methodOn(VendorRestController.class).getVendorById(vendorResponse.getVendorId(), null)).withSelfRel());
+				vendorResponse.add(linkTo(methodOn(VendorRestController.class).getVendorById(vendorResponse.getVendorId(), null, null)).withSelfRel());
 				vendorList.add(vendorResponse);
 				response.setData(vendorList);
 				response.setResponseCode(0);
@@ -157,30 +303,78 @@ public class VendorRestController {
 			response.setServiceCode(500);
 			response.setServiceDescription(e.getMessage());
 			servletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			
+			logger.errorTrace(new TransactionLogInfoTrace(
+					this.getClass().getCanonicalName(), 
+					"",
+					e.getStackTrace().toString(),
+					servletRequest.getRemoteAddr(), 
+					"addVendor", 
+					"Ha ocurrido un problema: " + e.getMessage(), 
+					request.getTransaction(),
+					localTransactionId,
+					"", 
+					"v1", 
+					applicationName
+				)
+			);
 		}
+		response.setTransactionId(request.getTransaction());
+		response.setDate(Calendar.getInstance().getTime());			
 		
-		if(request.getToken().isEmpty()){
-			response.setTransactionId(UUID.randomUUID().toString());
-		}else{
-			response.setTransactionId(request.getToken());
-		}
-		
-		response.setDate(Calendar.getInstance().getTime());		
+		long duration = System.currentTimeMillis() - startTime;
+		logger.endTrace(new TransactionLogEndTrace(
+				this.getClass().getCanonicalName(), 
+				response.toString(),
+				"",
+				servletRequest.getRemoteAddr(), 
+				"addVendor", 
+				"Fin de POST /vendors", 
+				request.getTransaction(),
+				localTransactionId,
+				"", 
+				"v1", 
+				applicationName,
+				duration,
+				servletResponse.getStatus()
+			)
+		);
+			
 		return response;
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT, value = "/vendors/{id}",
 			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
 			consumes={MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public ResponseMessage updateVendor(@RequestBody SwimVendor.RequestMessage request, @PathVariable String id, HttpServletResponse servletResponse) {
+	public ResponseMessage updateVendor(@RequestBody SwimVendorDomain.RequestMessage request, @PathVariable String id, HttpServletRequest servletRequest, HttpServletResponse servletResponse) {
 		servletResponse.setStatus(HttpServletResponse.SC_CREATED);
 		ResponseMessage response = new ResponseMessage();
 		
+		String localTransactionId=UUID.randomUUID().toString();
+		long startTime = System.currentTimeMillis();		
+		logger.startTrace(new TransactionLogInfoTrace(
+				this.getClass().getCanonicalName(), 
+				request.toString(),
+				"",
+				servletRequest.getRemoteAddr(), 
+				"updateVendor", 
+				"Inicio de PUT /vendors/"+id,
+				request.getTransaction(),
+				localTransactionId,
+				"", 
+				"v1", 
+				applicationName
+			)
+		);		
+		
 		try{
+			if(request.getTransaction().isEmpty())
+				request.setTransaction(localTransactionId);
+			
 			if (vendorService.exists(id)){
-				SwimVendor vendorResponse = vendorService.save(request.getData());
-				ArrayList<SwimVendor> vendorList = new ArrayList<SwimVendor>();
-				vendorResponse.add(linkTo(methodOn(VendorRestController.class).getVendorById(vendorResponse.getVendorId(), null)).withSelfRel());
+				SwimVendorDomain vendorResponse = vendorService.save(request.getData());
+				ArrayList<SwimVendorDomain> vendorList = new ArrayList<SwimVendorDomain>();
+				vendorResponse.add(linkTo(methodOn(VendorRestController.class).getVendorById(vendorResponse.getVendorId(), null, null)).withSelfRel());
 				vendorList.add(vendorResponse);
 				response.setData(vendorList);
 				response.setResponseCode(0);
@@ -202,29 +396,74 @@ public class VendorRestController {
 			response.setServiceCode(500);
 			response.setServiceDescription(e.getMessage());
 			servletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			
+			logger.errorTrace(new TransactionLogInfoTrace(
+					this.getClass().getCanonicalName(), 
+					"",
+					e.getStackTrace().toString(),
+					servletRequest.getRemoteAddr(), 
+					"updateVendor", 
+					"Ha ocurrido un problema: " + e.getMessage(), 
+					request.getTransaction(),
+					localTransactionId,
+					"", 
+					"v1", 
+					applicationName
+				)
+			);
 		}
-		
-		if(request.getToken().isEmpty()){
-			response.setTransactionId(UUID.randomUUID().toString());
-		}else{
-			response.setTransactionId(request.getToken());
-		}
-		
+		response.setTransactionId(request.getTransaction());
 		response.setDate(Calendar.getInstance().getTime());
+		
+		long duration = System.currentTimeMillis() - startTime;
+		logger.endTrace(new TransactionLogEndTrace(
+				this.getClass().getCanonicalName(), 
+				response.toString(),
+				"",
+				servletRequest.getRemoteAddr(), 
+				"updateVendor", 
+				"Fin de PUT /vendors/"+id,
+				request.getTransaction(),
+				localTransactionId,
+				"", 
+				"v1", 
+				applicationName,
+				duration,
+				servletResponse.getStatus()
+			)
+		);
+				
 		return response;
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/vendors/{id}",
 			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
 			consumes={MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public ResponseMessage getVendorById(@PathVariable String id, HttpServletResponse servletResponse) {
+	public ResponseMessage getVendorById(@PathVariable String id, HttpServletRequest servletRequest, HttpServletResponse servletResponse) {
 		servletResponse.setStatus(HttpServletResponse.SC_OK);
 		ResponseMessage response = new ResponseMessage();
-		SwimVendor vendor=vendorService.findOne(id); 
+		SwimVendorDomain vendor=vendorService.findOne(id); 
+		
+		String localTransactionId=UUID.randomUUID().toString();
+		long startTime = System.currentTimeMillis();		
+		logger.startTrace(new TransactionLogInfoTrace(
+				this.getClass().getCanonicalName(), 
+				"",
+				"",
+				servletRequest.getRemoteAddr(), 
+				"getVendorById", 
+				"Inicio de GET /vendors/"+id,
+				localTransactionId, 
+				localTransactionId, 
+				"", 
+				"v1", 
+				applicationName
+			)
+		);
 		
 		if (vendor!=null){
-			ArrayList<SwimVendor> vendorList = new ArrayList<SwimVendor>();
-			vendor.add(linkTo(methodOn(VendorRestController.class).getVendorById(vendor.getVendorId(), servletResponse)).withSelfRel());
+			ArrayList<SwimVendorDomain> vendorList = new ArrayList<SwimVendorDomain>();
+			vendor.add(linkTo(methodOn(VendorRestController.class).getVendorById(vendor.getVendorId(), null, servletResponse)).withSelfRel());
 			vendorList.add(vendor);
 			response.setData(vendorList);
 			response.setResponseCode(0);
@@ -239,15 +478,51 @@ public class VendorRestController {
 			servletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		}
 		
-		response.setTransactionId(UUID.randomUUID().toString());
+		response.setTransactionId(localTransactionId);
 		response.setDate(Calendar.getInstance().getTime());
+		
+		long duration = System.currentTimeMillis() - startTime;
+		logger.endTrace(new TransactionLogEndTrace(
+				this.getClass().getCanonicalName(), 
+				response.toString(),
+				"",
+				servletRequest.getRemoteAddr(), 
+				"getVendorById", 
+				"Fin de GET /vendors/"+id,
+				localTransactionId, 
+				localTransactionId, 
+				"", 
+				"v1", 
+				applicationName,
+				duration,
+				servletResponse.getStatus()
+			)
+		);
+		
 		return response;
 	}
 	
 	@RequestMapping(method = RequestMethod.DELETE, value = "/vendors/{id}")
-	public ResponseMessage deleteVendor(@PathVariable String id, HttpServletResponse servletResponse) {
+	public ResponseMessage deleteVendor(@PathVariable String id, HttpServletRequest servletRequest, HttpServletResponse servletResponse) {
 		servletResponse.setStatus(HttpServletResponse.SC_NO_CONTENT);
 		ResponseMessage response = new ResponseMessage();
+		
+		String localTransactionId=UUID.randomUUID().toString();
+		long startTime = System.currentTimeMillis();		
+		logger.startTrace(new TransactionLogInfoTrace(
+				this.getClass().getCanonicalName(), 
+				id,
+				"",
+				servletRequest.getRemoteAddr(), 
+				"deleteVendor", 
+				"Inicio de DELETE /vendors/"+id,
+				localTransactionId, 
+				localTransactionId, 
+				"", 
+				"v1", 
+				applicationName
+			)
+		);
 		
 		try{
 			if (vendorService.exists(id)){
@@ -269,10 +544,43 @@ public class VendorRestController {
 			response.setServiceCode(500);
 			response.setServiceDescription(e.getMessage());
 			servletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			
+			logger.errorTrace(new TransactionLogInfoTrace(
+					this.getClass().getCanonicalName(), 
+					"",
+					e.getStackTrace().toString(),
+					servletRequest.getRemoteAddr(), 
+					"deleteVendor", 
+					"Ha ocurrido un problema: " + e.getMessage(), 
+					localTransactionId, 
+					localTransactionId, 
+					"", 
+					"v1", 
+					applicationName
+				)
+			);
 		}
 		
-		response.setTransactionId(UUID.randomUUID().toString());
+		response.setTransactionId(localTransactionId);
 		response.setDate(Calendar.getInstance().getTime());
+		long duration = System.currentTimeMillis() - startTime;
+		logger.endTrace(new TransactionLogEndTrace(
+				this.getClass().getCanonicalName(), 
+				response.toString(),
+				"",
+				servletRequest.getRemoteAddr(), 
+				"deleteVendor", 
+				"Fin de DELETE /vendors/"+id,
+				localTransactionId, 
+				localTransactionId, 
+				"", 
+				"v1", 
+				applicationName,
+				duration,
+				servletResponse.getStatus()
+			)
+		);
+		
 		return response;
 	}
 }

@@ -21,7 +21,7 @@ import com.unicomer.demo.common.header.ResponseHeader;
 @Table(name="VENDOR", schema="SUMMER")
 @XmlRootElement(name="Vendor")
 @JsonRootName(value="Vendor")
-public class SwimVendor extends ResourceSupport {
+public class SwimVendorDomain extends ResourceSupport {
 	/**
      * Implementacion de JPA
      */
@@ -1331,12 +1331,12 @@ public class SwimVendor extends ResourceSupport {
 	 */
 	public static class RequestMessage extends RequestHeader implements Serializable {
 		private static final long serialVersionUID = 325842498732514519L;
-		private SwimVendor data;
+		private SwimVendorDomain data;
 
 		/**
 		 * @return the Vendor
 		 */
-		public SwimVendor getData() {
+		public SwimVendorDomain getData() {
 			return data;
 		}
 
@@ -1344,7 +1344,7 @@ public class SwimVendor extends ResourceSupport {
 		 * @param requestEntity
 		 *            the Vendor to set
 		 */
-		public void setData(SwimVendor data) {
+		public void setData(SwimVendorDomain data) {
 			this.data = data;
 		}
 
@@ -1368,12 +1368,12 @@ public class SwimVendor extends ResourceSupport {
 	 */
 	public static class ResponseMessage extends ResponseHeader implements Serializable {
 		private static final long serialVersionUID = 325842498732514519L;
-		private List<SwimVendor> data;
+		private List<SwimVendorDomain> data;
 
 		/**
 		 * @return the Vendor
 		 */
-		public List<SwimVendor> getData() {
+		public List<SwimVendorDomain> getData() {
 			return data;
 		}
 
@@ -1381,7 +1381,7 @@ public class SwimVendor extends ResourceSupport {
 		 * @param requestEntity
 		 *            the Vendor to set
 		 */
-		public void setData(List<SwimVendor> data) {
+		public void setData(List<SwimVendorDomain> data) {
 			this.data = data;
 		}
 

@@ -67,6 +67,7 @@ public class LoggerServiceImpl implements LoggerService {
 	private TransactionLogDomain EndEntityToDomain(TransactionLogEndTrace inputLog) {
 		TransactionLogDomain logDomain = new TransactionLogDomain();
 		try {
+//			logDomain.setLogId(new BigDecimal(0));
 			logDomain.setCreatedDate(inputLog.getCreatedDate());
 			logDomain.setDetail(inputLog.getDetail());
 			logDomain.setLookupData(inputLog.getLookupData());

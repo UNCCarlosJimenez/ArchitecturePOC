@@ -9,7 +9,7 @@ public class RequestHeader implements Serializable {
 	 * 
 	 */
 	static final long serialVersionUID = -3680995512757109454L;
-	private String token="";
+	private String transaction="";
 	private String application="";
 	private String store="";
 	private String posId="";
@@ -17,14 +17,14 @@ public class RequestHeader implements Serializable {
 	/**
 	 * @return the token
 	 */
-	public String getToken() {
-		return token;
+	public String getTransaction() {
+		return transaction;
 	}
 	/**
 	 * @param token the token to set
 	 */
-	public void setToken(String token) {
-		this.token = token;
+	public void setTransaction(String transaction) {
+		this.transaction = transaction;
 	}
 	/**
 	 * @return the application
@@ -80,7 +80,7 @@ public class RequestHeader implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("token="+this.token);
+		sb.append("transaction="+this.transaction);
 		sb.append(", ");
 		sb.append("application="+this.application);
 		sb.append(", ");

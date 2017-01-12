@@ -179,7 +179,7 @@ public class LoggerRestController {
 	}
 	
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/logs/",
+	@RequestMapping(method = RequestMethod.GET, value = "/logs",
 			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
 			consumes={MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public List<TransactionLogDomain> startTrace(HttpServletResponse servletResponse, Pageable pageable) {

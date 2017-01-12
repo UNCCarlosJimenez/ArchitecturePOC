@@ -15,9 +15,9 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.unicomer.demo.logger.domain.TransactionLog;
 
 /**
@@ -35,7 +35,6 @@ public class TransactionLogDomain extends TransactionLog {
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@NotNull
 	@Column(name = "LOG_ID")
 	@Override
 	public BigDecimal getLogId() {
@@ -49,6 +48,7 @@ public class TransactionLogDomain extends TransactionLog {
 	 */
 	@Column(name = "CREATED_DATE")
 	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd hh:mm:ss")
 	@Override
 	public Date getCreatedDate() {
 		return super.getCreatedDate();

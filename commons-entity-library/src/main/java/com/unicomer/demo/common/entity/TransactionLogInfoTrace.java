@@ -3,17 +3,14 @@
  */
 package com.unicomer.demo.common.entity;
 
-import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
-
-import com.unicomer.demo.logger.domain.TransactionLog;
 
 /**
  * @author carlosj_rodriguez
  *
  */
 public class TransactionLogInfoTrace {
-	private BigDecimal logId;
 	private Date createdDate;
 	private String detail;
 	private String lookupData;
@@ -31,19 +28,25 @@ public class TransactionLogInfoTrace {
 	public TransactionLogInfoTrace() {
 
 	}
-
-	public TransactionLogInfoTrace(BigDecimal logId) {
-		this.logId = logId;
+	
+	public TransactionLogInfoTrace(String eventSource, String detail, String lookupData, String endUserLocation,
+			String eventName, String message, String globalReferenceId, String localReferenceId,
+			String externalReferenceId, String serviceVersion, String applicationId) {
+		super();
+		this.createdDate = Calendar.getInstance().getTime();
+		this.detail = detail;
+		this.lookupData = lookupData;
+		this.endUserLocation = endUserLocation;
+		this.eventName = eventName;
+		this.eventSource = eventSource;
+		this.message = message;
+		this.globalReferenceId = globalReferenceId;
+		this.localReferenceId = localReferenceId;
+		this.externalReferenceId = externalReferenceId;
+		this.serviceVersion = serviceVersion;
+		this.applicationId = applicationId;
 	}
-
-	public BigDecimal getLogId() {
-		return logId;
-	}
-
-	public void setLogId(BigDecimal logId) {
-		this.logId = logId;
-	}
-
+	
 	public Date getCreatedDate() {
 		return createdDate;
 	}
@@ -149,30 +152,9 @@ public class TransactionLogInfoTrace {
 	}
 	
 	@Override
-	public int hashCode() {
-		int hash = 0;
-		hash += (logId != null ? logId.hashCode() : 0);
-		return hash;
-	}
-
-	@Override
-	public boolean equals(Object object) {
-		if (!(object instanceof TransactionLog)) {
-			return false;
-		}
-		TransactionLogInfoTrace other = (TransactionLogInfoTrace) object;
-		if ((this.logId == null && other.logId != null) || (this.logId != null && !this.logId.equals(other.logId))) {
-			return false;
-		}
-		return true;
-	}
-
-	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("[logId=" + this.logId);
-		sb.append(", ");
-		sb.append("detail=" + this.detail);
+		sb.append("[detail=" + this.detail);
 		sb.append(", ");
 		sb.append("lookupData=" + this.lookupData);
 		sb.append(", ");
@@ -198,4 +180,5 @@ public class TransactionLogInfoTrace {
 		sb.append("]");
 		return sb.toString();
 	}
+	
 }

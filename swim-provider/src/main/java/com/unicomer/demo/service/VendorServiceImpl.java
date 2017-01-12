@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.unicomer.demo.domain.SwimVendor;
+import com.unicomer.demo.domain.SwimVendorDomain;
 import com.unicomer.demo.repository.SwimVendorRepository;
 
 @Service("vendorService")
@@ -15,17 +15,17 @@ public class VendorServiceImpl implements VendorService {
 	@Autowired SwimVendorRepository vendorRepository;	
 	
 	@Override
-	public Page<SwimVendor> listAllByPage(Pageable pageable) {
+	public Page<SwimVendorDomain> listAllByPage(Pageable pageable) {
 		return vendorRepository.findAll(pageable);
 	}
 
 	@Override
-	public List<SwimVendor> findAll() {
+	public List<SwimVendorDomain> findAll() {
 		return vendorRepository.findAll();
 	}
 
 	@Override
-	public SwimVendor save(SwimVendor vendor) {
+	public SwimVendorDomain save(SwimVendorDomain vendor) {
 		return vendorRepository.save(vendor);
 	}
 
@@ -35,7 +35,7 @@ public class VendorServiceImpl implements VendorService {
 	}
 
 	@Override
-	public SwimVendor findOne(String id) {
+	public SwimVendorDomain findOne(String id) {
 		return vendorRepository.findOne(id);
 	}
 

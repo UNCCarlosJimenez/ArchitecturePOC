@@ -11,6 +11,7 @@
 		<wls:prefer-application-packages>
 			<wls:package-name>org.slf4j.*</wls:package-name>
 			<wls:package-name>com.fasterxml.jackson.*</wls:package-name>
+			<wls:package-name>org.springframework.*</wls:package-name>
 		</wls:prefer-application-packages>
 	</wls:container-descriptor>
 	<wls:library-ref>
@@ -18,7 +19,7 @@
 		<wls:specification-version>1.0</wls:specification-version>
 		<wls:implementation-version>1.0</wls:implementation-version>
 		<wls:exact-match>true</wls:exact-match>
-	</wls:library-ref>	
+	</wls:library-ref>
 	<wls:library-ref>
 		<wls:library-name>commons-entity-library</wls:library-name>
 		<wls:specification-version>1.0</wls:specification-version>
