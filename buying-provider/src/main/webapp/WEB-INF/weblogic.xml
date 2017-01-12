@@ -7,7 +7,7 @@
         http://xmlns.oracle.com/weblogic/weblogic-web-app
         http://xmlns.oracle.com/weblogic/weblogic-web-app/1.4/weblogic-web-app.xsd">
 	<wls:description>Service provider para proceso de negocios de compras</wls:description>
-	
+	<wls:context-root>/buy-provider</wls:context-root>
 	<wls:container-descriptor>
 		<wls:prefer-application-packages>
 			<wls:package-name>org.slf4j.*</wls:package-name>
