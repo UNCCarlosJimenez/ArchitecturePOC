@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VendorCreateDlg" widgetVar="VendorCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateVendorTitle}">
+            <h:form id="VendorCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{vendorController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_vendorId}" for="vendorId" />
+                        <p:inputText id="vendorId" value="#{vendorController.selected.vendorId}" title="#{bundle.CreateVendorTitle_vendorId}" required="true" requiredMessage="#{bundle.CreateVendorRequiredMessage_vendorId}"/>
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{vendorController.selected.name}" title="#{bundle.CreateVendorTitle_name}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_address}" for="address" />
+                        <p:inputText id="address" value="#{vendorController.selected.address}" title="#{bundle.CreateVendorTitle_address}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_country}" for="country" />
+                        <p:inputText id="country" value="#{vendorController.selected.country}" title="#{bundle.CreateVendorTitle_country}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_city}" for="city" />
+                        <p:inputText id="city" value="#{vendorController.selected.city}" title="#{bundle.CreateVendorTitle_city}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_state}" for="state" />
+                        <p:inputText id="state" value="#{vendorController.selected.state}" title="#{bundle.CreateVendorTitle_state}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_zipCode}" for="zipCode" />
+                        <p:inputText id="zipCode" value="#{vendorController.selected.zipCode}" title="#{bundle.CreateVendorTitle_zipCode}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_postalCode}" for="postalCode" />
+                        <p:inputText id="postalCode" value="#{vendorController.selected.postalCode}" title="#{bundle.CreateVendorTitle_postalCode}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_representativePhone}" for="representativePhone" />
+                        <p:inputText id="representativePhone" value="#{vendorController.selected.representativePhone}" title="#{bundle.CreateVendorTitle_representativePhone}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_representativeFax}" for="representativeFax" />
+                        <p:inputText id="representativeFax" value="#{vendorController.selected.representativeFax}" title="#{bundle.CreateVendorTitle_representativeFax}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_priority}" for="priority" />
+                        <p:inputText id="priority" value="#{vendorController.selected.priority}" title="#{bundle.CreateVendorTitle_priority}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_dunsNumber}" for="dunsNumber" />
+                        <p:inputText id="dunsNumber" value="#{vendorController.selected.dunsNumber}" title="#{bundle.CreateVendorTitle_dunsNumber}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_abreviation}" for="abreviation" />
+                        <p:inputText id="abreviation" value="#{vendorController.selected.abreviation}" title="#{bundle.CreateVendorTitle_abreviation}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_contactName}" for="contactName" />
+                        <p:inputText id="contactName" value="#{vendorController.selected.contactName}" title="#{bundle.CreateVendorTitle_contactName}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{vendorController.selected.type}" title="#{bundle.CreateVendorTitle_type}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_socialSecurityNumber}" for="socialSecurityNumber" />
+                        <p:inputText id="socialSecurityNumber" value="#{vendorController.selected.socialSecurityNumber}" title="#{bundle.CreateVendorTitle_socialSecurityNumber}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_taxId}" for="taxId" />
+                        <p:inputText id="taxId" value="#{vendorController.selected.taxId}" title="#{bundle.CreateVendorTitle_taxId}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_terms}" for="terms" />
+                        <p:inputText id="terms" value="#{vendorController.selected.terms}" title="#{bundle.CreateVendorTitle_terms}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_factor}" for="factor" />
+                        <p:inputText id="factor" value="#{vendorController.selected.factor}" title="#{bundle.CreateVendorTitle_factor}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_freeOnBoardPoint}" for="freeOnBoardPoint" />
+                        <p:inputText id="freeOnBoardPoint" value="#{vendorController.selected.freeOnBoardPoint}" title="#{bundle.CreateVendorTitle_freeOnBoardPoint}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_shippingPoint}" for="shippingPoint" />
+                        <p:inputText id="shippingPoint" value="#{vendorController.selected.shippingPoint}" title="#{bundle.CreateVendorTitle_shippingPoint}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_shippingVia}" for="shippingVia" />
+                        <p:inputText id="shippingVia" value="#{vendorController.selected.shippingVia}" title="#{bundle.CreateVendorTitle_shippingVia}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_globalFreightPerc}" for="globalFreightPerc" />
+                        <p:inputText id="globalFreightPerc" value="#{vendorController.selected.globalFreightPerc}" title="#{bundle.CreateVendorTitle_globalFreightPerc}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_globalDiscountPerc}" for="globalDiscountPerc" />
+                        <p:inputText id="globalDiscountPerc" value="#{vendorController.selected.globalDiscountPerc}" title="#{bundle.CreateVendorTitle_globalDiscountPerc}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_minShip}" for="minShip" />
+                        <p:inputText id="minShip" value="#{vendorController.selected.minShip}" title="#{bundle.CreateVendorTitle_minShip}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_minShipUnit}" for="minShipUnit" />
+                        <p:inputText id="minShipUnit" value="#{vendorController.selected.minShipUnit}" title="#{bundle.CreateVendorTitle_minShipUnit}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_reviewCycle}" for="reviewCycle" />
+                        <p:inputText id="reviewCycle" value="#{vendorController.selected.reviewCycle}" title="#{bundle.CreateVendorTitle_reviewCycle}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_returnVendorName}" for="returnVendorName" />
+                        <p:inputText id="returnVendorName" value="#{vendorController.selected.returnVendorName}" title="#{bundle.CreateVendorTitle_returnVendorName}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_returnAddress}" for="returnAddress" />
+                        <p:inputText id="returnAddress" value="#{vendorController.selected.returnAddress}" title="#{bundle.CreateVendorTitle_returnAddress}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_returnCountry}" for="returnCountry" />
+                        <p:inputText id="returnCountry" value="#{vendorController.selected.returnCountry}" title="#{bundle.CreateVendorTitle_returnCountry}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_returnCity}" for="returnCity" />
+                        <p:inputText id="returnCity" value="#{vendorController.selected.returnCity}" title="#{bundle.CreateVendorTitle_returnCity}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_returnState}" for="returnState" />
+                        <p:inputText id="returnState" value="#{vendorController.selected.returnState}" title="#{bundle.CreateVendorTitle_returnState}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_returnPortalCode}" for="returnPortalCode" />
+                        <p:inputText id="returnPortalCode" value="#{vendorController.selected.returnPortalCode}" title="#{bundle.CreateVendorTitle_returnPortalCode}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_returnZipCode}" for="returnZipCode" />
+                        <p:inputText id="returnZipCode" value="#{vendorController.selected.returnZipCode}" title="#{bundle.CreateVendorTitle_returnZipCode}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_returnEmail}" for="returnEmail" />
+                        <p:inputText id="returnEmail" value="#{vendorController.selected.returnEmail}" title="#{bundle.CreateVendorTitle_returnEmail}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_remitVendorName}" for="remitVendorName" />
+                        <p:inputText id="remitVendorName" value="#{vendorController.selected.remitVendorName}" title="#{bundle.CreateVendorTitle_remitVendorName}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_remitAddress}" for="remitAddress" />
+                        <p:inputText id="remitAddress" value="#{vendorController.selected.remitAddress}" title="#{bundle.CreateVendorTitle_remitAddress}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_remitCountry}" for="remitCountry" />
+                        <p:inputText id="remitCountry" value="#{vendorController.selected.remitCountry}" title="#{bundle.CreateVendorTitle_remitCountry}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_remitCity}" for="remitCity" />
+                        <p:inputText id="remitCity" value="#{vendorController.selected.remitCity}" title="#{bundle.CreateVendorTitle_remitCity}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_remitState}" for="remitState" />
+                        <p:inputText id="remitState" value="#{vendorController.selected.remitState}" title="#{bundle.CreateVendorTitle_remitState}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_remitPostalCode}" for="remitPostalCode" />
+                        <p:inputText id="remitPostalCode" value="#{vendorController.selected.remitPostalCode}" title="#{bundle.CreateVendorTitle_remitPostalCode}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_remitZipCode}" for="remitZipCode" />
+                        <p:inputText id="remitZipCode" value="#{vendorController.selected.remitZipCode}" title="#{bundle.CreateVendorTitle_remitZipCode}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_remitEmail}" for="remitEmail" />
+                        <p:inputText id="remitEmail" value="#{vendorController.selected.remitEmail}" title="#{bundle.CreateVendorTitle_remitEmail}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{vendorController.selected.status}" title="#{bundle.CreateVendorTitle_status}" />
+                        <p:outputLabel value="#{bundle.CreateVendorLabel_fiscalReg}" for="fiscalReg" />
+                        <p:inputText id="fiscalReg" value="#{vendorController.selected.fiscalReg}" title="#{bundle.CreateVendorTitle_fiscalReg}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{vendorController.create}" value="#{bundle.Save}" update="display,:VendorListForm:datalist,:growl" oncomplete="handleSubmit(args,'VendorCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="VendorCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

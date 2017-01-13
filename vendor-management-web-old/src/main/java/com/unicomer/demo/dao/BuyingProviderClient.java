@@ -87,7 +87,7 @@ public class BuyingProviderClient {
 		request.setData(vendor);
 		
 		try {
-			ClientResponse response = getResource().path(vendor.getVendorId()).accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
+			ClientResponse response = getResource().accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
 					.header(HttpHeaders.CACHE_CONTROL, "false").put(ClientResponse.class, request);
 			
 			if (response.getStatus() > 200) {
@@ -103,7 +103,7 @@ public class BuyingProviderClient {
 		request.setData(vendor);
 		
 		try {
-			ClientResponse response = getResource().path(vendor.getVendorId()).accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
+			ClientResponse response = getResource().accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
 					.header(HttpHeaders.CACHE_CONTROL, "false").delete(ClientResponse.class, request);
 
 			if (response.getStatus() > 200) {

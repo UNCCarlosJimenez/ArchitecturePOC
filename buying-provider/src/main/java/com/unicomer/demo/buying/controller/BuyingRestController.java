@@ -316,7 +316,10 @@ public class BuyingRestController {
 		
 		servletResponse.setStatus(HttpServletResponse.SC_CREATED);
 		ResponseVendorMessage response = new ResponseVendorMessage();
+		List<UnicomerVendor> vendorsResult = new ArrayList<UnicomerVendor>();
 		try{
+			vendorsResult.add(vendorService.save(localTransactionId, request.getData()));
+			
 			response.setResponseCode(0);
 			response.setResponseDescription("Transaccion exitosa");
 			response.setServiceCode(0);

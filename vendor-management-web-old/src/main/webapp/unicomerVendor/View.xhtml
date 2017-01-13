@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UnicomerVendorViewDlg" widgetVar="UnicomerVendorViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewUnicomerVendorTitle}">
+            <h:form id="UnicomerVendorViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{unicomerVendorController.selected != null}">
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_vendorId}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.vendorId}" title="#{bundle.ViewUnicomerVendorTitle_vendorId}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_name}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.name}" title="#{bundle.ViewUnicomerVendorTitle_name}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_address}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.address}" title="#{bundle.ViewUnicomerVendorTitle_address}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_country}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.country}" title="#{bundle.ViewUnicomerVendorTitle_country}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_city}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.city}" title="#{bundle.ViewUnicomerVendorTitle_city}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_state}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.state}" title="#{bundle.ViewUnicomerVendorTitle_state}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_zipCode}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.zipCode}" title="#{bundle.ViewUnicomerVendorTitle_zipCode}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_postalCode}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.postalCode}" title="#{bundle.ViewUnicomerVendorTitle_postalCode}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_representativePhone}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.representativePhone}" title="#{bundle.ViewUnicomerVendorTitle_representativePhone}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_representativeFax}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.representativeFax}" title="#{bundle.ViewUnicomerVendorTitle_representativeFax}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_priority}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.priority}" title="#{bundle.ViewUnicomerVendorTitle_priority}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_dunsNumber}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.dunsNumber}" title="#{bundle.ViewUnicomerVendorTitle_dunsNumber}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_abreviation}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.abreviation}" title="#{bundle.ViewUnicomerVendorTitle_abreviation}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_contactName}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.contactName}" title="#{bundle.ViewUnicomerVendorTitle_contactName}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_type}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.type}" title="#{bundle.ViewUnicomerVendorTitle_type}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_socialSecurityNumber}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.socialSecurityNumber}" title="#{bundle.ViewUnicomerVendorTitle_socialSecurityNumber}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_taxId}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.taxId}" title="#{bundle.ViewUnicomerVendorTitle_taxId}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_terms}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.terms}" title="#{bundle.ViewUnicomerVendorTitle_terms}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_factor}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.factor}" title="#{bundle.ViewUnicomerVendorTitle_factor}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_freeOnBoardPoint}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.freeOnBoardPoint}" title="#{bundle.ViewUnicomerVendorTitle_freeOnBoardPoint}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_shippingPoint}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.shippingPoint}" title="#{bundle.ViewUnicomerVendorTitle_shippingPoint}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_shippingVia}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.shippingVia}" title="#{bundle.ViewUnicomerVendorTitle_shippingVia}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_globalFreightPerc}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.globalFreightPerc}" title="#{bundle.ViewUnicomerVendorTitle_globalFreightPerc}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_globalDiscountPerc}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.globalDiscountPerc}" title="#{bundle.ViewUnicomerVendorTitle_globalDiscountPerc}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_minShip}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.minShip}" title="#{bundle.ViewUnicomerVendorTitle_minShip}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_minShipUnit}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.minShipUnit}" title="#{bundle.ViewUnicomerVendorTitle_minShipUnit}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_reviewCycle}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.reviewCycle}" title="#{bundle.ViewUnicomerVendorTitle_reviewCycle}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_returnVendorName}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.returnVendorName}" title="#{bundle.ViewUnicomerVendorTitle_returnVendorName}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_returnAddress}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.returnAddress}" title="#{bundle.ViewUnicomerVendorTitle_returnAddress}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_returnCountry}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.returnCountry}" title="#{bundle.ViewUnicomerVendorTitle_returnCountry}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_returnCity}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.returnCity}" title="#{bundle.ViewUnicomerVendorTitle_returnCity}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_returnState}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.returnState}" title="#{bundle.ViewUnicomerVendorTitle_returnState}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_returnPortalCode}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.returnPortalCode}" title="#{bundle.ViewUnicomerVendorTitle_returnPortalCode}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_returnZipCode}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.returnZipCode}" title="#{bundle.ViewUnicomerVendorTitle_returnZipCode}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_returnEmail}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.returnEmail}" title="#{bundle.ViewUnicomerVendorTitle_returnEmail}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_remitVendorName}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.remitVendorName}" title="#{bundle.ViewUnicomerVendorTitle_remitVendorName}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_remitAddress}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.remitAddress}" title="#{bundle.ViewUnicomerVendorTitle_remitAddress}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_remitCountry}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.remitCountry}" title="#{bundle.ViewUnicomerVendorTitle_remitCountry}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_remitCity}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.remitCity}" title="#{bundle.ViewUnicomerVendorTitle_remitCity}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_remitState}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.remitState}" title="#{bundle.ViewUnicomerVendorTitle_remitState}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_remitPostalCode}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.remitPostalCode}" title="#{bundle.ViewUnicomerVendorTitle_remitPostalCode}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_remitZipCode}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.remitZipCode}" title="#{bundle.ViewUnicomerVendorTitle_remitZipCode}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_remitEmail}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.remitEmail}" title="#{bundle.ViewUnicomerVendorTitle_remitEmail}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_status}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.status}" title="#{bundle.ViewUnicomerVendorTitle_status}"/>
+                        <h:outputText value="#{bundle.ViewUnicomerVendorLabel_fiscalReg}"/>
+                        <h:outputText value="#{unicomerVendorController.selected.fiscalReg}" title="#{bundle.ViewUnicomerVendorTitle_fiscalReg}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="UnicomerVendorViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

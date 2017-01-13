@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VendorEditDlg" widgetVar="VendorEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditVendorTitle}">
+            <h:form id="VendorEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{vendorController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditVendorLabel_vendorId}" for="vendorId" />
+                        <p:inputText id="vendorId" value="#{vendorController.selected.vendorId}" title="#{bundle.EditVendorTitle_vendorId}" required="true" requiredMessage="#{bundle.EditVendorRequiredMessage_vendorId}"/>
+                        <p:outputLabel value="#{bundle.EditVendorLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{vendorController.selected.name}" title="#{bundle.EditVendorTitle_name}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_address}" for="address" />
+                        <p:inputText id="address" value="#{vendorController.selected.address}" title="#{bundle.EditVendorTitle_address}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_country}" for="country" />
+                        <p:inputText id="country" value="#{vendorController.selected.country}" title="#{bundle.EditVendorTitle_country}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_city}" for="city" />
+                        <p:inputText id="city" value="#{vendorController.selected.city}" title="#{bundle.EditVendorTitle_city}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_state}" for="state" />
+                        <p:inputText id="state" value="#{vendorController.selected.state}" title="#{bundle.EditVendorTitle_state}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_zipCode}" for="zipCode" />
+                        <p:inputText id="zipCode" value="#{vendorController.selected.zipCode}" title="#{bundle.EditVendorTitle_zipCode}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_postalCode}" for="postalCode" />
+                        <p:inputText id="postalCode" value="#{vendorController.selected.postalCode}" title="#{bundle.EditVendorTitle_postalCode}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_representativePhone}" for="representativePhone" />
+                        <p:inputText id="representativePhone" value="#{vendorController.selected.representativePhone}" title="#{bundle.EditVendorTitle_representativePhone}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_representativeFax}" for="representativeFax" />
+                        <p:inputText id="representativeFax" value="#{vendorController.selected.representativeFax}" title="#{bundle.EditVendorTitle_representativeFax}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_priority}" for="priority" />
+                        <p:inputText id="priority" value="#{vendorController.selected.priority}" title="#{bundle.EditVendorTitle_priority}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_dunsNumber}" for="dunsNumber" />
+                        <p:inputText id="dunsNumber" value="#{vendorController.selected.dunsNumber}" title="#{bundle.EditVendorTitle_dunsNumber}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_abreviation}" for="abreviation" />
+                        <p:inputText id="abreviation" value="#{vendorController.selected.abreviation}" title="#{bundle.EditVendorTitle_abreviation}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_contactName}" for="contactName" />
+                        <p:inputText id="contactName" value="#{vendorController.selected.contactName}" title="#{bundle.EditVendorTitle_contactName}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{vendorController.selected.type}" title="#{bundle.EditVendorTitle_type}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_socialSecurityNumber}" for="socialSecurityNumber" />
+                        <p:inputText id="socialSecurityNumber" value="#{vendorController.selected.socialSecurityNumber}" title="#{bundle.EditVendorTitle_socialSecurityNumber}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_taxId}" for="taxId" />
+                        <p:inputText id="taxId" value="#{vendorController.selected.taxId}" title="#{bundle.EditVendorTitle_taxId}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_terms}" for="terms" />
+                        <p:inputText id="terms" value="#{vendorController.selected.terms}" title="#{bundle.EditVendorTitle_terms}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_factor}" for="factor" />
+                        <p:inputText id="factor" value="#{vendorController.selected.factor}" title="#{bundle.EditVendorTitle_factor}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_freeOnBoardPoint}" for="freeOnBoardPoint" />
+                        <p:inputText id="freeOnBoardPoint" value="#{vendorController.selected.freeOnBoardPoint}" title="#{bundle.EditVendorTitle_freeOnBoardPoint}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_shippingPoint}" for="shippingPoint" />
+                        <p:inputText id="shippingPoint" value="#{vendorController.selected.shippingPoint}" title="#{bundle.EditVendorTitle_shippingPoint}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_shippingVia}" for="shippingVia" />
+                        <p:inputText id="shippingVia" value="#{vendorController.selected.shippingVia}" title="#{bundle.EditVendorTitle_shippingVia}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_globalFreightPerc}" for="globalFreightPerc" />
+                        <p:inputText id="globalFreightPerc" value="#{vendorController.selected.globalFreightPerc}" title="#{bundle.EditVendorTitle_globalFreightPerc}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_globalDiscountPerc}" for="globalDiscountPerc" />
+                        <p:inputText id="globalDiscountPerc" value="#{vendorController.selected.globalDiscountPerc}" title="#{bundle.EditVendorTitle_globalDiscountPerc}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_minShip}" for="minShip" />
+                        <p:inputText id="minShip" value="#{vendorController.selected.minShip}" title="#{bundle.EditVendorTitle_minShip}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_minShipUnit}" for="minShipUnit" />
+                        <p:inputText id="minShipUnit" value="#{vendorController.selected.minShipUnit}" title="#{bundle.EditVendorTitle_minShipUnit}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_reviewCycle}" for="reviewCycle" />
+                        <p:inputText id="reviewCycle" value="#{vendorController.selected.reviewCycle}" title="#{bundle.EditVendorTitle_reviewCycle}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_returnVendorName}" for="returnVendorName" />
+                        <p:inputText id="returnVendorName" value="#{vendorController.selected.returnVendorName}" title="#{bundle.EditVendorTitle_returnVendorName}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_returnAddress}" for="returnAddress" />
+                        <p:inputText id="returnAddress" value="#{vendorController.selected.returnAddress}" title="#{bundle.EditVendorTitle_returnAddress}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_returnCountry}" for="returnCountry" />
+                        <p:inputText id="returnCountry" value="#{vendorController.selected.returnCountry}" title="#{bundle.EditVendorTitle_returnCountry}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_returnCity}" for="returnCity" />
+                        <p:inputText id="returnCity" value="#{vendorController.selected.returnCity}" title="#{bundle.EditVendorTitle_returnCity}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_returnState}" for="returnState" />
+                        <p:inputText id="returnState" value="#{vendorController.selected.returnState}" title="#{bundle.EditVendorTitle_returnState}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_returnPortalCode}" for="returnPortalCode" />
+                        <p:inputText id="returnPortalCode" value="#{vendorController.selected.returnPortalCode}" title="#{bundle.EditVendorTitle_returnPortalCode}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_returnZipCode}" for="returnZipCode" />
+                        <p:inputText id="returnZipCode" value="#{vendorController.selected.returnZipCode}" title="#{bundle.EditVendorTitle_returnZipCode}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_returnEmail}" for="returnEmail" />
+                        <p:inputText id="returnEmail" value="#{vendorController.selected.returnEmail}" title="#{bundle.EditVendorTitle_returnEmail}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_remitVendorName}" for="remitVendorName" />
+                        <p:inputText id="remitVendorName" value="#{vendorController.selected.remitVendorName}" title="#{bundle.EditVendorTitle_remitVendorName}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_remitAddress}" for="remitAddress" />
+                        <p:inputText id="remitAddress" value="#{vendorController.selected.remitAddress}" title="#{bundle.EditVendorTitle_remitAddress}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_remitCountry}" for="remitCountry" />
+                        <p:inputText id="remitCountry" value="#{vendorController.selected.remitCountry}" title="#{bundle.EditVendorTitle_remitCountry}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_remitCity}" for="remitCity" />
+                        <p:inputText id="remitCity" value="#{vendorController.selected.remitCity}" title="#{bundle.EditVendorTitle_remitCity}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_remitState}" for="remitState" />
+                        <p:inputText id="remitState" value="#{vendorController.selected.remitState}" title="#{bundle.EditVendorTitle_remitState}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_remitPostalCode}" for="remitPostalCode" />
+                        <p:inputText id="remitPostalCode" value="#{vendorController.selected.remitPostalCode}" title="#{bundle.EditVendorTitle_remitPostalCode}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_remitZipCode}" for="remitZipCode" />
+                        <p:inputText id="remitZipCode" value="#{vendorController.selected.remitZipCode}" title="#{bundle.EditVendorTitle_remitZipCode}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_remitEmail}" for="remitEmail" />
+                        <p:inputText id="remitEmail" value="#{vendorController.selected.remitEmail}" title="#{bundle.EditVendorTitle_remitEmail}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{vendorController.selected.status}" title="#{bundle.EditVendorTitle_status}" />
+                        <p:outputLabel value="#{bundle.EditVendorLabel_fiscalReg}" for="fiscalReg" />
+                        <p:inputText id="fiscalReg" value="#{vendorController.selected.fiscalReg}" title="#{bundle.EditVendorTitle_fiscalReg}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{vendorController.update}" value="#{bundle.Save}" update="display,:VendorListForm:datalist,:growl" oncomplete="handleSubmit(args, 'VendorEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="VendorEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

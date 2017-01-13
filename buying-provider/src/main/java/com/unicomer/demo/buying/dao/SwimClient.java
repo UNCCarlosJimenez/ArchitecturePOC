@@ -32,7 +32,7 @@ public interface SwimClient {
 	public SwimVendor.ResponseMessage addVendor(@RequestBody SwimVendor.RequestMessage request);
 	
 	@RequestMapping(value = "/vendors/{id}", 
-			method = RequestMethod.POST, 
+			method = RequestMethod.PUT, 
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public SwimVendor.ResponseMessage updateVendor(@RequestBody SwimVendor.RequestMessage request, @PathVariable(name="id") String id);

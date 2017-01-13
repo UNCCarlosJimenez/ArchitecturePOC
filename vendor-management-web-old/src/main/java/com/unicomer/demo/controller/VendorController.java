@@ -24,7 +24,6 @@ import com.unicomer.demo.dao.BuyingProviderClient;
 @Named("vendorController")
 @SessionScoped
 public class VendorController implements Serializable {
-	
     private BuyingProviderClient buyingProviderClient = new BuyingProviderClient();
     private List<UnicomerVendor> items = null;
     private UnicomerVendor selected;
@@ -64,7 +63,7 @@ public class VendorController implements Serializable {
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("VendorUpdated"));
+    	persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("VendorUpdated"));
     }
 
     public void destroy() {
@@ -76,9 +75,12 @@ public class VendorController implements Serializable {
     }
 
     public List<UnicomerVendor> getItems() {
+    	Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Inicio de consulta de datos");
         if (items == null) {
+        	Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Consultando datos en buy-provider...");
             items = buyingProviderClient.findAll();
         }
+        Logger.getLogger(this.getClass().getName()).log(Level.INFO, "items.size()="+items.size());
         return items;
     }
 
@@ -110,8 +112,8 @@ public class VendorController implements Serializable {
         }
     }
 
-    public UnicomerVendor getVendor(String id) {
-        return buyingProviderClient.find(id);
+    public UnicomerVendor getVendor(java.math.BigDecimal id) {
+        return buyingProviderClient.find(id.toString());
     }
 
     public List<UnicomerVendor> getItemsAvailableSelectMany() {
@@ -127,14 +129,14 @@ public class VendorController implements Serializable {
     	
     	
     	
-//        @Override
+        @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
             VendorController controller = (VendorController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "vendorController");
-            return controller.getVendor(value);
+            return controller.getVendor(getKey(value));
         }
 
         java.math.BigDecimal getKey(String value) {
@@ -149,13 +151,13 @@ public class VendorController implements Serializable {
             return sb.toString();
         }
 
-//        @Override
+        @Override
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {
                 return null;
             }
             if (object instanceof UnicomerVendor) {
-            	UnicomerVendor o = (UnicomerVendor) object;
+                UnicomerVendor o = (UnicomerVendor) object;
                 return getStringKey(new BigDecimal(o.getVendorId()));
             } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), UnicomerVendor.class.getName()});

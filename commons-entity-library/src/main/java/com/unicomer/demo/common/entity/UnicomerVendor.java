@@ -4,10 +4,15 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+import com.fasterxml.jackson.annotation.JsonRootName;
 import com.unicomer.demo.common.header.RequestHeader;
 import com.unicomer.demo.common.header.ResponseHeader;
 
 @SuppressWarnings("serial")
+@XmlRootElement(name="UnicomerVendor")
+@JsonRootName(value="UnicomerVendor")
 public class UnicomerVendor implements Serializable {
 	/**
 	 * 
@@ -520,6 +525,8 @@ public class UnicomerVendor implements Serializable {
 	 * @author carlosj_rodriguez
 	 *
 	 */
+	@XmlRootElement(name="RequestVendorMessage")
+	@JsonRootName(value="RequestVendorMessage")
 	public static class RequestVendorMessage extends RequestHeader implements Serializable {
 		private UnicomerVendor data;
 		
@@ -556,6 +563,8 @@ public class UnicomerVendor implements Serializable {
 	 * @author carlosj_rodriguez
 	 *
 	 */
+	@XmlRootElement(name="ResponseVendorMessage")
+	@JsonRootName(value="ResponseVendorMessage")
 	public static class ResponseVendorMessage extends ResponseHeader implements Serializable {
 		private List<UnicomerVendor> data;
 		

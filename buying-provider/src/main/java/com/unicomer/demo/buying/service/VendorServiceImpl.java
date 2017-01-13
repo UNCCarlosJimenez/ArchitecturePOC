@@ -61,22 +61,55 @@ public class VendorServiceImpl implements VendorService {
 	public UnicomerVendor save(String transactionId, UnicomerVendor vendor) {
 		UnicomerVendor result = new UnicomerVendor();
 		
-		//Swim
-		SwimVendor.RequestMessage swimRequest = new SwimVendor.RequestMessage();
-		swimRequest.setApplication(applicationName);
-		swimRequest.setDate(Calendar.getInstance().getTime());
-		swimRequest.setPosId("");
-		swimRequest.setStore("");
-		swimRequest.setTransaction(transactionId);
-		swimRequest.setData(UnicomerVendorToSwimVendor(vendor));
-		swimClient.addVendor(swimRequest);
-				
-		//Ri
-		riClient.addVendors(UnicomerVendorToRiVendor(vendor));
+		try{
+			//Swim
+			SwimVendor.RequestMessage swimRequest = new SwimVendor.RequestMessage();
+			swimRequest.setApplication(applicationName);
+			swimRequest.setDate(Calendar.getInstance().getTime());
+			swimRequest.setPosId("");
+			swimRequest.setStore("");
+			swimRequest.setTransaction(transactionId);
+			swimRequest.setData(UnicomerVendorToSwimVendor(vendor));
+			System.out.println("buying-provider@VendorServiceImpl: swimClient.addVendor(swimRequest)");
+			swimClient.addVendor(swimRequest);
+		}catch (Exception e) {
+			System.err.println("buying-provider@VendorServiceImpl: " + e.getMessage());
+			e.printStackTrace();
+		}
 		
-		//EBS
-		ebsClient.newVendor(transactionId, UnicomerVendorToEbsVendor(vendor));
+		try{
+			//Swim
+			SwimVendor.RequestMessage swimRequest = new SwimVendor.RequestMessage();
+			swimRequest.setApplication(applicationName);
+			swimRequest.setDate(Calendar.getInstance().getTime());
+			swimRequest.setPosId("");
+			swimRequest.setStore("");
+			swimRequest.setTransaction(transactionId);
+			swimRequest.setData(UnicomerVendorToSwimVendor(vendor));
+			System.out.println("buying-provider@VendorServiceImpl: swimClient.addVendor(swimRequest)");
+			swimClient.addVendor(swimRequest);
+		}catch (Exception e) {
+			System.err.println("buying-provider@VendorServiceImpl: " + e.getMessage());
+			e.printStackTrace();
+		}
 		
+		try{
+			//Ri
+			System.out.println("buying-provider@VendorServiceImpl: riClient.addVendors(UnicomerVendorToRiVendor(vendor));");
+			riClient.addVendors(UnicomerVendorToRiVendor(vendor));
+		}catch (Exception e) {
+			System.err.println("buying-provider@VendorServiceImpl: " + e.getMessage());
+			e.printStackTrace();
+		}
+		
+		try{
+			//EBS
+			System.out.println("buying-provider@VendorServiceImpl: ebsClient.newVendor(transactionId, UnicomerVendorToEbsVendor(vendor));");
+			ebsClient.newVendor(transactionId, UnicomerVendorToEbsVendor(vendor));
+		}catch (Exception e) {
+			System.err.println("buying-provider@VendorServiceImpl: " + e.getMessage());
+			e.printStackTrace();
+		}
 		return result;
 	}
 

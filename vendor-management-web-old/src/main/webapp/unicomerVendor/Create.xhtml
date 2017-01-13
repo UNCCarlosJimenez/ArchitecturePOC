@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UnicomerVendorCreateDlg" widgetVar="UnicomerVendorCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUnicomerVendorTitle}">
+            <h:form id="UnicomerVendorCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{unicomerVendorController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_vendorId}" for="vendorId" />
+                        <p:inputText id="vendorId" value="#{unicomerVendorController.selected.vendorId}" title="#{bundle.CreateUnicomerVendorTitle_vendorId}" required="true" requiredMessage="#{bundle.CreateUnicomerVendorRequiredMessage_vendorId}"/>
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_name}" for="name" />
+                        <p:inputText id="name" value="#{unicomerVendorController.selected.name}" title="#{bundle.CreateUnicomerVendorTitle_name}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_address}" for="address" />
+                        <p:inputText id="address" value="#{unicomerVendorController.selected.address}" title="#{bundle.CreateUnicomerVendorTitle_address}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_country}" for="country" />
+                        <p:inputText id="country" value="#{unicomerVendorController.selected.country}" title="#{bundle.CreateUnicomerVendorTitle_country}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_city}" for="city" />
+                        <p:inputText id="city" value="#{unicomerVendorController.selected.city}" title="#{bundle.CreateUnicomerVendorTitle_city}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_state}" for="state" />
+                        <p:inputText id="state" value="#{unicomerVendorController.selected.state}" title="#{bundle.CreateUnicomerVendorTitle_state}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_zipCode}" for="zipCode" />
+                        <p:inputText id="zipCode" value="#{unicomerVendorController.selected.zipCode}" title="#{bundle.CreateUnicomerVendorTitle_zipCode}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_postalCode}" for="postalCode" />
+                        <p:inputText id="postalCode" value="#{unicomerVendorController.selected.postalCode}" title="#{bundle.CreateUnicomerVendorTitle_postalCode}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_representativePhone}" for="representativePhone" />
+                        <p:inputText id="representativePhone" value="#{unicomerVendorController.selected.representativePhone}" title="#{bundle.CreateUnicomerVendorTitle_representativePhone}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_representativeFax}" for="representativeFax" />
+                        <p:inputText id="representativeFax" value="#{unicomerVendorController.selected.representativeFax}" title="#{bundle.CreateUnicomerVendorTitle_representativeFax}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_priority}" for="priority" />
+                        <p:inputText id="priority" value="#{unicomerVendorController.selected.priority}" title="#{bundle.CreateUnicomerVendorTitle_priority}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_dunsNumber}" for="dunsNumber" />
+                        <p:inputText id="dunsNumber" value="#{unicomerVendorController.selected.dunsNumber}" title="#{bundle.CreateUnicomerVendorTitle_dunsNumber}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_abreviation}" for="abreviation" />
+                        <p:inputText id="abreviation" value="#{unicomerVendorController.selected.abreviation}" title="#{bundle.CreateUnicomerVendorTitle_abreviation}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_contactName}" for="contactName" />
+                        <p:inputText id="contactName" value="#{unicomerVendorController.selected.contactName}" title="#{bundle.CreateUnicomerVendorTitle_contactName}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{unicomerVendorController.selected.type}" title="#{bundle.CreateUnicomerVendorTitle_type}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_socialSecurityNumber}" for="socialSecurityNumber" />
+                        <p:inputText id="socialSecurityNumber" value="#{unicomerVendorController.selected.socialSecurityNumber}" title="#{bundle.CreateUnicomerVendorTitle_socialSecurityNumber}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_taxId}" for="taxId" />
+                        <p:inputText id="taxId" value="#{unicomerVendorController.selected.taxId}" title="#{bundle.CreateUnicomerVendorTitle_taxId}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_terms}" for="terms" />
+                        <p:inputText id="terms" value="#{unicomerVendorController.selected.terms}" title="#{bundle.CreateUnicomerVendorTitle_terms}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_factor}" for="factor" />
+                        <p:inputText id="factor" value="#{unicomerVendorController.selected.factor}" title="#{bundle.CreateUnicomerVendorTitle_factor}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_freeOnBoardPoint}" for="freeOnBoardPoint" />
+                        <p:inputText id="freeOnBoardPoint" value="#{unicomerVendorController.selected.freeOnBoardPoint}" title="#{bundle.CreateUnicomerVendorTitle_freeOnBoardPoint}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_shippingPoint}" for="shippingPoint" />
+                        <p:inputText id="shippingPoint" value="#{unicomerVendorController.selected.shippingPoint}" title="#{bundle.CreateUnicomerVendorTitle_shippingPoint}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_shippingVia}" for="shippingVia" />
+                        <p:inputText id="shippingVia" value="#{unicomerVendorController.selected.shippingVia}" title="#{bundle.CreateUnicomerVendorTitle_shippingVia}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_globalFreightPerc}" for="globalFreightPerc" />
+                        <p:inputText id="globalFreightPerc" value="#{unicomerVendorController.selected.globalFreightPerc}" title="#{bundle.CreateUnicomerVendorTitle_globalFreightPerc}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_globalDiscountPerc}" for="globalDiscountPerc" />
+                        <p:inputText id="globalDiscountPerc" value="#{unicomerVendorController.selected.globalDiscountPerc}" title="#{bundle.CreateUnicomerVendorTitle_globalDiscountPerc}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_minShip}" for="minShip" />
+                        <p:inputText id="minShip" value="#{unicomerVendorController.selected.minShip}" title="#{bundle.CreateUnicomerVendorTitle_minShip}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_minShipUnit}" for="minShipUnit" />
+                        <p:inputText id="minShipUnit" value="#{unicomerVendorController.selected.minShipUnit}" title="#{bundle.CreateUnicomerVendorTitle_minShipUnit}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_reviewCycle}" for="reviewCycle" />
+                        <p:inputText id="reviewCycle" value="#{unicomerVendorController.selected.reviewCycle}" title="#{bundle.CreateUnicomerVendorTitle_reviewCycle}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_returnVendorName}" for="returnVendorName" />
+                        <p:inputText id="returnVendorName" value="#{unicomerVendorController.selected.returnVendorName}" title="#{bundle.CreateUnicomerVendorTitle_returnVendorName}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_returnAddress}" for="returnAddress" />
+                        <p:inputText id="returnAddress" value="#{unicomerVendorController.selected.returnAddress}" title="#{bundle.CreateUnicomerVendorTitle_returnAddress}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_returnCountry}" for="returnCountry" />
+                        <p:inputText id="returnCountry" value="#{unicomerVendorController.selected.returnCountry}" title="#{bundle.CreateUnicomerVendorTitle_returnCountry}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_returnCity}" for="returnCity" />
+                        <p:inputText id="returnCity" value="#{unicomerVendorController.selected.returnCity}" title="#{bundle.CreateUnicomerVendorTitle_returnCity}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_returnState}" for="returnState" />
+                        <p:inputText id="returnState" value="#{unicomerVendorController.selected.returnState}" title="#{bundle.CreateUnicomerVendorTitle_returnState}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_returnPortalCode}" for="returnPortalCode" />
+                        <p:inputText id="returnPortalCode" value="#{unicomerVendorController.selected.returnPortalCode}" title="#{bundle.CreateUnicomerVendorTitle_returnPortalCode}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_returnZipCode}" for="returnZipCode" />
+                        <p:inputText id="returnZipCode" value="#{unicomerVendorController.selected.returnZipCode}" title="#{bundle.CreateUnicomerVendorTitle_returnZipCode}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_returnEmail}" for="returnEmail" />
+                        <p:inputText id="returnEmail" value="#{unicomerVendorController.selected.returnEmail}" title="#{bundle.CreateUnicomerVendorTitle_returnEmail}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_remitVendorName}" for="remitVendorName" />
+                        <p:inputText id="remitVendorName" value="#{unicomerVendorController.selected.remitVendorName}" title="#{bundle.CreateUnicomerVendorTitle_remitVendorName}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_remitAddress}" for="remitAddress" />
+                        <p:inputText id="remitAddress" value="#{unicomerVendorController.selected.remitAddress}" title="#{bundle.CreateUnicomerVendorTitle_remitAddress}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_remitCountry}" for="remitCountry" />
+                        <p:inputText id="remitCountry" value="#{unicomerVendorController.selected.remitCountry}" title="#{bundle.CreateUnicomerVendorTitle_remitCountry}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_remitCity}" for="remitCity" />
+                        <p:inputText id="remitCity" value="#{unicomerVendorController.selected.remitCity}" title="#{bundle.CreateUnicomerVendorTitle_remitCity}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_remitState}" for="remitState" />
+                        <p:inputText id="remitState" value="#{unicomerVendorController.selected.remitState}" title="#{bundle.CreateUnicomerVendorTitle_remitState}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_remitPostalCode}" for="remitPostalCode" />
+                        <p:inputText id="remitPostalCode" value="#{unicomerVendorController.selected.remitPostalCode}" title="#{bundle.CreateUnicomerVendorTitle_remitPostalCode}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_remitZipCode}" for="remitZipCode" />
+                        <p:inputText id="remitZipCode" value="#{unicomerVendorController.selected.remitZipCode}" title="#{bundle.CreateUnicomerVendorTitle_remitZipCode}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_remitEmail}" for="remitEmail" />
+                        <p:inputText id="remitEmail" value="#{unicomerVendorController.selected.remitEmail}" title="#{bundle.CreateUnicomerVendorTitle_remitEmail}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{unicomerVendorController.selected.status}" title="#{bundle.CreateUnicomerVendorTitle_status}" />
+                        <p:outputLabel value="#{bundle.CreateUnicomerVendorLabel_fiscalReg}" for="fiscalReg" />
+                        <p:inputText id="fiscalReg" value="#{unicomerVendorController.selected.fiscalReg}" title="#{bundle.CreateUnicomerVendorTitle_fiscalReg}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{unicomerVendorController.create}" value="#{bundle.Save}" update="display,:UnicomerVendorListForm:datalist,:growl" oncomplete="handleSubmit(args,'UnicomerVendorCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="UnicomerVendorCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
