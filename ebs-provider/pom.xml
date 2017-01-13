@@ -31,5 +31,18 @@
 			<version>3.20.0-GA</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>1.19</version>
+		</dependency>
+		
+		<!-- Dependencias Unicomer -->
+		<dependency>
+			<groupId>com.unicomer.demo</groupId>
+			<artifactId>commons-entity-library</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 </project>

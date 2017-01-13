@@ -4,56 +4,28 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import org.springframework.hateoas.ResourceSupport;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.unicomer.demo.common.header.RequestHeader;
 import com.unicomer.demo.common.header.ResponseHeader;
 
-@Entity
-@Table(name="VENDOR", schema="SUMMER")
 @XmlRootElement(name="Vendor")
 @JsonRootName(value="Vendor")
-public class SwimVendor extends ResourceSupport {
-	/**
-     * Implementacion de JPA
-     */
-	@Id
-	@Column(name = "VENDORID", nullable = false)
-	@Size(min = 0, max = 6)
-	@NotNull
+public class SwimVendor {
+	
 	private String vendorId;
 	
-	@Column(name = "DESCRIPTION", nullable = false)
-	@Size(min = 0, max = 25)
-	@NotNull
 	private String name;
 
-	@Column(name = "ADDRESS", nullable = false)
-	@Size(min = 0, max = 60)
-	@NotNull
 	private String address;
 
-	@Column(name = "COUNTRY", nullable = false)
-	@Size(min = 0, max = 30)
-	@NotNull
 	private String country;
 
-	@Column(name = "CITY", nullable = false)
-	@Size(min = 0, max = 30)
-	@NotNull
 	private String city;
 
-	@Column(name = "STATE", nullable = false)
-	@Size(min = 0, max = 2)
-	@NotNull
 	private String state;
 
 	@Column(name = "ZIP_CODE", nullable = true)

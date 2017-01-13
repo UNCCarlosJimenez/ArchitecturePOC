@@ -7,15 +7,35 @@
         http://xmlns.oracle.com/weblogic/weblogic-web-app
         http://xmlns.oracle.com/weblogic/weblogic-web-app/1.4/weblogic-web-app.xsd">
 	<wls:description>Administrador de proveedores</wls:description>
-	
+
 	<wls:container-descriptor>
 		<wls:prefer-application-packages>
 			<wls:package-name>org.slf4j.*</wls:package-name>
 			<wls:package-name>com.fasterxml.jackson.*</wls:package-name>
+			
+			<wls:package-name>javax.faces.*</wls:package-name>
+			<wls:package-name>com.sun.faces.*</wls:package-name>
+			<wls:package-name>com.bea.faces.*</wls:package-name>
 		</wls:prefer-application-packages>
+
+		<wls:prefer-application-resources>
+			<wls:resource-name>javax.faces.*</wls:resource-name>
+			<wls:resource-name>com.sun.faces.*</wls:resource-name>
+			<wls:resource-name>com.bea.faces.*</wls:resource-name>
+
+			<wls:resource-name>META-INF/services/javax.servlet.ServletContainerInitializer</wls:resource-name>
+			<wls:resource-name>META-INF/services/com.sun.faces.*</wls:resource-name>
+		</wls:prefer-application-resources>
+
 	</wls:container-descriptor>
 	<wls:library-ref>
 		<wls:library-name>commons-entity-library</wls:library-name>
+		<wls:specification-version>1.0</wls:specification-version>
+		<wls:implementation-version>1.0</wls:implementation-version>
+		<wls:exact-match>true</wls:exact-match>
+	</wls:library-ref>
+	<wls:library-ref>
+		<wls:library-name>spring-dependency-library</wls:library-name>
 		<wls:specification-version>1.0</wls:specification-version>
 		<wls:implementation-version>1.0</wls:implementation-version>
 		<wls:exact-match>true</wls:exact-match>

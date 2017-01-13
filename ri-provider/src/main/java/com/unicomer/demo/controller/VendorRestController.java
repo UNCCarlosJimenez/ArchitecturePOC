@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.unicomer.demo.domain.RiVendor;
+import com.unicomer.demo.domain.RiVendorDomain;
 import com.unicomer.demo.repository.RiVendorJpa;
 
 @RestController
@@ -25,9 +25,9 @@ public class VendorRestController {
 		
 	@RequestMapping(method = RequestMethod.GET, value = "/vendors",
 			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public Set<RiVendor> getVendors() {
-		Set<RiVendor> vendors = new HashSet<RiVendor>();
-		Iterator<RiVendor> it = vendorJpaRepo.findAll().iterator();
+	public Set<RiVendorDomain> getVendors() {
+		Set<RiVendorDomain> vendors = new HashSet<RiVendorDomain>();
+		Iterator<RiVendorDomain> it = vendorJpaRepo.findAll().iterator();
 		while (it.hasNext()) {
 			vendors.add(it.next());
 		}
@@ -36,14 +36,14 @@ public class VendorRestController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/vendors/{id}",
 			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public RiVendor getVendorById(@PathVariable String id) {
+	public RiVendorDomain getVendorById(@PathVariable String id) {
 		return vendorJpaRepo.findOne(id);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/vendors",
 			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
 			consumes={MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public RiVendor addVendor(@RequestBody RiVendor vendor) {
+	public RiVendorDomain addVendor(@RequestBody RiVendorDomain vendor) {
 		System.out.println("****************************");
 		System.out.println("ri-provider: Vendor="+vendor.toString());
 		System.out.println("****************************");
@@ -53,7 +53,7 @@ public class VendorRestController {
 	@RequestMapping(method = RequestMethod.PUT, value = "/vendors",
 			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
 			consumes={MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public RiVendor updateVendor(@RequestBody RiVendor vendor) {
+	public RiVendorDomain updateVendor(@RequestBody RiVendorDomain vendor) {
 		return vendorJpaRepo.save(vendor);
 	}
 	

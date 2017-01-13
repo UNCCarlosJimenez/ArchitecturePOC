@@ -18,4 +18,10 @@
 		<wls:implementation-version>1.0</wls:implementation-version>
 		<wls:exact-match>true</wls:exact-match>
 	</wls:library-ref>
+	<wls:library-ref>
+		<wls:library-name>commons-entity-library</wls:library-name>
+		<wls:specification-version>1.0</wls:specification-version>
+		<wls:implementation-version>1.0</wls:implementation-version>
+		<wls:exact-match>true</wls:exact-match>
+	</wls:library-ref>
 </wls:weblogic-web-app>

@@ -10,11 +10,11 @@ public interface VendorService {
 	
 	public List<UnicomerVendor> findAll();
 	
-	public UnicomerVendor save(UnicomerVendor vendor);
+	public UnicomerVendor save(String transactionId, UnicomerVendor vendor);
 	
 	public boolean exists(String id);
 	
 	public UnicomerVendor findOne(String id);
 	
-	public void delete(String id);
+	public void delete(String transactionId, String id);
 }

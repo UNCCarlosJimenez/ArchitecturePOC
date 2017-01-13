@@ -1,159 +1,41 @@
-package com.unicomer.demo.domain;
+package com.unicomer.demo.ri.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@Entity
-@Table(name="AVNP", schema="RI11122816")
 @XmlRootElement(name="Vendor")
 @JsonRootName(value="Vendor")
 public class RiVendor {	
-	@Id
-	@Column(name = "VNNAV")
-	@Size(min = 0, max = 6)
-	private String id;
-
-	@Column(name = "O08AV")
-	@Size(min = 0, max = 1)
-	//@NotNull
 	private String statusCode;
-
-	@Column(name = "C39AV")
-	@Size(min = 0, max = 1)
-	//@NotNull
 	private String flag;
-
-	@Column(name = "VNDAV")
-	@Size(min = 0, max = 25)
-	//@NotNull
+	private String id;
 	private String name;
-
-	@Column(name = "RV1AV")
-	@Size(min = 0, max = 30)
-	//@NotNull
 	private String addressLine1;
-
-	@Column(name = "RV2AV")
-	@Size(min = 0, max = 30)
-	//@NotNull
 	private String addressLine2;
-
-	@Column(name = "CY7AV")
-	@Size(min = 0, max = 30)
-	//@NotNull
 	private String city;
-
-	@Column(name = "ST7AV")
-	@Size(min = 0, max = 2)
-	//@NotNull
 	private String state;
-
-	@Column(name = "CRYAV")
-	@Size(min = 0, max = 3)
-	//@NotNull
 	private String country;
-
-	@Column(name = "ZP8AV")
-	@Size(min = 0, max = 10)
-	//@NotNull
 	private String zipCode;
-
-	@Column(name = "C77AV")
-	@Size(min = 0, max = 6)
-	//@NotNull
 	private String postalCode;
-
-	@Column(name = "PH4AV")
-	@Size(min = 0, max = 17)
-	//@NotNull
 	private String phone;
-
-	@Column(name = "P18AV")
-	@Size(min = 0, max = 3)
-	//@NotNull
 	private String termPercent;
-
-	@Column(name = "TRDAV")
-	@Size(min = 0, max = 3)
-	//@NotNull
 	private String daysInTerm;
-
-	@Column(name = "O21AV")
-	@Size(min = 0, max = 3)
-	//@NotNull
 	private String terms;
-
-	@Column(name = "DNSAV")
-	@Size(min = 0, max = 10)
-	//@NotNull
 	private String dunsNumber;
-
-	@Column(name = "BYRAV")
-	@Size(min = 0, max = 10)
-	//@NotNull
 	private String buyer;
-
-	@Column(name = "B47AV")
-	@Size(min = 0, max = 11)
-	//@NotNull
 	private String purchasesYTD;
-
-	@Column(name = "B44AV")
-	@Size(min = 0, max = 13)
-	//@NotNull
 	private String purchasesLTD;
-
-	@Column(name = "C07AV")
-	@Size(min = 0, max = 10)
-	//@NotNull
 	private String sortCode;
-
-	@Column(name = "VS1AV")
-	@Size(min = 0, max = 3)
-	//@NotNull
 	private String ssnFirstDigits;
-
-	@Column(name = "VS2AV")
-	@Size(min = 0, max = 2)
-	//@NotNull
 	private String ssnSecondDigits;
-
-	@Column(name = "VS3AV")
-	@Size(min = 0, max = 4)
-	//@NotNull
 	private String ssnLastDigits;
-
-	@Column(name = "FCTAV")
-	@Size(min = 0, max = 6)
-	//@NotNull
 	private String factor;
-
-	@Column(name = "PU4AV")
-	@Size(min = 0, max = 10)
-	//@NotNull
 	private String paymentMethod;
-
-	@Column(name = "PU1AV")
-	@Size(min = 0, max = 11)
-	//@NotNull
 	private String purchaseOrder;
-
-	@Column(name = "SH1AV")
-	@Size(min = 0, max = 11)
-	//@NotNull
 	private String shipToName;
-
-	@Column(name = "PU2AV")
-	@Size(min = 0, max = 11)
-	//@NotNull
 	private String shipVia;
-
+	
 	public String getId() {
 		return id;
 	}

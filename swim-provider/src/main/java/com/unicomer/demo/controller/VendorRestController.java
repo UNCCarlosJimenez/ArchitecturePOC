@@ -35,7 +35,7 @@ public class VendorRestController {
 	@Autowired VendorService vendorService;
 	@Autowired LoggerClient logger;
 	@Value("${spring.application.name}") String applicationName;
-		
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/vendors/all",
 			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public SwimVendorDomain.ResponseMessage getVendors(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
@@ -95,7 +95,7 @@ public class VendorRestController {
 			logger.errorTrace(new TransactionLogInfoTrace(
 					this.getClass().getCanonicalName(), 
 					"",
-					e.getStackTrace().toString(),
+					e.getCause().getMessage(),
 					servletRequest.getRemoteAddr(), 
 					"getVendors", 
 					"Ha ocurrido un problema: " + e.getMessage(), 
@@ -307,7 +307,7 @@ public class VendorRestController {
 			logger.errorTrace(new TransactionLogInfoTrace(
 					this.getClass().getCanonicalName(), 
 					"",
-					e.getStackTrace().toString(),
+					e.getCause().getMessage(),
 					servletRequest.getRemoteAddr(), 
 					"addVendor", 
 					"Ha ocurrido un problema: " + e.getMessage(), 
@@ -400,7 +400,7 @@ public class VendorRestController {
 			logger.errorTrace(new TransactionLogInfoTrace(
 					this.getClass().getCanonicalName(), 
 					"",
-					e.getStackTrace().toString(),
+					e.getCause().getMessage(),
 					servletRequest.getRemoteAddr(), 
 					"updateVendor", 
 					"Ha ocurrido un problema: " + e.getMessage(), 
@@ -548,7 +548,7 @@ public class VendorRestController {
 			logger.errorTrace(new TransactionLogInfoTrace(
 					this.getClass().getCanonicalName(), 
 					"",
-					e.getStackTrace().toString(),
+					e.getCause().getMessage(),
 					servletRequest.getRemoteAddr(), 
 					"deleteVendor", 
 					"Ha ocurrido un problema: " + e.getMessage(), 

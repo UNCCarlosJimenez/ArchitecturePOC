@@ -9,23 +9,53 @@ import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
+import com.unicomer.demo.message.AddVendorRequest;
+import com.unicomer.demo.message.AddVendorResponse;
+import com.unicomer.demo.message.DeleteVendorRequest;
+import com.unicomer.demo.message.DeleteVendorResponse;
 import com.unicomer.demo.message.GetVendorRequest;
 import com.unicomer.demo.message.GetVendorResponse;
+import com.unicomer.demo.message.UpdateVendorRequest;
+import com.unicomer.demo.message.UpdateVendorResponse;
 
 /**
  * @author oracle
  *
  */
 @WebService(name = "EbsProvider", targetNamespace = "http://ws.demo.unicomer.com/")
-@SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
+@SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.WRAPPED)
 @XmlSeeAlso({ com.unicomer.demo.message.ObjectFactory.class })
 @Local
 public interface EbsProvider {
 	@WebMethod(operationName = "GetVendor", action = "process")
 	@WebResult(name = "GetVendorResponse", targetNamespace = "http://ws.demo.unicomer.com/", partName = "payload")
 	public GetVendorResponse getVendor(
-			@WebParam(name = "GetVendorRequest", targetNamespace = "http://ws.demo.unicomer.com/", partName = "payload") GetVendorRequest paramGetVendorRequest);
+			@WebParam(name = "GetVendorRequest", targetNamespace = "http://ws.demo.unicomer.com/", partName = "payload") GetVendorRequest paramGetVendorRequest,
+			HttpServletRequest servletRequest, HttpServletResponse servletResponse);
+	
+	
+	@WebMethod(operationName = "AddVendor", action = "process")
+	@WebResult(name = "AddVendorResponse", targetNamespace = "http://ws.demo.unicomer.com/", partName = "payload")
+	public AddVendorResponse addVendor(
+			@WebParam(name = "AddVendorRequest", targetNamespace = "http://ws.demo.unicomer.com/", partName = "payload") AddVendorRequest paramAddVendorRequest,
+			HttpServletRequest servletRequest, HttpServletResponse servletResponse);
+	
+	
+	@WebMethod(operationName = "UpdateVendor", action = "process")
+	@WebResult(name = "UpdateVendorResponse", targetNamespace = "http://ws.demo.unicomer.com/", partName = "payload")
+	public UpdateVendorResponse updateVendor(
+			@WebParam(name = "UpdateVendorRequest", targetNamespace = "http://ws.demo.unicomer.com/", partName = "payload") UpdateVendorRequest paramUpdateVendorRequest,
+			HttpServletRequest servletRequest, HttpServletResponse servletResponse);
+	
+	
+	@WebMethod(operationName = "DeleteVendor", action = "process")
+	@WebResult(name = "DeleteVendorResponse", targetNamespace = "http://ws.demo.unicomer.com/", partName = "payload")
+	public DeleteVendorResponse deleteVendor(
+			@WebParam(name = "AddVendorRequest", targetNamespace = "http://ws.demo.unicomer.com/", partName = "payload") DeleteVendorRequest paramDeleteVendorRequest,
+			HttpServletRequest servletRequest, HttpServletResponse servletResponse);
 	
 }

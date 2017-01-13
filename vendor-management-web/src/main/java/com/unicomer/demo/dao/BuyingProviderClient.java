@@ -1,8 +1,9 @@
 package com.unicomer.demo.dao;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
 
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
@@ -12,7 +13,9 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
-import com.unicomer.demo.common.entity.Vendor;
+import com.unicomer.demo.common.entity.UnicomerVendor;
+import com.unicomer.demo.common.entity.UnicomerVendor.RequestVendorMessage;
+import com.unicomer.demo.common.entity.UnicomerVendor.ResponseVendorMessage;
 import com.unicomer.demo.util.PropertiesLoader;
 
 public class BuyingProviderClient {
@@ -20,7 +23,7 @@ public class BuyingProviderClient {
 	private String serviceEndpoint = properties.getProperty("buy.service.endpoint");
 	private Integer connectTimeOut = Integer.valueOf(properties.getProperty("buy.service.connect-timeout"));
 	private Integer responseTimeOut = Integer.valueOf(properties.getProperty("buy.service.response-timeout"));
-
+	
 	private WebResource getResource() {
 		ClientConfig config = new DefaultClientConfig();
 		config.getProperties().put(ClientConfig.PROPERTY_CONNECT_TIMEOUT, connectTimeOut);
@@ -30,16 +33,30 @@ public class BuyingProviderClient {
 		WebResource resource = client.resource(serviceEndpoint);
 		return resource;
 	}
+	
+	private RequestVendorMessage getRequestMessage(){
+		String localTransactionId=UUID.randomUUID().toString();
+		RequestVendorMessage request = new RequestVendorMessage();
+		
+		request.setApplication("vendor-management-web");
+		request.setDate(Calendar.getInstance().getTime());
+		request.setPosId("");
+		request.setStore("");
+		request.setTransaction(localTransactionId);
+		
+		return request;
+	}
 
-	public List<Vendor> findAll() {
-		List<Vendor> resultList = new ArrayList<Vendor>();
+	public List<UnicomerVendor> findAll() {
+		List<UnicomerVendor> resultList = new ArrayList<UnicomerVendor>();
+		ResponseVendorMessage result = new ResponseVendorMessage();
 		try {
 			ClientResponse response = getResource().accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
 					.get(ClientResponse.class);
 
 			if (response.getStatus() == ClientResponse.Status.OK.getStatusCode()) {
-				Vendor[] vendorList = response.getEntity(Vendor[].class);
-				resultList = Arrays.asList(vendorList);
+				result = response.getEntity(ResponseVendorMessage.class);
+				resultList = result.getData();
 			}else{
 				System.out.println("HTTP error code : " + response.getStatus());
 			}
@@ -48,11 +65,14 @@ public class BuyingProviderClient {
 		}
 		return resultList;
 	}
-
-	public void create(Vendor vendor) {
+	
+	public void create(UnicomerVendor vendor) {
+		RequestVendorMessage request = getRequestMessage();
+		request.setData(vendor);
+		
 		try {
 			ClientResponse response = getResource().accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
-					.header(HttpHeaders.CACHE_CONTROL, "false").post(ClientResponse.class, vendor);
+					.header(HttpHeaders.CACHE_CONTROL, "false").post(ClientResponse.class, request);
 
 			if (response.getStatus() > 200) {
 				System.out.println("HTTP error code : " + response.getStatus());
@@ -62,10 +82,29 @@ public class BuyingProviderClient {
 		}
 	}
 
-	public void edit(Vendor vendor) {
+	public void edit(UnicomerVendor vendor) {
+		RequestVendorMessage request = getRequestMessage();
+		request.setData(vendor);
+		
 		try {
 			ClientResponse response = getResource().accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
-					.header(HttpHeaders.CACHE_CONTROL, "false").put(ClientResponse.class, vendor);
+					.header(HttpHeaders.CACHE_CONTROL, "false").put(ClientResponse.class, request);
+			
+			if (response.getStatus() > 200) {
+				System.out.println("HTTP error code : " + response.getStatus());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void remove(UnicomerVendor vendor) {
+		RequestVendorMessage request = getRequestMessage();
+		request.setData(vendor);
+		
+		try {
+			ClientResponse response = getResource().accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
+					.header(HttpHeaders.CACHE_CONTROL, "false").delete(ClientResponse.class, request);
 
 			if (response.getStatus() > 200) {
 				System.out.println("HTTP error code : " + response.getStatus());
@@ -75,21 +114,8 @@ public class BuyingProviderClient {
 		}
 	}
 
-	public void remove(Vendor vendor) {
-		try {
-			ClientResponse response = getResource().accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
-					.header(HttpHeaders.CACHE_CONTROL, "false").delete(ClientResponse.class, vendor);
-
-			if (response.getStatus() > 200) {
-				System.out.println("HTTP error code : " + response.getStatus());
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public Vendor find(Integer id) {
-		Vendor result = new Vendor();
+	public UnicomerVendor find(Integer id) {
+		UnicomerVendor result = new UnicomerVendor();
 		try {
 			ClientResponse response = getResource().path(id.toString()).accept(MediaType.APPLICATION_JSON)
 					.type(MediaType.APPLICATION_JSON).header(HttpHeaders.CACHE_CONTROL, "false")
@@ -98,15 +124,18 @@ public class BuyingProviderClient {
 				System.out.println("HTTP error code : " + response.getStatus());
 			}
 			
-			result = response.getEntity(Vendor.class);
+			ResponseVendorMessage responseMessage = response.getEntity(ResponseVendorMessage.class);
+			if(responseMessage.getData().size()>0){
+				result = responseMessage.getData().get(0);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
 
-	public List<Vendor> findRange(int[] range) {
-		return new ArrayList<Vendor>();
+	public List<UnicomerVendor> findRange(int[] range) {
+		return new ArrayList<UnicomerVendor>();
 	}
 
 	public int count() {
@@ -119,8 +148,8 @@ public class BuyingProviderClient {
 				System.out.println("HTTP error code : " + response.getStatus());
 			}
 
-			Vendor[] vendorList = response.getEntity(Vendor[].class);
-			result = vendorList.length;
+			ResponseVendorMessage responseMessage = response.getEntity(ResponseVendorMessage.class);
+			result = responseMessage.getData().size();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

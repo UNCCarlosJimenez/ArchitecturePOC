@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.unicomer.demo.common.header.RequestHeader;
+import com.unicomer.demo.common.header.ResponseHeader;
 
 @SuppressWarnings("serial")
 public class UnicomerVendor implements Serializable {
@@ -555,7 +556,7 @@ public class UnicomerVendor implements Serializable {
 	 * @author carlosj_rodriguez
 	 *
 	 */
-	public static class ResponseVendorMessage extends RequestHeader implements Serializable {
+	public static class ResponseVendorMessage extends ResponseHeader implements Serializable {
 		private List<UnicomerVendor> data;
 		
 		/**

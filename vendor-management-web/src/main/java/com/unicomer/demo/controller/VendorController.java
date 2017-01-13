@@ -15,7 +15,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Named;
 
-import com.unicomer.demo.common.entity.Vendor;
+import com.unicomer.demo.common.entity.UnicomerVendor;
 import com.unicomer.demo.controller.util.JsfUtil;
 import com.unicomer.demo.controller.util.JsfUtil.PersistAction;
 import com.unicomer.demo.dao.BuyingProviderClient;
@@ -24,19 +24,18 @@ import com.unicomer.demo.dao.BuyingProviderClient;
 @Named("vendorController")
 @SessionScoped
 public class VendorController implements Serializable {
-	
     private BuyingProviderClient buyingProviderClient = new BuyingProviderClient();
-    private List<Vendor> items = null;
-    private Vendor selected;
+    private List<UnicomerVendor> items = null;
+    private UnicomerVendor selected;
 
     public VendorController() {
     }
 
-    public Vendor getSelected() {
+    public UnicomerVendor getSelected() {
         return selected;
     }
 
-    public void setSelected(Vendor selected) {
+    public void setSelected(UnicomerVendor selected) {
         this.selected = selected;
     }
 
@@ -50,8 +49,8 @@ public class VendorController implements Serializable {
 //        return buyingProviderClient;
 //    }
 
-    public Vendor prepareCreate() {
-        selected = new Vendor();
+    public UnicomerVendor prepareCreate() {
+        selected = new UnicomerVendor();
         initializeEmbeddableKey();
         return selected;
     }
@@ -64,7 +63,7 @@ public class VendorController implements Serializable {
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("VendorUpdated"));
+    	persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("VendorUpdated"));
     }
 
     public void destroy() {
@@ -75,10 +74,13 @@ public class VendorController implements Serializable {
         }
     }
 
-    public List<Vendor> getItems() {
+    public List<UnicomerVendor> getItems() {
+    	Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Inicio de consulta de datos");
         if (items == null) {
+        	Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Consultando datos en buy-provider...");
             items = buyingProviderClient.findAll();
         }
+        Logger.getLogger(this.getClass().getName()).log(Level.INFO, "items.size()="+items.size());
         return items;
     }
 
@@ -110,24 +112,24 @@ public class VendorController implements Serializable {
         }
     }
 
-    public Vendor getVendor(java.math.BigDecimal id) {
+    public UnicomerVendor getVendor(java.math.BigDecimal id) {
         return buyingProviderClient.find(Integer.valueOf(id.toString()));
     }
 
-    public List<Vendor> getItemsAvailableSelectMany() {
+    public List<UnicomerVendor> getItemsAvailableSelectMany() {
         return buyingProviderClient.findAll();
     }
 
-    public List<Vendor> getItemsAvailableSelectOne() {
+    public List<UnicomerVendor> getItemsAvailableSelectOne() {
         return buyingProviderClient.findAll();
     }
 
-    @FacesConverter(forClass = Vendor.class)
+    @FacesConverter(forClass = UnicomerVendor.class)
     public static class VendorControllerConverter implements Converter {
     	
     	
     	
-//        @Override
+        @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
@@ -149,16 +151,16 @@ public class VendorController implements Serializable {
             return sb.toString();
         }
 
-//        @Override
+        @Override
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Vendor) {
-                Vendor o = (Vendor) object;
+            if (object instanceof UnicomerVendor) {
+                UnicomerVendor o = (UnicomerVendor) object;
                 return getStringKey(new BigDecimal(o.getVendorId()));
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Vendor.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), UnicomerVendor.class.getName()});
                 return null;
             }
         }
