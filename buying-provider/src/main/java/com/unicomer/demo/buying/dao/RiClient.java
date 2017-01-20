@@ -12,26 +12,26 @@ import com.unicomer.demo.ri.domain.RiVendor;
 @FeignClient(name = "ri-provider", url = "${ri.service.endpoint}",	configuration = RiClientConfiguration.class)
 // @EnableHypermediaSupport(type=EnableHypermediaSupport.HypermediaType.HAL)
 public interface RiClient {
-	@RequestMapping(value = "/riVendors", 
+	@RequestMapping(value = "/riVendorDomains", 
 			method = RequestMethod.GET, 
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public com.unicomer.demo.ri.domain.RiVendor[] getVendors();
 	
 	
-	@RequestMapping(value = "/riVendors", 
+	@RequestMapping(value = "/riVendorDomains", 
 			method = RequestMethod.POST, 
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public RiVendor addVendors(RiVendor vendor);
 	
-	@RequestMapping(value = "/riVendors/{id}", 
+	@RequestMapping(value = "/riVendorDomains/{id}", 
 			method = RequestMethod.PUT, 
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public RiVendor updateVendors(RiVendor vendor, @PathVariable(name="id") String id);
 	
-	@RequestMapping(value = "/riVendors/{id}", 
+	@RequestMapping(value = "/riVendorDomains/{id}", 
 			method = RequestMethod.DELETE, 
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)

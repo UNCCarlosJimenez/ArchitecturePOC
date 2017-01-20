@@ -395,7 +395,7 @@ public class BuyingRestController {
 			)
 		);
 		
-		servletResponse.setStatus(HttpServletResponse.SC_CREATED);
+		servletResponse.setStatus(HttpServletResponse.SC_NO_CONTENT);
 		
 		ResponseVendorMessage response = new ResponseVendorMessage();
 		try{

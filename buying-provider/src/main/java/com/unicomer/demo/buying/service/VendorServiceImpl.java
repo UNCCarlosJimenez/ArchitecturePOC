@@ -65,23 +65,6 @@ public class VendorServiceImpl implements VendorService {
 			//Swim
 			SwimVendor.RequestMessage swimRequest = new SwimVendor.RequestMessage();
 			swimRequest.setApplication(applicationName);
-			swimRequest.setDate(Calendar.getInstance().getTime());
-			swimRequest.setPosId("");
-			swimRequest.setStore("");
-			swimRequest.setTransaction(transactionId);
-			swimRequest.setData(UnicomerVendorToSwimVendor(vendor));
-			System.out.println("buying-provider@VendorServiceImpl: swimClient.addVendor(swimRequest)");
-			swimClient.addVendor(swimRequest);
-		}catch (Exception e) {
-			System.err.println("buying-provider@VendorServiceImpl: " + e.getMessage());
-			e.printStackTrace();
-		}
-		
-		try{
-			//Swim
-			SwimVendor.RequestMessage swimRequest = new SwimVendor.RequestMessage();
-			swimRequest.setApplication(applicationName);
-			swimRequest.setDate(Calendar.getInstance().getTime());
 			swimRequest.setPosId("");
 			swimRequest.setStore("");
 			swimRequest.setTransaction(transactionId);
@@ -166,7 +149,7 @@ public class VendorServiceImpl implements VendorService {
 	
 	private SwimVendor UnicomerVendorToSwimVendor(UnicomerVendor vendor){
 		SwimVendor swimVendor = new SwimVendor();
-		swimVendor.setVendorId(String.format("%06d", vendor.getVendorId()));
+		swimVendor.setVendorId(vendor.getVendorId());
 		swimVendor.setName(vendor.getName());
 		swimVendor.setAddress(vendor.getAddress());
 		swimVendor.setCountry(vendor.getCountry());
@@ -183,9 +166,9 @@ public class VendorServiceImpl implements VendorService {
 		swimVendor.setType(vendor.getType());
 		swimVendor.setSocialSecurityNumber(vendor.getSocialSecurityNumber());
 		swimVendor.setTaxId(vendor.getTaxId());
-		swimVendor.setTerms1(vendor.getTerms().substring(0, 4));
-		swimVendor.setTerms2(vendor.getTerms().substring(5, 9));
-		swimVendor.setTerms3(vendor.getTerms().substring(10, 14));
+		swimVendor.setTerms1("090");
+		swimVendor.setTerms2("");
+		swimVendor.setTerms3("");
 		swimVendor.setFactor(vendor.getFactor().toString());
 		swimVendor.setFobPoint(vendor.getFreeOnBoardPoint());
 		swimVendor.setShipping(vendor.getShippingPoint());
@@ -198,7 +181,7 @@ public class VendorServiceImpl implements VendorService {
 		swimVendor.setMinShipUnit(vendor.getMinShipUnit().toString());
 		swimVendor.setReviewCycle(vendor.getReviewCycle());
 		swimVendor.setTelephone(vendor.getRepresentativePhone());
-		swimVendor.setLetterCreditVendor(" ");
+		swimVendor.setLetterCreditVendor("0");
 		swimVendor.setReturnVendorName(vendor.getReturnVendorName());
 		swimVendor.setReturnAddress(vendor.getReturnAddress());
 		swimVendor.setReturnCountry(vendor.getReturnCountry());
@@ -283,7 +266,8 @@ public class VendorServiceImpl implements VendorService {
 		RiVendor riVendor = new RiVendor();
 		riVendor.setStatusCode(vendor.getStatus());
 		riVendor.setFlag(" ");
-		riVendor.setId(String.format("%06d", vendor.getVendorId()));
+//		riVendor.setId(String.format("%06d", vendor.getVendorId()));
+		riVendor.setId(vendor.getVendorId());
 		riVendor.setName(vendor.getName());
 		riVendor.setAddressLine1(vendor.getAddress());
 		riVendor.setAddressLine2(" ");
@@ -298,12 +282,12 @@ public class VendorServiceImpl implements VendorService {
 		riVendor.setTerms(vendor.getTerms());
 		riVendor.setDunsNumber(vendor.getDunsNumber());
 		riVendor.setBuyer(" ");
-		riVendor.setPurchasesYTD(" ");
-		riVendor.setPurchasesLTD(" ");
+		riVendor.setPurchasesYTD("0.00");
+		riVendor.setPurchasesLTD("0.00");
 		riVendor.setSortCode(" ");
-		riVendor.setSsnFirstDigits(vendor.getSocialSecurityNumber().substring(0, 2));
-		riVendor.setSsnSecondDigits(vendor.getSocialSecurityNumber().substring(3, 4));
-		riVendor.setSsnLastDigits(vendor.getSocialSecurityNumber().substring(5, 8));
+		riVendor.setSsnFirstDigits("0");
+		riVendor.setSsnSecondDigits("0");
+		riVendor.setSsnLastDigits("0");
 		riVendor.setFactor(vendor.getFactor().toString());
 		riVendor.setPaymentMethod(" ");
 		riVendor.setPurchaseOrder(" ");
@@ -318,7 +302,7 @@ public class VendorServiceImpl implements VendorService {
 	private OmcInterfaceVendor UnicomerVendorToEbsVendor(UnicomerVendor vendor){
 		OmcInterfaceVendor ebsVendor = new OmcInterfaceVendor();
 		ebsVendor.setId(Integer.valueOf(vendor.getVendorId()));
-		ebsVendor.setLookupCode(String.format("%06d", vendor.getVendorId()));
+		ebsVendor.setLookupCode(vendor.getVendorId());
 		ebsVendor.setName(vendor.getName());
 		ebsVendor.setSegment("");
 		ebsVendor.setTransactionType(vendor.getTerms());
