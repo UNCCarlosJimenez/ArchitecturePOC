@@ -437,8 +437,7 @@ public class VendorRestController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/vendors/{id}",
-			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-			consumes={MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public ResponseMessage getVendorById(@PathVariable String id, HttpServletRequest servletRequest, HttpServletResponse servletResponse) {
 		servletResponse.setStatus(HttpServletResponse.SC_OK);
 		ResponseMessage response = new ResponseMessage();
