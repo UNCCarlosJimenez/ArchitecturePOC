@@ -6,10 +6,13 @@ package com.unicomer.demo.common.entity;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * @author carlosj_rodriguez
  *
  */
+@XmlRootElement(name="transactionLogEndTrace")
 public class TransactionLogEndTrace {
 	private Date createdDate;
 	private String detail;

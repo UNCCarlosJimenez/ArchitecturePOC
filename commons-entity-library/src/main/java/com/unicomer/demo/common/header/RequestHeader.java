@@ -1,8 +1,6 @@
 package com.unicomer.demo.common.header;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class RequestHeader implements Serializable {
 	/**
@@ -13,7 +11,6 @@ public class RequestHeader implements Serializable {
 	private String application="";
 	private String store="";
 	private String posId="";
-	private Date date;
 	/**
 	 * @return the token
 	 */
@@ -62,18 +59,7 @@ public class RequestHeader implements Serializable {
 	public void setPosId(String posId) {
 		this.posId = posId;
 	}
-	/**
-	 * @return the requestDate
-	 */
-	public Date getdate() {
-		return date;
-	}
-	/**
-	 * @param requestDate the requestDate to set
-	 */
-	public void setDate(Date date) {
-		this.date = date;
-	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -87,8 +73,6 @@ public class RequestHeader implements Serializable {
 		sb.append("store="+this.store);
 		sb.append(", ");
 		sb.append("posId="+this.posId);
-		sb.append(", ");
-		sb.append("date="+new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(this.date));
 		
 		return sb.toString();
 	}
