@@ -7,36 +7,30 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import com.unicomer.demo.buying.dao.EbsClient;
-import com.unicomer.demo.buying.dao.LoggerClient;
 import com.unicomer.demo.buying.dao.RiClient;
 import com.unicomer.demo.buying.dao.SwimClient;
 import com.unicomer.demo.buying.message.ebs.OmcInterfaceVendor;
+import com.unicomer.demo.buying.util.PropertiesLoader;
 import com.unicomer.demo.common.entity.UnicomerVendor;
 import com.unicomer.demo.ri.domain.RiVendor;
 import com.unicomer.demo.swim.domain.SwimVendor;
 
-@Service("vendorService")
 public class VendorServiceImpl implements VendorService {
-	@Autowired
-	SwimClient swimClient;
-	@Autowired
-	RiClient riClient;
+	private static PropertiesLoader properties = PropertiesLoader.getInstance();
+	private static final String APP_NAME = "buy-provider@VendorServiceImpl";
+	private String applicationName = properties.getProperty("spring.application.name");
+	private String dateFormatPattern = properties.getProperty("swim.date.format.pattern");
+	private String timeFormatPattern = properties.getProperty("swim.time.format.pattern");
 	
-	EbsClient ebsClient = new EbsClient();
+	private SwimClient swimClient = new SwimClient();
+	private RiClient riClient = new RiClient();
+	private EbsClient ebsClient = new EbsClient();
+//	private LoggerClient logger = new LoggerClient();
 	
-	@Autowired LoggerClient logger;
-	@Value("${spring.application.name}") String applicationName;
-	@Value("${swim.date.format.pattern}") String dateFormatPattern;
-	@Value("${swim.time.format.pattern}") String timeFormatPattern;
-
 	@Override
 	public List<UnicomerVendor> findAll() {
-		System.out.println("buying-provider@VendorServiceImpl: Inicio de findAll()");
+		System.out.println(APP_NAME + ": Inicio de findAll()");
 		List<UnicomerVendor> resultList = new ArrayList<UnicomerVendor>();
 		/**
 		 * 
@@ -50,10 +44,10 @@ public class VendorServiceImpl implements VendorService {
 				resultList.add(SwimVendorToUnicomerVendor(swimVendor));
 			}
 		} catch (Exception e) {
-			System.err.println("buying-provider@VendorServiceImpl: " + e.getMessage());
+			System.out.println(APP_NAME + ": " + e.getMessage());
 			e.printStackTrace();
 		}
-		System.out.println("buying-provider@VendorServiceImpl: Fin de findAll()");
+		System.out.println(APP_NAME + ": Fin de findAll()");
 		return resultList;
 	}
 
@@ -69,28 +63,28 @@ public class VendorServiceImpl implements VendorService {
 			swimRequest.setStore("");
 			swimRequest.setTransaction(transactionId);
 			swimRequest.setData(UnicomerVendorToSwimVendor(vendor));
-			System.out.println("buying-provider@VendorServiceImpl: swimClient.addVendor(swimRequest)");
+			System.out.println(APP_NAME + ": swimClient.addVendor(swimRequest)");
 			swimClient.addVendor(swimRequest);
 		}catch (Exception e) {
-			System.err.println("buying-provider@VendorServiceImpl: " + e.getMessage());
+			System.err.println(APP_NAME + ": " + e.getMessage());
 			e.printStackTrace();
 		}
 		
 		try{
 			//Ri
-			System.out.println("buying-provider@VendorServiceImpl: riClient.addVendors(UnicomerVendorToRiVendor(vendor));");
-			riClient.addVendors(UnicomerVendorToRiVendor(vendor));
+			System.out.println(APP_NAME + ": riClient.addVendor();");
+			riClient.addVendor(UnicomerVendorToRiVendor(vendor));
 		}catch (Exception e) {
-			System.err.println("buying-provider@VendorServiceImpl: " + e.getMessage());
+			System.err.println(APP_NAME + ": " + e.getMessage());
 			e.printStackTrace();
 		}
 		
 		try{
 			//EBS
-			System.out.println("buying-provider@VendorServiceImpl: ebsClient.newVendor(transactionId, UnicomerVendorToEbsVendor(vendor));");
-			ebsClient.newVendor(transactionId, UnicomerVendorToEbsVendor(vendor));
+			System.out.println(APP_NAME + ": ebsClient.newVendor(transactionId, UnicomerVendorToEbsVendor(vendor));");
+//			ebsClient.newVendor(transactionId, UnicomerVendorToEbsVendor(vendor));
 		}catch (Exception e) {
-			System.err.println("buying-provider@VendorServiceImpl: " + e.getMessage());
+			System.err.println(APP_NAME + ": " + e.getMessage());
 			e.printStackTrace();
 		}
 		return result;
@@ -100,7 +94,7 @@ public class VendorServiceImpl implements VendorService {
 	public boolean exists(String id) {
 		try {
 			List<SwimVendor> swimVendors = swimClient.getVendor(id).getData();
-			if (swimVendors.size() > 0) {
+			if (swimVendors!=null && swimVendors.size() > 0) {
 				return true;
 			} else {
 				return false;
@@ -116,7 +110,7 @@ public class VendorServiceImpl implements VendorService {
 		UnicomerVendor result = null;
 		try {
 			List<SwimVendor> swimVendors = swimClient.getVendor(id).getData();
-			if (swimVendors.size() > 0) {
+			if (swimVendors!=null && swimVendors.size() > 0) {
 				result = SwimVendorToUnicomerVendor(swimVendors.get(0));
 			}
 		} catch (Exception e) {
@@ -134,16 +128,16 @@ public class VendorServiceImpl implements VendorService {
 		}
 		
 		try {
-			riClient.deleteVendors(id);
+			riClient.deleteVendor(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		try {
-			ebsClient.deleteVendor(transactionId, id);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		try {
+//			ebsClient.deleteVendor(transactionId, id);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 	
@@ -297,8 +291,6 @@ public class VendorServiceImpl implements VendorService {
 		return riVendor;
 	}
 	
-	
-	
 	private OmcInterfaceVendor UnicomerVendorToEbsVendor(UnicomerVendor vendor){
 		OmcInterfaceVendor ebsVendor = new OmcInterfaceVendor();
 		ebsVendor.setId(Integer.valueOf(vendor.getVendorId()));
@@ -309,4 +301,5 @@ public class VendorServiceImpl implements VendorService {
 		
 		return ebsVendor;
 	}
+	
 }

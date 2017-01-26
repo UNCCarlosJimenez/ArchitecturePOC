@@ -4,4 +4,18 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="buy-provider" version="3.0">
 	<display-name>buy-provider</display-name>
+
+<!-- 	<servlet> -->
+<!-- 		<servlet-name>Jersey Web Application</servlet-name> -->
+<!-- 		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class> -->
+<!-- 		<init-param> -->
+<!--             <param-name>jersey.config.server.provider.packages</param-name> -->
+<!--             <param-value>com.unicomer.demo.buying.controller</param-value> -->
+<!--         </init-param> -->
+<!-- 	</servlet> -->
+<!-- 	<servlet-mapping> -->
+<!-- 		<servlet-name>Jersey Web Application</servlet-name> -->
+<!-- 		<url-pattern>/*</url-pattern> -->
+<!-- 	</servlet-mapping> -->
+
 </web-app>

@@ -8,36 +8,43 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import javax.ws.rs.BeanParam;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 
 import com.unicomer.demo.buying.dao.LoggerClient;
 import com.unicomer.demo.buying.service.VendorService;
+import com.unicomer.demo.buying.service.VendorServiceImpl;
+import com.unicomer.demo.buying.util.PropertiesLoader;
 import com.unicomer.demo.common.entity.TransactionLogEndTrace;
 import com.unicomer.demo.common.entity.TransactionLogInfoTrace;
 import com.unicomer.demo.common.entity.UnicomerVendor;
-import com.unicomer.demo.common.entity.UnicomerVendor.RequestVendorMessage;
 import com.unicomer.demo.common.entity.UnicomerVendor.ResponseVendorMessage;
 
-@RestController
+@Path("/")
+@Consumes({"application/json", "application/xml"})
+@Produces({"application/json", "application/xml"})
 public class BuyingRestController {
-	@Autowired VendorService vendorService;
-	@Autowired LoggerClient logger;
-	@Value("${spring.application.name}") String applicationName;
+	private static PropertiesLoader properties = PropertiesLoader.getInstance();
+//	private static final String APP_NAME = "buy-provider@BuyingRestController";
+	private String applicationName = properties.getProperty("spring.application.name");
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/vendors",
-			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public UnicomerVendor.ResponseVendorMessage getVendors(HttpServletRequest servletRequest, HttpServletResponse servletResponse) {
+	private VendorService vendorService = new VendorServiceImpl();
+	private LoggerClient logger = new LoggerClient();
+	
+	@GET
+	@Path("/vendors")
+	public UnicomerVendor.ResponseVendorMessage getVendors(@Context HttpServletRequest servletRequest, @Context HttpServletResponse servletResponse) {
 		String localTransactionId=UUID.randomUUID().toString();
 		long startTime = System.currentTimeMillis();		
-		logger.startTrace(new TransactionLogInfoTrace(
+		logger.start(new TransactionLogInfoTrace(
 				this.getClass().getCanonicalName(), 
 				"",
 				"",
@@ -80,7 +87,7 @@ public class BuyingRestController {
 			response.setServiceDescription(e.getMessage());
 			
 			servletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			logger.errorTrace(new TransactionLogInfoTrace(
+			logger.error(new TransactionLogInfoTrace(
 					this.getClass().getCanonicalName(), 
 					"",
 					e.getCause().getMessage(),
@@ -102,7 +109,7 @@ public class BuyingRestController {
 		response.setDate(Calendar.getInstance().getTime());
 		
 		long duration = System.currentTimeMillis() - startTime;
-		logger.endTrace(new TransactionLogEndTrace(
+		logger.end(new TransactionLogEndTrace(
 				this.getClass().getCanonicalName(), 
 				response.toString(),
 				"",
@@ -121,12 +128,12 @@ public class BuyingRestController {
 		return response;
 	}
 		
-	@RequestMapping(method = RequestMethod.GET, value = "/vendors/{id}",
-			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public UnicomerVendor.ResponseVendorMessage getVendor(@PathVariable(name="id") String id, HttpServletRequest servletRequest, HttpServletResponse servletResponse) {
+	@GET
+	@Path("/vendors/{id}")
+	public UnicomerVendor.ResponseVendorMessage getVendor(@PathParam("id") String id, @Context HttpServletRequest servletRequest, @Context HttpServletResponse servletResponse){
 		String localTransactionId=UUID.randomUUID().toString();
 		long startTime = System.currentTimeMillis();		
-		logger.startTrace(new TransactionLogInfoTrace(
+		logger.start(new TransactionLogInfoTrace(
 				this.getClass().getCanonicalName(), 
 				"",
 				"",
@@ -166,7 +173,7 @@ public class BuyingRestController {
 			servletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			e.printStackTrace();
 			
-			logger.errorTrace(new TransactionLogInfoTrace(
+			logger.error(new TransactionLogInfoTrace(
 					this.getClass().getCanonicalName(), 
 					"",
 					e.getCause().getMessage(),
@@ -186,7 +193,7 @@ public class BuyingRestController {
 		response.setDate(Calendar.getInstance().getTime());
 		
 		long duration = System.currentTimeMillis() - startTime;
-		logger.endTrace(new TransactionLogEndTrace(
+		logger.end(new TransactionLogEndTrace(
 				this.getClass().getCanonicalName(), 
 				response.toString(),
 				"",
@@ -206,16 +213,13 @@ public class BuyingRestController {
 	}
 	
 	
-		
-	
-	@RequestMapping(method = RequestMethod.POST, value = "/vendors",
-			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-			consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public UnicomerVendor.ResponseVendorMessage newVendor(@RequestBody RequestVendorMessage request, HttpServletRequest servletRequest, HttpServletResponse servletResponse) {
+	@POST
+	@Path("/vendors")
+	public UnicomerVendor.ResponseVendorMessage newVendor(UnicomerVendor.RequestVendorMessage request, @Context HttpServletRequest servletRequest, @Context HttpServletResponse servletResponse) {
 		String localTransactionId=UUID.randomUUID().toString();
 		
 		long startTime = System.currentTimeMillis();		
-		logger.startTrace(new TransactionLogInfoTrace(
+		logger.start(new TransactionLogInfoTrace(
 				this.getClass().getCanonicalName(), 
 				"",
 				"",
@@ -249,7 +253,7 @@ public class BuyingRestController {
 			response.setServiceDescription(e.getMessage());
 			
 			servletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			logger.errorTrace(new TransactionLogInfoTrace(
+			logger.error(new TransactionLogInfoTrace(
 					this.getClass().getCanonicalName(), 
 					"",
 					e.getCause().getMessage(),
@@ -271,7 +275,7 @@ public class BuyingRestController {
 		response.setDate(Calendar.getInstance().getTime());
 		
 		long duration = System.currentTimeMillis() - startTime;
-		logger.endTrace(new TransactionLogEndTrace(
+		logger.end(new TransactionLogEndTrace(
 				this.getClass().getCanonicalName(), 
 				response.toString(),
 				"",
@@ -291,15 +295,14 @@ public class BuyingRestController {
 	}
 	
 	
-	@RequestMapping(method = RequestMethod.PUT, value = "/vendors/{id}",
-			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-			consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public UnicomerVendor.ResponseVendorMessage updateVendor(@RequestBody RequestVendorMessage request, @PathVariable(name="id") String id,
-			HttpServletRequest servletRequest, HttpServletResponse servletResponse) {
+	@PUT
+	@Path("/vendors/{id}")
+	public UnicomerVendor.ResponseVendorMessage updateVendor(@BeanParam UnicomerVendor.RequestVendorMessage request, @PathParam("id") String id, 
+			@Context HttpServletRequest servletRequest, @Context HttpServletResponse servletResponse) {
 		String localTransactionId=UUID.randomUUID().toString();
 		
 		long startTime = System.currentTimeMillis();		
-		logger.startTrace(new TransactionLogInfoTrace(
+		logger.start(new TransactionLogInfoTrace(
 				this.getClass().getCanonicalName(), 
 				request.toString(),
 				id,
@@ -331,7 +334,7 @@ public class BuyingRestController {
 			response.setServiceDescription(e.getMessage());
 			
 			servletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			logger.errorTrace(new TransactionLogInfoTrace(
+			logger.error(new TransactionLogInfoTrace(
 					this.getClass().getCanonicalName(), 
 					id,
 					e.getCause().getMessage(),
@@ -353,7 +356,7 @@ public class BuyingRestController {
 		response.setDate(Calendar.getInstance().getTime());
 		
 		long duration = System.currentTimeMillis() - startTime;
-		logger.endTrace(new TransactionLogEndTrace(
+		logger.end(new TransactionLogEndTrace(
 				this.getClass().getCanonicalName(), 
 				response.toString(),
 				id,
@@ -372,15 +375,14 @@ public class BuyingRestController {
 		return response;
 	}
 	
-	@RequestMapping(method = RequestMethod.DELETE, value = "/vendors/{id}",
-			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-			consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public UnicomerVendor.ResponseVendorMessage deleteVendor(@PathVariable(name="id") String id,
-			HttpServletRequest servletRequest, HttpServletResponse servletResponse) {
+	@DELETE
+	@Path("/vendors/{id}")
+	public UnicomerVendor.ResponseVendorMessage deleteVendor(@PathParam("id") String id, 
+			@Context HttpServletRequest servletRequest, @Context HttpServletResponse servletResponse) {
 		String localTransactionId=UUID.randomUUID().toString();
 		
 		long startTime = System.currentTimeMillis();		
-		logger.startTrace(new TransactionLogInfoTrace(
+		logger.start(new TransactionLogInfoTrace(
 				this.getClass().getCanonicalName(), 
 				id,
 				id,
@@ -411,7 +413,7 @@ public class BuyingRestController {
 			response.setServiceDescription(e.getMessage());
 			
 			servletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			logger.errorTrace(new TransactionLogInfoTrace(
+			logger.error(new TransactionLogInfoTrace(
 					this.getClass().getCanonicalName(), 
 					id,
 					e.getCause().getMessage(),
@@ -433,7 +435,7 @@ public class BuyingRestController {
 		response.setDate(Calendar.getInstance().getTime());
 		
 		long duration = System.currentTimeMillis() - startTime;
-		logger.endTrace(new TransactionLogEndTrace(
+		logger.end(new TransactionLogEndTrace(
 				this.getClass().getCanonicalName(), 
 				response.toString(),
 				id,
