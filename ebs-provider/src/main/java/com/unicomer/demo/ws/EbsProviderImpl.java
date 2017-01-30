@@ -4,14 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.handler.MessageContext;
 
 import com.unicomer.demo.common.entity.TransactionLogEndTrace;
 import com.unicomer.demo.common.entity.TransactionLogInfoTrace;
@@ -31,17 +33,21 @@ import com.unicomer.demo.message.UpdateVendorResponse;
 import com.unicomer.demo.repository.VendorRepository;
 
 @WebService(name = "EbsProvider", targetNamespace = "http://ws.demo.unicomer.com/")
-@SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.WRAPPED)
+@SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
 @XmlSeeAlso({ com.unicomer.demo.message.ObjectFactory.class })
 @Stateless
 public class EbsProviderImpl implements EbsProvider {
+	@Resource
+	WebServiceContext wsContext;
 	private LoggerClient logger = new LoggerClient();
 	private VendorRepository vendorRepository = new VendorRepository();
 	
 	@WebMethod
 	public GetVendorResponse getVendor(
-			@WebParam(name = "GetVendorRequest", targetNamespace = "http://ws.demo.unicomer.com/", partName = "payload") GetVendorRequest payload,
-			HttpServletRequest servletRequest, HttpServletResponse servletResponse) {
+			@WebParam(name = "GetVendorRequest", targetNamespace = "http://ws.demo.unicomer.com/", partName = "payload") GetVendorRequest payload) {
+		MessageContext mc = wsContext.getMessageContext();
+	    HttpServletRequest servletRequest = (HttpServletRequest)mc.get(MessageContext.SERVLET_REQUEST); 
+		
 		ObjectFactory factory = new ObjectFactory();
 		GetVendorResponse response = factory.createGetVendorResponse();
 		ResponseHeader responseHeader = factory.createResponseHeader();
@@ -131,8 +137,10 @@ public class EbsProviderImpl implements EbsProvider {
 	
 	@WebMethod
 	public AddVendorResponse addVendor(
-			@WebParam(name = "AddVendorRequest", targetNamespace = "http://ws.demo.unicomer.com/", partName = "payload") AddVendorRequest payload,
-			HttpServletRequest servletRequest, HttpServletResponse servletResponse) {
+			@WebParam(name = "AddVendorRequest", targetNamespace = "http://ws.demo.unicomer.com/", partName = "payload") AddVendorRequest payload) {
+		MessageContext mc = wsContext.getMessageContext();
+	    HttpServletRequest servletRequest = (HttpServletRequest)mc.get(MessageContext.SERVLET_REQUEST); 
+		
 		ObjectFactory factory = new ObjectFactory();
 		AddVendorResponse response = factory.createAddVendorResponse();
 		ResponseHeader responseHeader = factory.createResponseHeader();
@@ -213,8 +221,10 @@ public class EbsProviderImpl implements EbsProvider {
 	
 	@WebMethod
 	public UpdateVendorResponse updateVendor(
-			@WebParam(name = "UpdateVendorRequest", targetNamespace = "http://ws.demo.unicomer.com/", partName = "payload") UpdateVendorRequest payload,
-			HttpServletRequest servletRequest, HttpServletResponse servletResponse) {
+			@WebParam(name = "UpdateVendorRequest", targetNamespace = "http://ws.demo.unicomer.com/", partName = "payload") UpdateVendorRequest payload) {
+		MessageContext mc = wsContext.getMessageContext();
+	    HttpServletRequest servletRequest = (HttpServletRequest)mc.get(MessageContext.SERVLET_REQUEST); 
+		
 		ObjectFactory factory = new ObjectFactory();
 		UpdateVendorResponse response = factory.createUpdateVendorResponse();
 		ResponseHeader responseHeader = factory.createResponseHeader();
@@ -296,8 +306,10 @@ public class EbsProviderImpl implements EbsProvider {
 	
 	@WebMethod
 	public DeleteVendorResponse deleteVendor(
-			@WebParam(name = "AddVendorRequest", targetNamespace = "http://ws.demo.unicomer.com/", partName = "payload") DeleteVendorRequest payload,
-			HttpServletRequest servletRequest, HttpServletResponse servletResponse) {
+			@WebParam(name = "AddVendorRequest", targetNamespace = "http://ws.demo.unicomer.com/", partName = "payload") DeleteVendorRequest payload) {
+		MessageContext mc = wsContext.getMessageContext();
+	    HttpServletRequest servletRequest = (HttpServletRequest)mc.get(MessageContext.SERVLET_REQUEST); 
+		
 		ObjectFactory factory = new ObjectFactory();
 		DeleteVendorResponse response = factory.createDeleteVendorResponse();
 		ResponseHeader responseHeader = factory.createResponseHeader();
