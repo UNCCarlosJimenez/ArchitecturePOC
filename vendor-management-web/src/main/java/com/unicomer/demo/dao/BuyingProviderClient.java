@@ -1,7 +1,6 @@
 package com.unicomer.demo.dao;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,7 +38,6 @@ public class BuyingProviderClient {
 		RequestVendorMessage request = new RequestVendorMessage();
 		
 		request.setApplication("vendor-management-web");
-		request.setDate(Calendar.getInstance().getTime());
 		request.setPosId("");
 		request.setStore("");
 		request.setTransaction(localTransactionId);
