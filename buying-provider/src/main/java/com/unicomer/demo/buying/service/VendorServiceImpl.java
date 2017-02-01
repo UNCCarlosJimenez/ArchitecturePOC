@@ -10,11 +10,11 @@ import java.util.List;
 import com.unicomer.demo.buying.dao.EbsClient;
 import com.unicomer.demo.buying.dao.RiClient;
 import com.unicomer.demo.buying.dao.SwimClient;
-import com.unicomer.demo.buying.message.ebs.OmcInterfaceVendor;
 import com.unicomer.demo.buying.util.PropertiesLoader;
 import com.unicomer.demo.common.entity.UnicomerVendor;
 import com.unicomer.demo.ri.domain.RiVendor;
 import com.unicomer.demo.swim.domain.SwimVendor;
+import com.unicomer.demo.ws.OmcInterfaceVendor;
 
 public class VendorServiceImpl implements VendorService {
 	private static PropertiesLoader properties = PropertiesLoader.getInstance();
@@ -82,7 +82,7 @@ public class VendorServiceImpl implements VendorService {
 		try{
 			//EBS
 			System.out.println(APP_NAME + ": ebsClient.newVendor(transactionId, UnicomerVendorToEbsVendor(vendor));");
-//			ebsClient.newVendor(transactionId, UnicomerVendorToEbsVendor(vendor));
+			ebsClient.newVendor(transactionId, UnicomerVendorToEbsVendor(vendor));
 		}catch (Exception e) {
 			System.err.println(APP_NAME + ": " + e.getMessage());
 			e.printStackTrace();
@@ -133,11 +133,11 @@ public class VendorServiceImpl implements VendorService {
 			e.printStackTrace();
 		}
 		
-//		try {
-//			ebsClient.deleteVendor(transactionId, id);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		try {
+			ebsClient.deleteVendor(transactionId, id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	

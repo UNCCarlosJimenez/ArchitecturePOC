@@ -8,7 +8,6 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.client.ClientProperties;
 
@@ -41,9 +40,9 @@ public class LoggerClient {
 	
 	public void info (TransactionLogInfoTrace trace){
 		try {
-			Response response = getResource("info").post(Entity.entity(trace, contentType));
+			int status = getResource("info").post(Entity.entity(trace, contentType)).getStatus();
 			
-			System.out.println("[" + APP_NAME + " > LoggerClient] - HTTP error code : " + response.getStatus());
+			System.out.println("[" + APP_NAME + " > LoggerClient] - HTTP error code : " + status);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -51,9 +50,9 @@ public class LoggerClient {
 	
 	public void error (TransactionLogInfoTrace trace){
 		try {
-			Response response = getResource("error").post(Entity.entity(trace, contentType));
+			int status = getResource("error").post(Entity.entity(trace, contentType)).getStatus();
 			
-			System.out.println("[" + APP_NAME + " > LoggerClient] - HTTP error code : " + response.getStatus());
+			System.out.println("[" + APP_NAME + " > LoggerClient] - HTTP error code : " + status);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -61,9 +60,9 @@ public class LoggerClient {
 	
 	public void start (TransactionLogInfoTrace trace){
 		try {
-			Response response = getResource("start").post(Entity.entity(trace, contentType));
+			int status = getResource("start").post(Entity.entity(trace, contentType)).getStatus();
 			
-			System.out.println("[" + APP_NAME + " > LoggerClient] - HTTP error code : " + response.getStatus());
+			System.out.println("[" + APP_NAME + " > LoggerClient] - HTTP error code : " + status);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -71,9 +70,9 @@ public class LoggerClient {
 	
 	public void end (TransactionLogEndTrace trace){
 		try {
-			Response response = getResource("end").post(Entity.entity(trace, contentType));
+			int status = getResource("end").post(Entity.entity(trace, contentType)).getStatus();
 			
-			System.out.println("[" + APP_NAME + " > LoggerClient] - HTTP error code : " + response.getStatus());
+			System.out.println("[" + APP_NAME + " > LoggerClient] - HTTP error code : " + status);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -111,7 +111,7 @@ public class BuyingRestController {
 		long duration = System.currentTimeMillis() - startTime;
 		logger.end(new TransactionLogEndTrace(
 				this.getClass().getCanonicalName(), 
-				response.toString(),
+				"Registros recuperados: " + response.getData().size(),
 				"",
 				servletRequest.getRemoteAddr(), 
 				"getVendors", 
