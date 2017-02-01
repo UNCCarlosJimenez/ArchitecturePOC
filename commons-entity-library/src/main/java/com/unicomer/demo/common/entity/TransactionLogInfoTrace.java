@@ -3,18 +3,20 @@
  */
 package com.unicomer.demo.common.entity;
 
-import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
+
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 /**
  * @author carlosj_rodriguez
  *
  */
 @XmlRootElement(name="transactionLogInfoTrace")
-public class TransactionLogInfoTrace implements Serializable {
+@JsonRootName(value="transactionLogInfoTrace")
+public class TransactionLogInfoTrace {
 	private Date createdDate;
 	private String detail;
 	private String lookupData;

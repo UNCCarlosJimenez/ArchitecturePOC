@@ -7,8 +7,10 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
-@XmlRootElement
+@XmlRootElement(name="ResponseHeader")
+@JsonRootName(value="ResponseHeader")
 public class ResponseHeader implements Serializable {
 	/**
 	 * 

@@ -8,11 +8,14 @@ import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
+
 /**
  * @author carlosj_rodriguez
  *
  */
 @XmlRootElement(name="transactionLogEndTrace")
+@JsonRootName(value="transactionLogEndTrace")
 public class TransactionLogEndTrace {
 	private Date createdDate;
 	private String detail;

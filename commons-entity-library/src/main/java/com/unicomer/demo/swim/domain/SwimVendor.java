@@ -3,9 +3,6 @@ package com.unicomer.demo.swim.domain;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -14,7 +11,7 @@ import com.unicomer.demo.common.header.ResponseHeader;
 
 @XmlRootElement(name="Vendor")
 @JsonRootName(value="Vendor")
-public class SwimVendor {
+public class SwimVendor implements Serializable {
 	
 	private String vendorId;
 	
@@ -28,266 +25,108 @@ public class SwimVendor {
 
 	private String state;
 
-	@Column(name = "ZIP_CODE", nullable = true)
-	@Size(min = 0, max = 10)
-	@NotNull
 	private String zipCode;
-
-	@Column(name = "POSTAL_CODE", nullable = true)
-	@Size(min = 0, max = 6)
-	@NotNull
 	private String postalCode;
 
-	@Column(name = "REP_PHONE", nullable = false)
-	@Size(min = 0, max = 30)
-	@NotNull
 	private String phoneNumber;
 
-	@Column(name = "REP_FAX", nullable = true)
-	@Size(min = 0, max = 17)
-	@NotNull
 	private String faxNumber;
 
-	@Column(name = "CHECK_PRIORITY", nullable = true)
-	@Size(min = 0, max = 2)
-	@NotNull
 	private String priority;
 
-	@Column(name = "DUNS_NUMBER", nullable = true)
-	@Size(min = 0, max = 10)
-	@NotNull
 	private String dunsNumber;
 
-	@Column(name = "ABBREVIATION", nullable = true)
-	@Size(min = 0, max = 10)
-	@NotNull
 	private String abbreviation;
 
-	@Column(name = "CONTACT_NAME", nullable = false)
-	@Size(min = 0, max = 60)
-	@NotNull
 	private String contactName;
 
-	@Column(name = "TYPE", nullable = false)
-	@Size(min = 0, max = 10)
-	@NotNull
 	private String type;
 
-	@Column(name = "SOCIAL_SEC_NBR", nullable = true)
-	@Size(min = 0, max = 10)
-	@NotNull
 	private String socialSecurityNumber;
 
-	@Column(name = "FEDERAL_TAX_ID", nullable = true)
-	@Size(min = 0, max = 11)
-	@NotNull
 	private String taxId;
 
-	@Column(name = "TERMS1", nullable = false)
-	@Size(min = 0, max = 5)
-	@NotNull
 	private String terms1;
 
-	@Column(name = "TERMS2", nullable = false)
-	@Size(min = 0, max = 5)
-	@NotNull
 	private String terms2;
 
-	@Column(name = "TERMS3", nullable = false)
-	@Size(min = 0, max = 5)
-	@NotNull
 	private String terms3;
 
-	@Column(name = "FACTOR_NUMBER", nullable = true)
-	@Size(min = 0, max = 6)
-	@NotNull
 	private String factor;
 
-	@Column(name = "FOB_POINT", nullable = true)
-	@Size(min = 0, max = 11)
-	@NotNull
 	private String fobPoint;
 
-	@Column(name = "SHIPPING_PT", nullable = true)
-	@Size(min = 0, max = 11)
-	@NotNull
 	private String shipping;
 
-	@Column(name = "SHIP_VIA", nullable = true)
-	@Size(min = 0, max = 11)
-	@NotNull
 	private String shipVia;
 
-	@Column(name = "MFG_PHONE", nullable = true)
-	@Size(min = 0, max = 17)
-	@NotNull
 	private String phoneMfg;
 
-	@Column(name = "MFG_FAX", nullable = true)
-	@Size(min = 0, max = 17)
-	@NotNull
 	private String faxMfg;
 
-	@Column(name = "GLOBAL_FREIGHT", nullable = true)
-	@Size(min = 0, max = 5)
-	@NotNull
 	private String globalFreight;
 
-	@Column(name = "GLOBAL_DISC", nullable = true)
-	@Size(min = 0, max = 5)
-	@NotNull
 	private String globalDiscount;
 
-	@Column(name = "MIN_SHIP_AMT", nullable = true)
-	@Size(min = 0, max = 5)
-	@NotNull
 	private String minShip;
 
-	@Column(name = "MIN_SHIP_UNITS", nullable = true)
-	@Size(min = 0, max = 5)
-	@NotNull
 	private String minShipUnit;
 
-	@Column(name = "CYCLE_REVIEW_CD", nullable = true)
-	@Size(min = 0, max = 1)
-	@NotNull
 	private String reviewCycle;
 
-	@Column(name = "TELEPHONE", nullable = true)
-	@Size(min = 0, max = 17)
-	@NotNull
 	private String telephone;
 
-	@Column(name = "LETTER_CREDIT_VENDOR", nullable = true)
-	@Size(min = 0, max = 5)
-	@NotNull
+
 	private String letterCreditVendor;
 
-	@Column(name = "RETURN_VENDOR_NAME", nullable = false)
-	@Size(min = 0, max = 25)
-	@NotNull
 	private String returnVendorName;
 
-	@Column(name = "RETURN_ADDRESS", nullable = false)
-	@Size(min = 0, max = 60)
-	@NotNull
 	private String returnAddress;
 
-	@Column(name = "RETURN_COUNTRY", nullable = false)
-	@Size(min = 0, max = 30)
-	@NotNull
 	private String returnCountry;
 
-	@Column(name = "RETURN_CITY", nullable = false)
-	@Size(min = 0, max = 30)
-	@NotNull
 	private String returnCity;
 
-	@Column(name = "RETURN_STATE", nullable = false)
-	@Size(min = 0, max = 2)
-	@NotNull
 	private String returnState;
 
-	@Column(name = "REMIT_VENDOR_NAME", nullable = false)
-	@Size(min = 0, max = 25)
-	@NotNull
 	private String remitVendorName;
 
-	@Column(name = "REMIT_ADDRESS", nullable = false)
-	@Size(min = 0, max = 60)
-	@NotNull
 	private String remitAddress;
 
-	@Column(name = "REMIT_COUNTRY", nullable = false)
-	@Size(min = 0, max = 30)
-	@NotNull
 	private String remitCountry;
 
-	@Column(name = "REMIT_CITY", nullable = false)
-	@Size(min = 0, max = 30)
-	@NotNull
 	private String remitCity;
 
-	@Column(name = "REMIT_STATE", nullable = false)
-	@Size(min = 0, max = 2)
-	@NotNull
 	private String remitState;
 
-	@Column(name = "RETURN_POSTAL_CODE", nullable = true)
-	@Size(min = 0, max = 6)
-	@NotNull
 	private String returnPortalCode;
 
-	@Column(name = "REMIT_POSTAL_CODE", nullable = true)
-	@Size(min = 0, max = 6)
-	@NotNull
 	private String remitPostalCode;
 
-	@Column(name = "RETURN_ZIP_CODE", nullable = true)
-	@Size(min = 0, max = 10)
-	@NotNull
 	private String returnZipCode;
 
-	@Column(name = "REMIT_ZIP_CODE", nullable = true)
-	@Size(min = 0, max = 10)
-	@NotNull
 	private String remitZipCode;
 
-	@Column(name = "EMAIL_VENDOR", nullable = true)
-	@Size(min = 0, max = 50)
-	@NotNull
 	private String email;
 
-	@Column(name = "REMIT_EMAIL", nullable = true)
-	@Size(min = 0, max = 50)
-	@NotNull
 	private String remitEmail;
 
-	@Column(name = "RETURN_EMAIL", nullable = true)
-	@Size(min = 0, max = 50)
-	@NotNull
 	private String returnEmail;
 
-	@Column(name = "STATUS", nullable = true)
-	@Size(min = 0, max = 1)
-	@NotNull
 	private String status;
 
-	@Column(name = "NIT", nullable = false)
-	@Size(min = 0, max = 17)
-	@NotNull
 	private String nit;
 
-	@Column(name = "WHS", nullable = false)
-	@Size(min = 0, max = 40)
-	@NotNull
 	private String wmsVendor;
 
-	@Column(name = "VENDOR_STORAGE", nullable = false)
-	@Size(min = 0, max = 3)
-	@NotNull
 	private String vendorStorage;
 
-	@Column(name = "REG_FISCAL", nullable = false)
-	@Size(min = 0, max = 8)
-	@NotNull
 	private String fiscalReg;
 
-	@Column(name = "LAST_CHANGE_DATE", nullable = false)
-	@Size(min = 0, max = 10)
-	@NotNull
-	// private java.sql.Date lastChangeDate;
 	private String lastChangeDate;
 
-	@Column(name = "LAST_CHANGE_TIME", nullable = false)
-	@Size(min = 0, max = 8)
-	@NotNull
-	// private java.sql.Time lastChangeTime;
 	private String lastChangeTime;
 
-	@Column(name = "LAST_CHANGE_USER", nullable = false)
-	@Size(min = 0, max = 20)
-	@NotNull
 	private String lastChangeUser;
 
 	/**
@@ -1301,6 +1140,8 @@ public class SwimVendor {
 	 * @author oracle
 	 *
 	 */
+	@XmlRootElement(name="SwimRequestMessage")
+	@JsonRootName(value="SwimRequestMessage")
 	public static class RequestMessage extends RequestHeader implements Serializable {
 		private static final long serialVersionUID = 325842498732514519L;
 		private SwimVendor data;
@@ -1338,6 +1179,8 @@ public class SwimVendor {
 	 * @author oracle
 	 *
 	 */
+	@XmlRootElement(name="SwimResponseMessage")
+	@JsonRootName(value="SwimResponseMessage")
 	public static class ResponseMessage extends ResponseHeader implements Serializable {
 		private static final long serialVersionUID = 325842498732514519L;
 		private List<SwimVendor> data;
