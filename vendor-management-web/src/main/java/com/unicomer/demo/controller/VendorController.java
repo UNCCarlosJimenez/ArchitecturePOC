@@ -9,11 +9,11 @@ import java.util.logging.Logger;
 
 import javax.ejb.EJBException;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.inject.Named;
 
 import com.unicomer.demo.common.entity.UnicomerVendor;
 import com.unicomer.demo.controller.util.JsfUtil;
@@ -21,7 +21,7 @@ import com.unicomer.demo.controller.util.JsfUtil.PersistAction;
 import com.unicomer.demo.dao.BuyingProviderClient;
 
 @SuppressWarnings("serial")
-@Named("vendorController")
+@ManagedBean(name="vendorController")
 @SessionScoped
 public class VendorController implements Serializable {
 	

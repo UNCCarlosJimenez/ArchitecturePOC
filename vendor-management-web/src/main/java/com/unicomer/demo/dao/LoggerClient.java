@@ -37,7 +37,7 @@ public class LoggerClient {
 	
 	public void info (TransactionLogInfoTrace trace){
 		try {
-			ClientResponse response = getResource("info").accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
+			ClientResponse response = getResource("info").accept(MediaType.TEXT_PLAIN).type(MediaType.APPLICATION_JSON)
 					.header(HttpHeaders.CACHE_CONTROL, "false").post(ClientResponse.class, trace);
 			
 			System.out.println("[vendor-management-web > LoggerClient] - HTTP error code : " + response.getStatus());
@@ -48,7 +48,7 @@ public class LoggerClient {
 	
 	public void error (TransactionLogInfoTrace trace){
 		try {
-			ClientResponse response = getResource("error").accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
+			ClientResponse response = getResource("error").accept(MediaType.TEXT_PLAIN).type(MediaType.APPLICATION_JSON)
 					.header(HttpHeaders.CACHE_CONTROL, "false").post(ClientResponse.class, trace);
 			
 			System.out.println("[vendor-management-web > LoggerClient] - HTTP error code : " + response.getStatus());
@@ -59,7 +59,7 @@ public class LoggerClient {
 	
 	public void start (TransactionLogInfoTrace trace){
 		try {
-			ClientResponse response = getResource("start").accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
+			ClientResponse response = getResource("start").accept(MediaType.TEXT_PLAIN).type(MediaType.APPLICATION_JSON)
 					.header(HttpHeaders.CACHE_CONTROL, "false").post(ClientResponse.class, trace);
 			
 			System.out.println("[vendor-management-web > LoggerClient] - HTTP error code : " + response.getStatus());
@@ -70,7 +70,7 @@ public class LoggerClient {
 	
 	public void end (TransactionLogEndTrace trace){
 		try {
-			ClientResponse response = getResource("end").accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
+			ClientResponse response = getResource("end").accept(MediaType.TEXT_PLAIN).type(MediaType.APPLICATION_JSON)
 					.header(HttpHeaders.CACHE_CONTROL, "false").post(ClientResponse.class, trace);
 			
 			System.out.println("[vendor-management-web > LoggerClient] - HTTP error code : " + response.getStatus());
