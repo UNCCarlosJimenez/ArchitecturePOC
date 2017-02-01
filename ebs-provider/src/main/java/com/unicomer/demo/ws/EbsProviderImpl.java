@@ -306,7 +306,7 @@ public class EbsProviderImpl implements EbsProvider {
 	
 	@WebMethod
 	public DeleteVendorResponse deleteVendor(
-			@WebParam(name = "AddVendorRequest", targetNamespace = "http://ws.demo.unicomer.com/", partName = "payload") DeleteVendorRequest payload) {
+			@WebParam(name = "DeleteVendorRequest", targetNamespace = "http://ws.demo.unicomer.com/", partName = "payload") DeleteVendorRequest payload) {
 		MessageContext mc = wsContext.getMessageContext();
 	    HttpServletRequest servletRequest = (HttpServletRequest)mc.get(MessageContext.SERVLET_REQUEST); 
 		
