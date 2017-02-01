@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -135,7 +137,8 @@ public class VendorRestController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/vendors",
 			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public SwimVendorDomain.ResponseMessage getVendorsPageable(HttpServletRequest servletRequest, HttpServletResponse servletResponse, Pageable pageable) {
+	public SwimVendorDomain.ResponseMessage getVendorsPageable(HttpServletRequest servletRequest, HttpServletResponse servletResponse, 
+			@PageableDefault(page=0, value=250, sort = { "name" }, direction = Direction.ASC) Pageable pageable) {
 		servletResponse.setStatus(HttpServletResponse.SC_OK);
 		ResponseMessage response = new ResponseMessage();
 		
@@ -158,27 +161,7 @@ public class VendorRestController {
 		
 		try{
 			List<SwimVendorDomain> vendorList = new ArrayList<SwimVendorDomain>();
-			Iterator<SwimVendorDomain> it;
-			
-			if(pageable.getPageSize()==20 && pageable.getPageNumber()==0){
-				logger.infoTrace(new TransactionLogInfoTrace(
-						this.getClass().getCanonicalName(), 
-						"",
-						"",
-						servletRequest.getRemoteAddr(), 
-						"getVendors", 
-						"Se ha detectado el tamaño de pageable por defecto, por lo que se recuperarán todos los registros", 
-						localTransactionId, 
-						localTransactionId, 
-						"", 
-						"v1", 
-						applicationName
-					)
-				);
-				it = vendorService.findAll().iterator();
-			}else{
-				it = vendorService.listAllByPage(pageable).iterator();
-			}
+			Iterator<SwimVendorDomain> it = vendorService.listAllByPage(pageable).iterator();
 			
 			while (it.hasNext()) {
 				SwimVendorDomain vendor = it.next();

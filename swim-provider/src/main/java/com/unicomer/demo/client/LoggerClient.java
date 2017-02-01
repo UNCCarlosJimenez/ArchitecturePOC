@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.unicomer.config.LoggerClientConfiguration;
 import com.unicomer.demo.common.entity.TransactionLogEndTrace;
 import com.unicomer.demo.common.entity.TransactionLogInfoTrace;
-import com.unicomer.demo.common.header.ResponseHeader;
 
 /**
  * @author carlosj_rodriguez
@@ -23,26 +22,26 @@ public interface LoggerClient {
 	
 	@RequestMapping(value = "/info", 
 			method = RequestMethod.POST, 
-			consumes = MediaType.APPLICATION_JSON_VALUE, 
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseHeader infoTrace(@RequestBody TransactionLogInfoTrace request);
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces=MediaType.TEXT_PLAIN_VALUE)
+	public void infoTrace(@RequestBody TransactionLogInfoTrace request);
 	
 	@RequestMapping(value = "/error", 
 			method = RequestMethod.POST, 
-			consumes = MediaType.APPLICATION_JSON_VALUE, 
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseHeader errorTrace(@RequestBody TransactionLogInfoTrace request);
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces=MediaType.TEXT_PLAIN_VALUE)
+	public void errorTrace(@RequestBody TransactionLogInfoTrace request);
 	
 	@RequestMapping(value = "/start", 
 			method = RequestMethod.POST, 
-			consumes = MediaType.APPLICATION_JSON_VALUE, 
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseHeader startTrace(@RequestBody TransactionLogInfoTrace request);
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces=MediaType.TEXT_PLAIN_VALUE)
+	public void startTrace(@RequestBody TransactionLogInfoTrace request);
 	
 	@RequestMapping(value = "/end", 
 			method = RequestMethod.POST, 
-			consumes = MediaType.APPLICATION_JSON_VALUE, 
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseHeader endTrace(@RequestBody TransactionLogEndTrace request);
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces=MediaType.TEXT_PLAIN_VALUE)
+	public void endTrace(@RequestBody TransactionLogEndTrace request);
 	
 }
