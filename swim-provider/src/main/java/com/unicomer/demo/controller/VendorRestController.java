@@ -45,20 +45,19 @@ public class VendorRestController {
 		
 		String localTransactionId=UUID.randomUUID().toString();
 		long startTime = System.currentTimeMillis();		
-		logger.startTrace(new TransactionLogInfoTrace(
-				this.getClass().getCanonicalName(), 
+		TransactionLogInfoTrace info = new TransactionLogInfoTrace(
 				"",
 				"",
-				servletRequest.getRemoteAddr(), 
-				"getVendors", 
+				servletRequest.getRemoteAddr(),
 				"Inicio de /vendors/all", 
 				localTransactionId, 
 				localTransactionId, 
 				"", 
 				"v1", 
 				applicationName
-			)
-		);
+			);
+		info.setEventSource(Thread.currentThread().getStackTrace()[2].toString());
+		logger.startTrace(info);
 		
 		servletResponse.setStatus(HttpServletResponse.SC_OK);
 		ResponseMessage response = new ResponseMessage();
@@ -95,11 +94,9 @@ public class VendorRestController {
 			servletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			
 			logger.errorTrace(new TransactionLogInfoTrace(
-					this.getClass().getCanonicalName(), 
 					"",
 					e.getCause().getMessage(),
-					servletRequest.getRemoteAddr(), 
-					"getVendors", 
+					servletRequest.getRemoteAddr(),
 					"Ha ocurrido un problema: " + e.getMessage(), 
 					localTransactionId, 
 					localTransactionId, 
@@ -115,11 +112,9 @@ public class VendorRestController {
 		
 		long duration = System.currentTimeMillis() - startTime;
 		logger.endTrace(new TransactionLogEndTrace(
-				this.getClass().getCanonicalName(), 
 				response.getData().size() + " registros recuperados",
 				"",
-				servletRequest.getRemoteAddr(), 
-				"getVendors", 
+				servletRequest.getRemoteAddr(),
 				"Fin de /vendors/all", 
 				localTransactionId, 
 				localTransactionId, 
@@ -145,11 +140,9 @@ public class VendorRestController {
 		String localTransactionId=UUID.randomUUID().toString();
 		long startTime = System.currentTimeMillis();		
 		logger.startTrace(new TransactionLogInfoTrace(
-				this.getClass().getCanonicalName(), 
 				"",
 				"",
-				servletRequest.getRemoteAddr(), 
-				"getVendors", 
+				servletRequest.getRemoteAddr(),
 				"Inicio de /vendors", 
 				localTransactionId, 
 				localTransactionId, 
@@ -192,11 +185,9 @@ public class VendorRestController {
 			servletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			
 			logger.errorTrace(new TransactionLogInfoTrace(
-					this.getClass().getCanonicalName(), 
 					"",
 					e.getCause().getMessage(),
-					servletRequest.getRemoteAddr(), 
-					"getVendors", 
+					servletRequest.getRemoteAddr(),
 					"Ha ocurrido un problema: " + e.getMessage(), 
 					localTransactionId, 
 					localTransactionId, 
@@ -213,11 +204,9 @@ public class VendorRestController {
 		
 		long duration = System.currentTimeMillis() - startTime;
 		logger.endTrace(new TransactionLogEndTrace(
-				this.getClass().getCanonicalName(), 
 				"",
 				"",
-				servletRequest.getRemoteAddr(), 
-				"getVendors", 
+				servletRequest.getRemoteAddr(),
 				"Fin de /vendors", 
 				localTransactionId, 
 				localTransactionId, 
@@ -242,11 +231,9 @@ public class VendorRestController {
 		String localTransactionId=UUID.randomUUID().toString();
 		long startTime = System.currentTimeMillis();		
 		logger.startTrace(new TransactionLogInfoTrace(
-				this.getClass().getCanonicalName(), 
 				request.toString(),
 				"",
-				servletRequest.getRemoteAddr(), 
-				"addVendor", 
+				servletRequest.getRemoteAddr(),
 				"Inicio de POST /vendors", 
 				request.getTransaction(),
 				localTransactionId,
@@ -288,11 +275,9 @@ public class VendorRestController {
 			servletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			
 			logger.errorTrace(new TransactionLogInfoTrace(
-					this.getClass().getCanonicalName(), 
 					"",
 					e.getCause().getMessage(),
-					servletRequest.getRemoteAddr(), 
-					"addVendor", 
+					servletRequest.getRemoteAddr(),
 					"Ha ocurrido un problema: " + e.getMessage(), 
 					request.getTransaction(),
 					localTransactionId,
@@ -307,11 +292,9 @@ public class VendorRestController {
 		
 		long duration = System.currentTimeMillis() - startTime;
 		logger.endTrace(new TransactionLogEndTrace(
-				this.getClass().getCanonicalName(), 
 				response.toString(),
 				"",
-				servletRequest.getRemoteAddr(), 
-				"addVendor", 
+				servletRequest.getRemoteAddr(),
 				"Fin de POST /vendors", 
 				request.getTransaction(),
 				localTransactionId,
@@ -336,11 +319,9 @@ public class VendorRestController {
 		String localTransactionId=UUID.randomUUID().toString();
 		long startTime = System.currentTimeMillis();		
 		logger.startTrace(new TransactionLogInfoTrace(
-				this.getClass().getCanonicalName(), 
 				request.toString(),
 				"",
-				servletRequest.getRemoteAddr(), 
-				"updateVendor", 
+				servletRequest.getRemoteAddr(),
 				"Inicio de PUT /vendors/"+id,
 				request.getTransaction(),
 				localTransactionId,
@@ -381,11 +362,9 @@ public class VendorRestController {
 			servletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			
 			logger.errorTrace(new TransactionLogInfoTrace(
-					this.getClass().getCanonicalName(), 
 					"",
 					e.getCause().getMessage(),
-					servletRequest.getRemoteAddr(), 
-					"updateVendor", 
+					servletRequest.getRemoteAddr(),
 					"Ha ocurrido un problema: " + e.getMessage(), 
 					request.getTransaction(),
 					localTransactionId,
@@ -400,11 +379,9 @@ public class VendorRestController {
 		
 		long duration = System.currentTimeMillis() - startTime;
 		logger.endTrace(new TransactionLogEndTrace(
-				this.getClass().getCanonicalName(), 
 				response.toString(),
 				"",
-				servletRequest.getRemoteAddr(), 
-				"updateVendor", 
+				servletRequest.getRemoteAddr(),
 				"Fin de PUT /vendors/"+id,
 				request.getTransaction(),
 				localTransactionId,
@@ -429,11 +406,9 @@ public class VendorRestController {
 		String localTransactionId=UUID.randomUUID().toString();
 		long startTime = System.currentTimeMillis();		
 		logger.startTrace(new TransactionLogInfoTrace(
-				this.getClass().getCanonicalName(), 
 				"",
 				"",
-				servletRequest.getRemoteAddr(), 
-				"getVendorById", 
+				servletRequest.getRemoteAddr(),
 				"Inicio de GET /vendors/"+id,
 				localTransactionId, 
 				localTransactionId, 
@@ -465,11 +440,9 @@ public class VendorRestController {
 		
 		long duration = System.currentTimeMillis() - startTime;
 		logger.endTrace(new TransactionLogEndTrace(
-				this.getClass().getCanonicalName(), 
 				response.toString(),
 				"",
-				servletRequest.getRemoteAddr(), 
-				"getVendorById", 
+				servletRequest.getRemoteAddr(),
 				"Fin de GET /vendors/"+id,
 				localTransactionId, 
 				localTransactionId, 
@@ -492,11 +465,9 @@ public class VendorRestController {
 		String localTransactionId=UUID.randomUUID().toString();
 		long startTime = System.currentTimeMillis();		
 		logger.startTrace(new TransactionLogInfoTrace(
-				this.getClass().getCanonicalName(), 
 				id,
 				"",
-				servletRequest.getRemoteAddr(), 
-				"deleteVendor", 
+				servletRequest.getRemoteAddr(),
 				"Inicio de DELETE /vendors/"+id,
 				localTransactionId, 
 				localTransactionId, 
@@ -528,11 +499,9 @@ public class VendorRestController {
 			servletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			
 			logger.errorTrace(new TransactionLogInfoTrace(
-					this.getClass().getCanonicalName(), 
 					"",
 					e.getCause().getMessage(),
-					servletRequest.getRemoteAddr(), 
-					"deleteVendor", 
+					servletRequest.getRemoteAddr(),
 					"Ha ocurrido un problema: " + e.getMessage(), 
 					localTransactionId, 
 					localTransactionId, 
@@ -547,11 +516,9 @@ public class VendorRestController {
 		response.setDate(Calendar.getInstance().getTime());
 		long duration = System.currentTimeMillis() - startTime;
 		logger.endTrace(new TransactionLogEndTrace(
-				this.getClass().getCanonicalName(), 
 				response.toString(),
 				"",
-				servletRequest.getRemoteAddr(), 
-				"deleteVendor", 
+				servletRequest.getRemoteAddr(),
 				"Fin de DELETE /vendors/"+id,
 				localTransactionId, 
 				localTransactionId, 

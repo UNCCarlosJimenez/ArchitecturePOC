@@ -3,9 +3,6 @@
  */
 package com.unicomer.demo.common.entity;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -17,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @XmlRootElement(name="transactionLogInfoTrace")
 @JsonRootName(value="transactionLogInfoTrace")
 public class TransactionLogInfoTrace {
-	private Date createdDate;
+//	private Date createdDate;
 	private String detail;
 	private String lookupData;
 	private String endUserLocation;
@@ -35,16 +32,14 @@ public class TransactionLogInfoTrace {
 
 	}
 	
-	public TransactionLogInfoTrace(String eventSource, String detail, String lookupData, String endUserLocation,
-			String eventName, String message, String globalReferenceId, String localReferenceId,
+	public TransactionLogInfoTrace(String detail, String lookupData, String endUserLocation,
+			String message, String globalReferenceId, String localReferenceId,
 			String externalReferenceId, String serviceVersion, String applicationId) {
 		super();
-		this.createdDate = Calendar.getInstance().getTime();
+//		this.createdDate = Calendar.getInstance().getTime();
 		this.detail = detail;
 		this.lookupData = lookupData;
 		this.endUserLocation = endUserLocation;
-		this.eventName = eventName;
-		this.eventSource = eventSource;
 		this.message = message;
 		this.globalReferenceId = globalReferenceId;
 		this.localReferenceId = localReferenceId;
@@ -53,13 +48,13 @@ public class TransactionLogInfoTrace {
 		this.applicationId = applicationId;
 	}
 	
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
+//	public Date getCreatedDate() {
+//		return createdDate;
+//	}
+//
+//	public void setCreatedDate(Date createdDate) {
+//		this.createdDate = createdDate;
+//	}
 
 	public String getDetail() {
 		return detail;

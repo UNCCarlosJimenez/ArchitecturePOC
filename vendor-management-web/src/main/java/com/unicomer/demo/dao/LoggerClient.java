@@ -29,7 +29,7 @@ public class LoggerClient {
 		ClientConfig config = new DefaultClientConfig();
 		config.getProperties().put(ClientConfig.PROPERTY_CONNECT_TIMEOUT, connectTimeOut);
 		config.getProperties().put(ClientConfig.PROPERTY_READ_TIMEOUT, responseTimeOut);
-
+		
 		Client client = Client.create(config);
 		WebResource resource = client.resource(serviceEndpoint+level);
 		return resource;
@@ -37,6 +37,8 @@ public class LoggerClient {
 	
 	public void info (TransactionLogInfoTrace trace){
 		try {
+			trace.setEventSource(Thread.currentThread().getStackTrace()[3].toString());
+			
 			ClientResponse response = getResource("info").accept(MediaType.TEXT_PLAIN).type(MediaType.APPLICATION_JSON)
 					.header(HttpHeaders.CACHE_CONTROL, "false").post(ClientResponse.class, trace);
 			
@@ -48,6 +50,8 @@ public class LoggerClient {
 	
 	public void error (TransactionLogInfoTrace trace){
 		try {
+			trace.setEventSource(Thread.currentThread().getStackTrace()[3].toString());
+			
 			ClientResponse response = getResource("error").accept(MediaType.TEXT_PLAIN).type(MediaType.APPLICATION_JSON)
 					.header(HttpHeaders.CACHE_CONTROL, "false").post(ClientResponse.class, trace);
 			
@@ -59,6 +63,8 @@ public class LoggerClient {
 	
 	public void start (TransactionLogInfoTrace trace){
 		try {
+			trace.setEventSource(Thread.currentThread().getStackTrace()[3].toString());
+			
 			ClientResponse response = getResource("start").accept(MediaType.TEXT_PLAIN).type(MediaType.APPLICATION_JSON)
 					.header(HttpHeaders.CACHE_CONTROL, "false").post(ClientResponse.class, trace);
 			
@@ -70,6 +76,8 @@ public class LoggerClient {
 	
 	public void end (TransactionLogEndTrace trace){
 		try {
+			trace.setEventSource(Thread.currentThread().getStackTrace()[3].toString());
+			
 			ClientResponse response = getResource("end").accept(MediaType.TEXT_PLAIN).type(MediaType.APPLICATION_JSON)
 					.header(HttpHeaders.CACHE_CONTROL, "false").post(ClientResponse.class, trace);
 			

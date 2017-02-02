@@ -40,40 +40,49 @@ public class LoggerClient {
 	
 	public void info (TransactionLogInfoTrace trace){
 		try {
-			int status = getResource("info").post(Entity.entity(trace, contentType)).getStatus();
+			trace.setEventSource(Thread.currentThread().getStackTrace()[3].toString());
 			
+			int status = getResource("info").post(Entity.entity(trace, contentType)).getStatus();
 			System.out.println("[" + APP_NAME + " > LoggerClient] - HTTP error code : " + status);
 		} catch (Exception e) {
+			System.err.println("[" + APP_NAME + " > LoggerClient] - Error: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
 	
 	public void error (TransactionLogInfoTrace trace){
 		try {
-			int status = getResource("error").post(Entity.entity(trace, contentType)).getStatus();
+			trace.setEventSource(Thread.currentThread().getStackTrace()[3].toString());
 			
+			int status = getResource("error").post(Entity.entity(trace, contentType)).getStatus();			
 			System.out.println("[" + APP_NAME + " > LoggerClient] - HTTP error code : " + status);
 		} catch (Exception e) {
+			System.err.println("[" + APP_NAME + " > LoggerClient] - Error: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
 	
 	public void start (TransactionLogInfoTrace trace){
 		try {
-			int status = getResource("start").post(Entity.entity(trace, contentType)).getStatus();
+			trace.setEventSource(Thread.currentThread().getStackTrace()[3].toString());
 			
+			int status = getResource("start").post(Entity.entity(trace, contentType)).getStatus();			
 			System.out.println("[" + APP_NAME + " > LoggerClient] - HTTP error code : " + status);
 		} catch (Exception e) {
+			System.err.println("[" + APP_NAME + " > LoggerClient] - Error: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
 	
 	public void end (TransactionLogEndTrace trace){
 		try {
+			trace.setEventSource(Thread.currentThread().getStackTrace()[3].toString());
+			
 			int status = getResource("end").post(Entity.entity(trace, contentType)).getStatus();
 			
 			System.out.println("[" + APP_NAME + " > LoggerClient] - HTTP error code : " + status);
 		} catch (Exception e) {
+			System.err.println("[" + APP_NAME + " > LoggerClient] - Error: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}		

@@ -55,11 +55,9 @@ public class EbsProviderImpl implements EbsProvider {
 		
 		long startTime = System.currentTimeMillis();		
 		logger.start(new TransactionLogInfoTrace(
-				this.getClass().getCanonicalName(), 
 				payload.toString(),
 				payload.getVendor().getId(),
-				servletRequest.getRemoteAddr(), 
-				"getVendor", 
+				servletRequest.getRemoteAddr(),
 				"Inicio de consulta de proveedores", 
 				payload.getRequestHeader().getTransaction(), 
 				localTransactionId,
@@ -93,11 +91,9 @@ public class EbsProviderImpl implements EbsProvider {
 			responseHeader.setServiceDescription(e.getMessage());
 			
 			logger.error(new TransactionLogInfoTrace(
-					this.getClass().getCanonicalName(), 
 					e.getCause().getMessage(),
 					String.valueOf(payload.getVendor().getId()),
-					servletRequest.getRemoteAddr(), 
-					"getVendor", 
+					servletRequest.getRemoteAddr(),
 					e.getMessage(), 
 					payload.getRequestHeader().getTransaction(), 
 					localTransactionId,
@@ -115,11 +111,9 @@ public class EbsProviderImpl implements EbsProvider {
 		
 		long duration = System.currentTimeMillis() - startTime;
 		logger.end(new TransactionLogEndTrace(
-				this.getClass().getCanonicalName(), 
 				response.toString(),
 				payload.getVendor().getId(),
-				servletRequest.getRemoteAddr(), 
-				"getVendor", 
+				servletRequest.getRemoteAddr(),
 				"Fin de consulta de proveedores", 
 				payload.getRequestHeader().getTransaction(), 
 				localTransactionId,
@@ -148,11 +142,9 @@ public class EbsProviderImpl implements EbsProvider {
 		
 		long startTime = System.currentTimeMillis();		
 		logger.start(new TransactionLogInfoTrace(
-				this.getClass().getCanonicalName(), 
 				payload.toString(),
 				String.valueOf(payload.getVendor().getId()),
-				servletRequest.getRemoteAddr(), 
-				"addVendor", 
+				servletRequest.getRemoteAddr(),
 				"Inicio de creacion de proveedores", 
 				payload.getRequestHeader().getTransaction(), 
 				localTransactionId,
@@ -177,11 +169,9 @@ public class EbsProviderImpl implements EbsProvider {
 			responseHeader.setServiceDescription(e.getMessage());
 			
 			logger.error(new TransactionLogInfoTrace(
-					this.getClass().getCanonicalName(), 
 					e.getCause().getMessage(),
 					String.valueOf(payload.getVendor().getId()),
-					servletRequest.getRemoteAddr(), 
-					"addVendor", 
+					servletRequest.getRemoteAddr(),
 					e.getMessage(), 
 					payload.getRequestHeader().getTransaction(), 
 					localTransactionId,
@@ -199,11 +189,9 @@ public class EbsProviderImpl implements EbsProvider {
 		
 		long duration = System.currentTimeMillis() - startTime;
 		logger.end(new TransactionLogEndTrace(
-				this.getClass().getCanonicalName(), 
 				response.toString(),
 				String.valueOf(payload.getVendor().getId()),
-				servletRequest.getRemoteAddr(), 
-				"addVendor", 
+				servletRequest.getRemoteAddr(),
 				"Fin de creacion de proveedores", 
 				payload.getRequestHeader().getTransaction(), 
 				localTransactionId,
@@ -232,11 +220,9 @@ public class EbsProviderImpl implements EbsProvider {
 		
 		long startTime = System.currentTimeMillis();		
 		logger.start(new TransactionLogInfoTrace(
-				this.getClass().getCanonicalName(), 
 				payload.toString(),
 				String.valueOf(payload.getVendor().getId()),
-				servletRequest.getRemoteAddr(), 
-				"updateVendor", 
+				servletRequest.getRemoteAddr(),
 				"Inicio de actualizacion de proveedores", 
 				payload.getRequestHeader().getTransaction(), 
 				localTransactionId,
@@ -261,11 +247,9 @@ public class EbsProviderImpl implements EbsProvider {
 			responseHeader.setServiceDescription(e.getMessage());
 			
 			logger.error(new TransactionLogInfoTrace(
-					this.getClass().getCanonicalName(), 
 					e.getCause().getMessage(),
 					String.valueOf(payload.getVendor().getId()),
-					servletRequest.getRemoteAddr(), 
-					"updateVendor", 
+					servletRequest.getRemoteAddr(),
 					e.getMessage(), 
 					payload.getRequestHeader().getTransaction(), 
 					localTransactionId,
@@ -283,11 +267,9 @@ public class EbsProviderImpl implements EbsProvider {
 		
 		long duration = System.currentTimeMillis() - startTime;
 		logger.end(new TransactionLogEndTrace(
-				this.getClass().getCanonicalName(), 
 				response.toString(),
 				String.valueOf(payload.getVendor().getId()),
-				servletRequest.getRemoteAddr(), 
-				"updateVendor", 
+				servletRequest.getRemoteAddr(),
 				"Fin de actualizacion de proveedores", 
 				payload.getRequestHeader().getTransaction(), 
 				localTransactionId,
@@ -317,11 +299,9 @@ public class EbsProviderImpl implements EbsProvider {
 		
 		long startTime = System.currentTimeMillis();		
 		logger.start(new TransactionLogInfoTrace(
-				this.getClass().getCanonicalName(), 
 				payload.toString(),
 				String.valueOf(payload.getVendor().getId()),
-				servletRequest.getRemoteAddr(), 
-				"deleteVendor", 
+				servletRequest.getRemoteAddr(),
 				"Inicio de eliminacion de proveedores", 
 				payload.getRequestHeader().getTransaction(), 
 				localTransactionId,
@@ -345,11 +325,9 @@ public class EbsProviderImpl implements EbsProvider {
 			responseHeader.setServiceDescription(e.getMessage());
 			
 			logger.error(new TransactionLogInfoTrace(
-					this.getClass().getCanonicalName(), 
 					e.getCause().getMessage(),
 					String.valueOf(payload.getVendor().getId()),
-					servletRequest.getRemoteAddr(), 
-					"deleteVendor", 
+					servletRequest.getRemoteAddr(),
 					e.getMessage(), 
 					payload.getRequestHeader().getTransaction(), 
 					localTransactionId,
@@ -367,11 +345,9 @@ public class EbsProviderImpl implements EbsProvider {
 		
 		long duration = System.currentTimeMillis() - startTime;
 		logger.end(new TransactionLogEndTrace(
-				this.getClass().getCanonicalName(), 
 				response.toString(),
 				String.valueOf(payload.getVendor().getId()),
-				servletRequest.getRemoteAddr(), 
-				"deleteVendor", 
+				servletRequest.getRemoteAddr(),
 				"Fin de eliminacion de proveedores", 
 				payload.getRequestHeader().getTransaction(), 
 				localTransactionId,
