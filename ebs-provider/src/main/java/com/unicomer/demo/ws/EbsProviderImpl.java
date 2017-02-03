@@ -81,7 +81,7 @@ public class EbsProviderImpl implements EbsProvider {
 				response.getVendor().addAll(vendorList);
 			} else {
 				System.out.println("findOne");
-				OmcInterfaceVendor vendorResponse =  vendorRepository.findOne(Integer.valueOf(payload.getVendor().getId()));
+				OmcInterfaceVendor vendorResponse =  vendorRepository.findOne(payload.getVendor().getId());
 				response.getVendor().add(vendorResponse);
 			}
 		} catch (Exception e) {
@@ -91,7 +91,7 @@ public class EbsProviderImpl implements EbsProvider {
 			responseHeader.setServiceDescription(e.getMessage());
 			
 			logger.error(new TransactionLogInfoTrace(
-					e.getCause().getMessage(),
+					e.getMessage(),
 					String.valueOf(payload.getVendor().getId()),
 					servletRequest.getRemoteAddr(),
 					e.getMessage(), 
@@ -169,7 +169,7 @@ public class EbsProviderImpl implements EbsProvider {
 			responseHeader.setServiceDescription(e.getMessage());
 			
 			logger.error(new TransactionLogInfoTrace(
-					e.getCause().getMessage(),
+					e.getMessage(),
 					String.valueOf(payload.getVendor().getId()),
 					servletRequest.getRemoteAddr(),
 					e.getMessage(), 
@@ -247,7 +247,7 @@ public class EbsProviderImpl implements EbsProvider {
 			responseHeader.setServiceDescription(e.getMessage());
 			
 			logger.error(new TransactionLogInfoTrace(
-					e.getCause().getMessage(),
+					e.getMessage(),
 					String.valueOf(payload.getVendor().getId()),
 					servletRequest.getRemoteAddr(),
 					e.getMessage(), 
@@ -325,7 +325,7 @@ public class EbsProviderImpl implements EbsProvider {
 			responseHeader.setServiceDescription(e.getMessage());
 			
 			logger.error(new TransactionLogInfoTrace(
-					e.getCause().getMessage(),
+					e.getMessage(),
 					String.valueOf(payload.getVendor().getId()),
 					servletRequest.getRemoteAddr(),
 					e.getMessage(), 

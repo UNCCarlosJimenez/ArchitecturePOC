@@ -2,6 +2,8 @@ package com.unicomer.demo.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -13,8 +15,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="Vendor")
 public class OmcInterfaceVendorDomain {
 
-	@Column(name = "VENDOR_INTERFACE_ID", nullable = false)
+	@Column(name = "VENDOR_INTERFACE_ID")
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
 	@Column(name = "VENDOR_NAME", nullable = true)
@@ -22,7 +25,7 @@ public class OmcInterfaceVendorDomain {
 	@NotNull
 	private String name;
 
-	@Column(name = "SEGMENT", nullable = true)
+	@Column(name = "VENDOR_SEGMENT", nullable = true)
 	@Size(min = 0, max = 255)
 	@NotNull
 	private String segment;
@@ -36,6 +39,15 @@ public class OmcInterfaceVendorDomain {
 	@Size(min = 0, max = 6)
 	@NotNull
 	private String lookupCode;
+	
+	
+	
+	/**
+	 * 
+	 */
+	public OmcInterfaceVendorDomain() {
+		
+	}
 
 	public Integer getId() {
 		return id;

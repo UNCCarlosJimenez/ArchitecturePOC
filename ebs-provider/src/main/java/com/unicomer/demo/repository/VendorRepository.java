@@ -22,7 +22,7 @@ public class VendorRepository {
 			session.beginTransaction();
 			Query query = session.createQuery("from " + OmcInterfaceVendorDomain.class.getName());
 			vendorList = query.list();
-			session.getTransaction().commit();
+//			session.getTransaction().commit();
 			
 			Iterator<OmcInterfaceVendorDomain> it = vendorList.iterator();
 			while(it.hasNext()){
@@ -46,22 +46,27 @@ public class VendorRepository {
 		return resultList;
 	}
 	
-	public OmcInterfaceVendor findOne(Integer id){
+	@SuppressWarnings("unchecked")
+	public OmcInterfaceVendor findOne(String code){
 		OmcInterfaceVendor vendorReturn = new OmcInterfaceVendor();
-		OmcInterfaceVendorDomain vendor = new OmcInterfaceVendorDomain();
+		List<OmcInterfaceVendorDomain> vendorList = new ArrayList<OmcInterfaceVendorDomain>();
 		try{
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
-			vendor = session.load(OmcInterfaceVendorDomain.class, id);
-			session.getTransaction().commit();
-						
-			vendorReturn.setId(vendor.getId());
-			vendorReturn.setName(vendor.getName());
-			vendorReturn.setLookupCode(vendor.getLookupCode());
-			vendorReturn.setSegment(vendor.getSegment());
-			vendorReturn.setTransactionType(vendor.getTransactionType());
+			Query query = session.createQuery("from " + OmcInterfaceVendorDomain.class.getName() + " where lookupCode = :id");
+			query.setParameter("id", code);
+			vendorList = query.list();
+			
+			Iterator<OmcInterfaceVendorDomain> it = vendorList.iterator();
+			if(it.hasNext()){
+				OmcInterfaceVendorDomain vendor = it.next();
+				vendorReturn.setId(vendor.getId());
+				vendorReturn.setName(vendor.getName());
+				vendorReturn.setLookupCode(vendor.getLookupCode());
+				vendorReturn.setSegment(vendor.getSegment());
+				vendorReturn.setTransactionType(vendor.getTransactionType());
+			}
 		}catch (Exception e) {
-			session.getTransaction().rollback();
 			e.printStackTrace();
 		}finally {
 			session.close();
@@ -75,19 +80,18 @@ public class VendorRepository {
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			
 			session.beginTransaction();
-			vendor = (OmcInterfaceVendorDomain) session.save(vendor);
+			session.saveOrUpdate(vendor);
 			session.getTransaction().commit();
 			
-			vendorReturn.setId(vendor.getId());
 			vendorReturn.setName(vendor.getName());
 			vendorReturn.setLookupCode(vendor.getLookupCode());
 			vendorReturn.setSegment(vendor.getSegment());
 			vendorReturn.setTransactionType(vendor.getTransactionType());
 		}catch (Exception e) {
-			session.getTransaction().rollback();
 			e.printStackTrace();
-		}finally {
-			session.close();
+//			session.getTransaction().rollback();
+//		}finally {
+//			session.close();
 		}
 		return vendorReturn;
 	}
@@ -100,10 +104,10 @@ public class VendorRepository {
 			session.delete(vendor);
 			session.getTransaction().commit();
 		}catch (Exception e) {
-			session.getTransaction().rollback();
 			e.printStackTrace();
-		}finally {
-			session.close();
+//			session.getTransaction().rollback();
+//		}finally {
+//			session.close();
 		}
 	}
 	
