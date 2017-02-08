@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.unicomer.demo.buying.dao.EbsClient;
+import com.unicomer.demo.buying.dao.LoggerClient;
 import com.unicomer.demo.buying.dao.RiClient;
 import com.unicomer.demo.buying.dao.SwimClient;
 import com.unicomer.demo.buying.util.PropertiesLoader;
@@ -23,20 +24,22 @@ public class VendorServiceImpl implements VendorService {
 	private String dateFormatPattern = properties.getProperty("swim.date.format.pattern");
 	private String timeFormatPattern = properties.getProperty("swim.time.format.pattern");
 	
-	private SwimClient swimClient = new SwimClient();
-	private RiClient riClient = new RiClient();
-	private EbsClient ebsClient = new EbsClient();
-//	private LoggerClient logger = new LoggerClient();
+	private static SwimClient swimClient = SwimClient.getInstance();
+	private static RiClient riClient = RiClient.getInstance();
+	private static EbsClient ebsClient = EbsClient.getInstance();
+	private static LoggerClient logger = LoggerClient.getInstance();
 	
 	@Override
-	public List<UnicomerVendor> findAll() {
+	public List<UnicomerVendor> findAll(String transactionId, long startTime) {
 		System.out.println(APP_NAME + ": Inicio de findAll()");
 		List<UnicomerVendor> resultList = new ArrayList<UnicomerVendor>();
 		/**
 		 * 
 		 */
 		try {
+			logger.info(transactionId + " - Inicio de consulta a swimClient en " + (System.currentTimeMillis() - startTime) + " milisegundos");
 			List<SwimVendor> swimVendors = swimClient.getVendors().getData();
+			logger.info(transactionId + " - Fin de consulta a swimClient en " + (System.currentTimeMillis() - startTime) + " milisegundos");
 			
 			Iterator<SwimVendor> it = swimVendors.iterator();
 			while (it.hasNext()) {
@@ -48,6 +51,8 @@ public class VendorServiceImpl implements VendorService {
 			e.printStackTrace();
 		}
 		System.out.println(APP_NAME + ": Fin de findAll()");
+		
+		logger.info(transactionId + " - Fin de VendorService.findAll() " + (System.currentTimeMillis() - startTime) + " milisegundos");
 		return resultList;
 	}
 
@@ -91,9 +96,9 @@ public class VendorServiceImpl implements VendorService {
 	}
 
 	@Override
-	public boolean exists(String id) {
+	public boolean exists(String id, String transactionId, long startTime) {
 		try {
-			List<SwimVendor> swimVendors = swimClient.getVendor(id).getData();
+			List<SwimVendor> swimVendors = swimClient.getVendor(id, transactionId, startTime).getData();
 			if (swimVendors!=null && swimVendors.size() > 0) {
 				return true;
 			} else {
@@ -106,16 +111,20 @@ public class VendorServiceImpl implements VendorService {
 	}
 
 	@Override
-	public UnicomerVendor findOne(String id) {
+	public UnicomerVendor findOne(String id, String transactionId, long startTime) {
 		UnicomerVendor result = null;
 		try {
-			List<SwimVendor> swimVendors = swimClient.getVendor(id).getData();
+			logger.info(transactionId + " - Inicio de consulta a swimClient en " + (System.currentTimeMillis() - startTime) + " milisegundos");
+			List<SwimVendor> swimVendors = swimClient.getVendor(id, transactionId, startTime).getData();
+			logger.info(transactionId + " - Fin de consulta a swimClient en " + (System.currentTimeMillis() - startTime) + " milisegundos");
 			if (swimVendors!=null && swimVendors.size() > 0) {
 				result = SwimVendorToUnicomerVendor(swimVendors.get(0));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		logger.info(transactionId + " - Fin de VendorService.findOne en " + (System.currentTimeMillis() - startTime) + " milisegundos");
 		return result;
 	}
 

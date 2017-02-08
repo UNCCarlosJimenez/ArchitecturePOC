@@ -19,6 +19,16 @@ public class RiClient {
 	private String serviceEndpoint = properties.getProperty("ri.service.endpoint");
 	private Integer connectTimeOut = Integer.valueOf(properties.getProperty("ri.service.connect-timeout"));
 	private Integer responseTimeOut = Integer.valueOf(properties.getProperty("ri.service.response-timeout"));
+	private static RiClient instance;
+	
+	public static RiClient getInstance (){
+		if (instance == null)
+			synchronized (RiClient.class){
+				if (instance == null)
+					instance = new RiClient();
+			}
+		return instance;
+	}
 	
 	private Invocation.Builder getResource() {
 		Client client = ClientBuilder.newClient();

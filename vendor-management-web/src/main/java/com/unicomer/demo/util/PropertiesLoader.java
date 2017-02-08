@@ -8,6 +8,7 @@ import java.util.Properties;
 
 public class PropertiesLoader {
 	private static final String CONF_SERVICE_PROPERTIES = "./unicomer-services/config/vendor-management-web.properties";
+//	private static final String CONF_SERVICE_PROPERTIES = "C:\\Users\\carlosj_rodriguez\\work\\temp\\compile\\vendor-management-web.properties";
 	private static PropertiesLoader instance;
 	private static Properties properties = new Properties();
 

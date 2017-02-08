@@ -7,8 +7,6 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.ejb.EJBException;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -22,7 +20,6 @@ import com.unicomer.demo.dao.BuyingProviderClient;
 
 @SuppressWarnings("serial")
 @ManagedBean(name="vendorController")
-@SessionScoped
 public class VendorController implements Serializable {
 	
     private BuyingProviderClient buyingProviderClient = new BuyingProviderClient();
@@ -92,17 +89,17 @@ public class VendorController implements Serializable {
                 	buyingProviderClient.remove(selected);
                 }
                 JsfUtil.addSuccessMessage(successMessage);
-            } catch (EJBException ex) {
-                String msg = "";
-                Throwable cause = ex.getCause();
-                if (cause != null) {
-                    msg = cause.getLocalizedMessage();
-                }
-                if (msg.length() > 0) {
-                    JsfUtil.addErrorMessage(msg);
-                } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-                }
+//            } catch (EJBException ex) {
+//                String msg = "";
+//                Throwable cause = ex.getCause();
+//                if (cause != null) {
+//                    msg = cause.getLocalizedMessage();
+//                }
+//                if (msg.length() > 0) {
+//                    JsfUtil.addErrorMessage(msg);
+//                } else {
+//                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+//                }
             } catch (Exception ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
                 JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));

@@ -22,6 +22,16 @@ public class EbsClient {
 //	private Integer responseTimeOut = Integer.valueOf(properties.getProperty("ebs.service.response-timeout"));
 	private String applicationName = properties.getProperty("spring.application.name");
 	EbsProviderProxy proxy = new EbsProviderProxy(serviceEndpoint);
+	private static EbsClient instance;
+	
+	public static EbsClient getInstance (){
+		if (instance == null)
+			synchronized (EbsClient.class){
+				if (instance == null)
+					instance = new EbsClient();
+			}
+		return instance;
+	}
 	
 	public GetVendorResponse getVendor(String transactionId, UnicomerVendor vendor) {
 		GetVendorRequest request = new GetVendorRequest();

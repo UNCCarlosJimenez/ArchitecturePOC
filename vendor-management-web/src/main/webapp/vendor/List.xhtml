@@ -1,21 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
+    <f:view contentType="text/html">
+        <h:head>
+            <title><ui:insert name="title">#{bundle.ListVendorTitle}</ui:insert></title>
+            <h:outputStylesheet library="css" name="jsfcrud.css"/>
+            <h:outputScript library="js" name="jsfcrud.js"/>
+        </h:head>
+    
+        <h:body>
+            <p:layout fullPage="true">
+                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                    Header
+                </p:layoutUnit>
+                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
+                    Footer
+                    
+                </p:layoutUnit>
+                
+                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
+                    <p:menu>
+                        <p:submenu label="Resources">
+                            <p:menuitem value="Demo" url="http://www.primefaces.org/showcase-labs/ui/home.jsf" />
+                            <p:menuitem value="Documentation" url="http://www.primefaces.org/documentation.html" />
+                            <p:menuitem value="Forum" url="http://forum.primefaces.org/" />
+                            <p:menuitem value="Themes" url="http://www.primefaces.org/themes.html" />
+                        </p:submenu>
+                    </p:menu>
+                </p:layoutUnit>
 
-
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ListVendorTitle}"></h:outputText>
-        </ui:define>
-
-        <ui:define name="body">
-            <h:form id="VendorListForm">
-                <p:panel header="#{bundle.ListVendorTitle}">
+                <p:layoutUnit position="center">
+                    Welcome to POC
+                    <p:panel header="#{bundle.ListVendorTitle}">
                     <p:dataTable id="datalist" value="#{vendorController.items}" var="item"
                                  selectionMode="single" selection="#{vendorController.selected}"
                                  paginator="true"
@@ -24,8 +45,8 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+<!--                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/> -->
+<!--                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/> -->
 
                         <p:column>
                             <f:facet name="header">
@@ -64,19 +85,13 @@
                             <h:outputText value="#{item.abreviation}"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{vendorController.prepareCreate}" update=":VendorCreateForm" oncomplete="PF('VendorCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":VendorViewForm" oncomplete="PF('VendorViewDialog').show()" disabled="#{empty vendorController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":VendorEditForm" oncomplete="PF('VendorEditDialog').show()" disabled="#{empty vendorController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{vendorController.destroy}" update=":growl,datalist" disabled="#{empty vendorController.selected}"/>
+                            
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
-            </h:form>
+                </p:layoutUnit>
 
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
-        </ui:define>
-    </ui:composition>
-
+            </p:layout>
+        </h:body>
+    </f:view>
 </html>

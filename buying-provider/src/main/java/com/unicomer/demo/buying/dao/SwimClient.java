@@ -20,15 +20,42 @@ public class SwimClient {
 	private String serviceEndpoint = properties.getProperty("swim.service.endpoint");
 	private Integer connectTimeOut = Integer.valueOf(properties.getProperty("swim.service.connect-timeout"));
 	private Integer responseTimeOut = Integer.valueOf(properties.getProperty("swim.service.response-timeout"));
+	private static LoggerClient logger = LoggerClient.getInstance();
+	private static Invocation.Builder builder;
+	private static SwimClient instance;
 	
-	private Invocation.Builder getResource() {
+	public static SwimClient getInstance (){
+		if (instance == null)
+			synchronized (SwimClient.class){
+				if (instance == null)
+					instance = new SwimClient();
+			}
+		return instance;
+	}
+	
+	/**
+	 * 
+	 */
+	public SwimClient() {
+		connect();
+	}
+	
+	private void connect() {
+		long startTime = System.currentTimeMillis();
 		Client client = ClientBuilder.newClient();
 		client.property(ClientProperties.CONNECT_TIMEOUT, connectTimeOut);
 		client.property(ClientProperties.READ_TIMEOUT, responseTimeOut);
 		WebTarget webTarget = client.target(serviceEndpoint).path("vendors");
 		Invocation.Builder invocationBuilder =  webTarget.request(MediaType.APPLICATION_JSON_TYPE);
 		
-		return invocationBuilder;
+		builder = invocationBuilder;
+		
+		long duration = System.currentTimeMillis() - startTime;
+		logger.info("Conectando a SWIM en " + duration + " milisegundos");
+	}
+	
+	private Invocation.Builder getResource(){
+		return builder;
 	}
 	
 	private Invocation.Builder getResource(String id) {
@@ -58,10 +85,13 @@ public class SwimClient {
 	}
 	
 	
-	public SwimVendor.ResponseMessage getVendor(String id){
+	public SwimVendor.ResponseMessage getVendor(String id, String transactionId, long startTime){
+		logger.info(transactionId + " - Inicio de SwimClient.getVendor en " + (System.currentTimeMillis() - startTime) + " milisegundos");
 		SwimVendor.ResponseMessage result = new ResponseMessage();
 		try {
+			logger.info(transactionId + " - Inicio de consumo de servicio de Swim en " + (System.currentTimeMillis() - startTime) + " milisegundos");
 			Response response = getResource(id).get();
+			logger.info(transactionId + " - Fin de consumo de servicio de Swim en " + (System.currentTimeMillis() - startTime) + " milisegundos");
 			
 			if (response.getStatus() == Response.Status.OK.getStatusCode()) {
 				result = response.readEntity(SwimVendor.ResponseMessage.class);
@@ -71,6 +101,8 @@ public class SwimClient {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		logger.info(transactionId + " - Fin de SwimClient.getVendor en " + (System.currentTimeMillis() - startTime) + " milisegundos");
 		return result;
 	}
 	

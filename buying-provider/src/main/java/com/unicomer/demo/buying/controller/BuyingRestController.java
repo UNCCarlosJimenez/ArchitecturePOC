@@ -20,6 +20,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 
 import com.unicomer.demo.buying.dao.LoggerClient;
+import com.unicomer.demo.buying.dao.SwimClient;
 import com.unicomer.demo.buying.service.VendorService;
 import com.unicomer.demo.buying.service.VendorServiceImpl;
 import com.unicomer.demo.buying.util.PropertiesLoader;
@@ -35,9 +36,9 @@ public class BuyingRestController {
 	private static PropertiesLoader properties = PropertiesLoader.getInstance();
 //	private static final String APP_NAME = "buy-provider@BuyingRestController";
 	private String applicationName = properties.getProperty("spring.application.name");
-	
 	private VendorService vendorService = new VendorServiceImpl();
-	private LoggerClient logger = new LoggerClient();
+	private static LoggerClient logger = LoggerClient.getInstance();
+	private static SwimClient swim = SwimClient.getInstance();
 	
 	@GET
 	@Path("/vendors")
@@ -61,7 +62,7 @@ public class BuyingRestController {
 		List<UnicomerVendor> vendorsResult = new ArrayList<UnicomerVendor>();
 		ResponseVendorMessage response = new ResponseVendorMessage();
 		try{
-			Iterator<UnicomerVendor> it = vendorService.findAll().iterator();
+			Iterator<UnicomerVendor> it = vendorService.findAll(localTransactionId, startTime).iterator();
 			while (it.hasNext()) {
 				UnicomerVendor vendor = it.next();
 				vendorsResult.add(vendor);
@@ -144,7 +145,12 @@ public class BuyingRestController {
 		List<UnicomerVendor> vendorsResult = new ArrayList<UnicomerVendor>();
 		ResponseVendorMessage response = new ResponseVendorMessage();
 		try{
-			vendorsResult.add(vendorService.findOne(id));
+			logger.info(localTransactionId + " - Inicio de búsqueda en VendorService " + (System.currentTimeMillis() - startTime) + " milisegundos");
+			
+			
+			
+			vendorsResult.add(vendorService.findOne(id, localTransactionId, startTime));
+			logger.info(localTransactionId + " - Fin de búsqueda en VendorService " + (System.currentTimeMillis() - startTime) + " milisegundos");
 			response.setData(vendorsResult);
 			response.setResponseCode(0);
 			response.setResponseDescription("Transaccion exitosa");

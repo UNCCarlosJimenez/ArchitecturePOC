@@ -27,14 +27,27 @@ public class LoggerClient {
 	private Integer responseTimeOut = Integer.valueOf(properties.getProperty("logger.service.response-timeout"));
 	private String accept = properties.getProperty("logger.service.accept");
 	private String contentType = properties.getProperty("logger.service.content-type");
+	private static LoggerClient instance;
+	
+	public static LoggerClient getInstance(){
+		if (instance == null)
+			synchronized (LoggerClient.class){
+				if (instance == null)
+					instance = new LoggerClient();
+			}
+		return instance;
+	}
 	
 	private Invocation.Builder getResource(String level) {
+		long startTime = System.currentTimeMillis();
 		Client client = ClientBuilder.newClient();
 		client.property(ClientProperties.CONNECT_TIMEOUT, connectTimeOut);
 		client.property(ClientProperties.READ_TIMEOUT, responseTimeOut);
 		WebTarget webTarget = client.target(serviceEndpoint).path(level);
 		Invocation.Builder invocationBuilder =  webTarget.request(accept);
 		
+		long duration = System.currentTimeMillis() - startTime;
+		System.out.println("Conectando a Logstash en " + duration + " milisegundos");
 		return invocationBuilder;
 	}
 	
@@ -44,6 +57,15 @@ public class LoggerClient {
 			
 			int status = getResource("info").post(Entity.entity(trace, contentType)).getStatus();
 			System.out.println("[" + APP_NAME + " > LoggerClient] - HTTP error code : " + status);
+		} catch (Exception e) {
+			System.err.println("[" + APP_NAME + " > LoggerClient] - Error: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void info (String message){
+		try {
+			getResource("info").post(Entity.entity(message, contentType)).getStatus();
 		} catch (Exception e) {
 			System.err.println("[" + APP_NAME + " > LoggerClient] - Error: " + e.getMessage());
 			e.printStackTrace();
