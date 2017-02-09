@@ -14,12 +14,14 @@ import com.unicomer.demo.common.entity.UnicomerVendor;
 public interface VendorService {
 	public List<UnicomerVendor> findAll(String transactionId, long startTime);
 	
-	public UnicomerVendor save(String transactionId, UnicomerVendor vendor);
+	public UnicomerVendor save(String transactionId, long startTime, UnicomerVendor vendor);
+	
+	public UnicomerVendor update(String transactionId, long startTime, UnicomerVendor vendor, String id);
 	
 	public boolean exists(String id, String transactionId, long startTime);
 	
 	public UnicomerVendor findOne(String id, String transactionId, long startTime);
 	
-	public void delete(String transactionId, String id);
+	public void delete(String transactionId, long startTime, String id);
 	
 }

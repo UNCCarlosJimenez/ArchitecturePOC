@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.unicomer.config.SwimClientConfiguration;
+import com.unicomer.demo.common.header.ResponseHeader;
 import com.unicomer.demo.swim.domain.SwimVendor;
 
 /**
@@ -22,13 +23,11 @@ public interface SwimClient {
 	
 	@RequestMapping(value = "/vendors", 
 			method = RequestMethod.GET, 
-			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public SwimVendor.ResponseMessage getVendors();
-	
+	public SwimVendor.ResponseMessage getAllVendors();
+		
 	@RequestMapping(value = "/vendors/{id}", 
-			method = RequestMethod.GET, 
-			consumes = MediaType.APPLICATION_JSON_VALUE, 
+			method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public SwimVendor.ResponseMessage getVendor(@PathVariable(name="id") String id);
 	
@@ -49,6 +48,6 @@ public interface SwimClient {
 			method = RequestMethod.DELETE, 
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public SwimVendor.ResponseMessage deleteVendor(@PathVariable(name="id") String id);
+	public ResponseHeader deleteVendor(@PathVariable(name="id") String id);
 	
 }

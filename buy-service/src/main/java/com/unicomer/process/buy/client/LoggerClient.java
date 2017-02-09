@@ -38,6 +38,12 @@ public interface LoggerClient {
 			produces=MediaType.TEXT_PLAIN_VALUE)
 	public void error(@RequestBody EventLog request);
 	
+	@RequestMapping(value = "/error", 
+			method = RequestMethod.POST, 
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces=MediaType.TEXT_PLAIN_VALUE)
+	public void error(@RequestBody CommentLog request);
+	
 	@RequestMapping(value = "/start", 
 			method = RequestMethod.POST, 
 			consumes = MediaType.APPLICATION_JSON_VALUE,

@@ -5,6 +5,8 @@ package com.unicomer.process.buy.entity;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 /**
@@ -17,7 +19,7 @@ public class CommentLog {
 	private String eventSource;
 	private String message;
 	private String globalReferenceId;
-//	@Value("${spring.application.name}") 
+	@Value("${spring.application.name}") 
 	private String applicationId="buy-process";
 	private Long elapsedTime;
 	
