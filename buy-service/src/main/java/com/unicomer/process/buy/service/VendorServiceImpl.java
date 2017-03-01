@@ -48,7 +48,7 @@ public class VendorServiceImpl implements VendorService {
 		List<UnicomerVendor> result = new ArrayList<UnicomerVendor>();
 		try{
 			logger.info(new CommentLog("Inicio de busqueda de proveedores en Swim", transactionId, (System.currentTimeMillis() - startTime)));
-			SwimVendor.ResponseMessage response = swim.getAllVendors();
+			SwimVendor.ResponseMessage response = swim.getAllVendors(transactionId);
 			logger.info(new CommentLog("Fin de busqueda de proveedores en Swim. " + response.getResponseDescription() , transactionId, (System.currentTimeMillis() - startTime)));
 			
 			if(response.getData()!=null && response.getData().size()>0){
@@ -78,7 +78,7 @@ public class VendorServiceImpl implements VendorService {
 			request.setApplication(applicationName);
 			request.setTransaction(transactionId);
 			request.setData(UnicomerVendorToSwimVendor(vendor));
-			SwimVendor.ResponseMessage response = swim.addVendor(request);
+			SwimVendor.ResponseMessage response = swim.addVendor(transactionId, request);
 			logger.info(new CommentLog("Fin de envío de datos a Swim. " + response.getResponseDescription() , transactionId, (System.currentTimeMillis() - startTime)));
 			
 			if(response.getData()!=null && response.getData().size()>0){
@@ -95,7 +95,7 @@ public class VendorServiceImpl implements VendorService {
 		//RI
 		try{
 			logger.info(new CommentLog("Inicio de envío de datos a RI", transactionId, (System.currentTimeMillis() - startTime)));
-			RiVendor response = ri.addVendor(UnicomerVendorToRiVendor(vendor));
+			RiVendor response = ri.addVendor(transactionId, UnicomerVendorToRiVendor(vendor));
 			logger.info(new CommentLog("Fin de envío de datos a RI. " + response.getId(), transactionId, (System.currentTimeMillis() - startTime)));
 		}catch (Exception ex) {
 			logger.error(new CommentLog("Error guardando datos en RI: " + ExceptionUtils.getStackTrace(ex), 
@@ -119,7 +119,7 @@ public class VendorServiceImpl implements VendorService {
 			request.setApplication(applicationName);
 			request.setTransaction(transactionId);
 			request.setData(UnicomerVendorToSwimVendor(vendor));
-			SwimVendor.ResponseMessage response = swim.updateVendor(request, id);
+			SwimVendor.ResponseMessage response = swim.updateVendor(transactionId, request, id);
 			logger.info(new CommentLog("Fin de envío de datos a Swim. " + response.getResponseDescription() , transactionId, (System.currentTimeMillis() - startTime)));
 			
 			if(response.getData()!=null && response.getData().size()>0){
@@ -136,7 +136,7 @@ public class VendorServiceImpl implements VendorService {
 		//RI
 		try{
 			logger.info(new CommentLog("Inicio de envío de datos a RI", transactionId, (System.currentTimeMillis() - startTime)));
-			RiVendor response = ri.updateVendor(UnicomerVendorToRiVendor(vendor), id);
+			RiVendor response = ri.updateVendor(transactionId, UnicomerVendorToRiVendor(vendor), id);
 			logger.info(new CommentLog("Fin de envío de datos a RI. " + response.getId(), transactionId, (System.currentTimeMillis() - startTime)));
 		}catch (Exception ex) {
 			logger.error(new CommentLog("Error guardando datos en RI: " + ExceptionUtils.getStackTrace(ex), 
@@ -153,7 +153,7 @@ public class VendorServiceImpl implements VendorService {
 	public boolean exists(String id, String transactionId, long startTime) {
 		try{
 			logger.info(new CommentLog("Inicio de busqueda de proveedor en Swim", transactionId, (System.currentTimeMillis() - startTime)));
-			SwimVendor.ResponseMessage response = swim.getVendor(id);
+			SwimVendor.ResponseMessage response = swim.getVendor(transactionId, id);
 			logger.info(new CommentLog("Fin de busqueda de proveedor en Swim. " + response.getResponseDescription() , transactionId, (System.currentTimeMillis() - startTime)));
 			
 			if(response.getData()!=null && response.getData().size()>0){
@@ -178,7 +178,7 @@ public class VendorServiceImpl implements VendorService {
 		UnicomerVendor result = new UnicomerVendor();
 		try{
 			logger.info(new CommentLog("Inicio de busqueda de proveedor en Swim", transactionId, (System.currentTimeMillis() - startTime)));
-			SwimVendor.ResponseMessage response = swim.getVendor(id);
+			SwimVendor.ResponseMessage response = swim.getVendor(transactionId, id);
 			logger.info(new CommentLog("Fin de busqueda de proveedor en Swim. " + response.getResponseDescription() , transactionId, (System.currentTimeMillis() - startTime)));
 			
 			if(response.getData()!=null && response.getData().size()>0){
@@ -202,7 +202,7 @@ public class VendorServiceImpl implements VendorService {
 		//SWIM
 		try{
 			logger.info(new CommentLog("Inicio de borrado de datos en Swim", transactionId, (System.currentTimeMillis() - startTime)));
-			swim.deleteVendor(id);
+			swim.deleteVendor(transactionId, id);
 		}catch (Exception ex) {
 			logger.error(new CommentLog("Error borrando datos en Swim: " + ExceptionUtils.getStackTrace(ex), 
 					transactionId, (System.currentTimeMillis() - startTime)));
@@ -211,7 +211,7 @@ public class VendorServiceImpl implements VendorService {
 		//RI
 		try{
 			logger.info(new CommentLog("Inicio de borrado de datos a RI", transactionId, (System.currentTimeMillis() - startTime)));
-			ri.deleteVendor(id);
+			ri.deleteVendor(transactionId, id);
 		}catch (Exception ex) {
 			logger.error(new CommentLog("Error borrando datos en RI: " + ExceptionUtils.getStackTrace(ex), 
 					transactionId, (System.currentTimeMillis() - startTime)));

@@ -41,16 +41,18 @@ public class VendorRestController {
 	@RequestMapping(method = RequestMethod.GET, value = "/vendors/all",
 			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public SwimVendorDomain.ResponseMessage getVendors(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
-			@RequestHeader(name="X-Forwarded-For", defaultValue="none", required=false) String forwardedFor) {
+			@RequestHeader(name="${general.global-transaction-header}", defaultValue="none", required=false) String globalTransactionId) {
 		
 		String localTransactionId=UUID.randomUUID().toString();
+		if(globalTransactionId.equals("none"))
+			globalTransactionId = localTransactionId;
 		long startTime = System.currentTimeMillis();		
 		TransactionLogInfoTrace info = new TransactionLogInfoTrace(
 				"",
 				"",
 				servletRequest.getRemoteAddr(),
 				"Inicio de /vendors/all", 
-				localTransactionId, 
+				globalTransactionId, 
 				localTransactionId, 
 				"", 
 				"v1", 
@@ -67,7 +69,7 @@ public class VendorRestController {
 			Iterator<SwimVendorDomain> it = vendorService.findAll().iterator();
 			while (it.hasNext()) {
 				SwimVendorDomain vendor = it.next();
-				vendor.add(linkTo(methodOn(VendorRestController.class).getVendorById(vendor.getVendorId(), servletRequest, servletResponse)).withSelfRel());
+				vendor.add(linkTo(methodOn(VendorRestController.class).getVendorById(vendor.getVendorId(), servletRequest, servletResponse, globalTransactionId)).withSelfRel());
 				vendorList.add(vendor);
 			}
 			
@@ -98,7 +100,7 @@ public class VendorRestController {
 					e.getCause().getMessage(),
 					servletRequest.getRemoteAddr(),
 					"Ha ocurrido un problema: " + e.getMessage(), 
-					localTransactionId, 
+					globalTransactionId, 
 					localTransactionId, 
 					"", 
 					"v1", 
@@ -116,7 +118,7 @@ public class VendorRestController {
 				"",
 				servletRequest.getRemoteAddr(),
 				"Fin de /vendors/all", 
-				localTransactionId, 
+				globalTransactionId, 
 				localTransactionId, 
 				"", 
 				"v1", 
@@ -133,18 +135,21 @@ public class VendorRestController {
 	@RequestMapping(method = RequestMethod.GET, value = "/vendors",
 			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public SwimVendorDomain.ResponseMessage getVendorsPageable(HttpServletRequest servletRequest, HttpServletResponse servletResponse, 
-			@PageableDefault(page=0, value=250, sort = { "name" }, direction = Direction.ASC) Pageable pageable) {
+			@PageableDefault(page=0, value=250, sort = { "name" }, direction = Direction.ASC) Pageable pageable,
+			@RequestHeader(name="${general.global-transaction-header}", defaultValue="none", required=false) String globalTransactionId) {
 		servletResponse.setStatus(HttpServletResponse.SC_OK);
 		ResponseMessage response = new ResponseMessage();
 		
 		String localTransactionId=UUID.randomUUID().toString();
+		if(globalTransactionId.equals("none"))
+			globalTransactionId = localTransactionId;
 		long startTime = System.currentTimeMillis();		
 		logger.startTrace(new TransactionLogInfoTrace(
 				"",
 				"",
 				servletRequest.getRemoteAddr(),
 				"Inicio de /vendors", 
-				localTransactionId, 
+				globalTransactionId, 
 				localTransactionId, 
 				"", 
 				"v1", 
@@ -158,7 +163,7 @@ public class VendorRestController {
 			
 			while (it.hasNext()) {
 				SwimVendorDomain vendor = it.next();
-				vendor.add(linkTo(methodOn(VendorRestController.class).getVendorById(vendor.getVendorId(), null, servletResponse)).withSelfRel());
+				vendor.add(linkTo(methodOn(VendorRestController.class).getVendorById(vendor.getVendorId(), null, servletResponse, globalTransactionId)).withSelfRel());
 				vendorList.add(vendor);
 			}
 			
@@ -189,7 +194,7 @@ public class VendorRestController {
 					e.getCause().getMessage(),
 					servletRequest.getRemoteAddr(),
 					"Ha ocurrido un problema: " + e.getMessage(), 
-					localTransactionId, 
+					globalTransactionId, 
 					localTransactionId, 
 					"", 
 					"v1", 
@@ -208,7 +213,7 @@ public class VendorRestController {
 				"",
 				servletRequest.getRemoteAddr(),
 				"Fin de /vendors", 
-				localTransactionId, 
+				globalTransactionId, 
 				localTransactionId, 
 				"", 
 				"v1", 
@@ -224,34 +229,34 @@ public class VendorRestController {
 	@RequestMapping(method = RequestMethod.POST, value = "/vendors",
 			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
 			consumes={MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public ResponseMessage addVendor(@RequestBody SwimVendorDomain.RequestMessage request, HttpServletRequest servletRequest, HttpServletResponse servletResponse) {
+	public ResponseMessage addVendor(@RequestBody SwimVendorDomain.RequestMessage request, HttpServletRequest servletRequest, HttpServletResponse servletResponse,
+			@RequestHeader(name="${general.global-transaction-header}", defaultValue="none", required=false) String globalTransactionId) {
 		servletResponse.setStatus(HttpServletResponse.SC_CREATED);
 		ResponseMessage response = new ResponseMessage();
 		
 		String localTransactionId=UUID.randomUUID().toString();
+		if(globalTransactionId.equals("none"))
+			globalTransactionId = localTransactionId;
 		long startTime = System.currentTimeMillis();		
 		logger.startTrace(new TransactionLogInfoTrace(
 				request.toString(),
 				"",
 				servletRequest.getRemoteAddr(),
 				"Inicio de POST /vendors", 
-				request.getTransaction(),
+				globalTransactionId,
 				localTransactionId,
-				"", 
+				request.getTransaction(),
 				"v1", 
 				applicationName
 			)
 		);
 		
 		try{
-			if(request.getTransaction().isEmpty())
-				request.setTransaction(localTransactionId);
-			
 			SwimVendorDomain vendorResponse = vendorService.save(request.getData());
 			ArrayList<SwimVendorDomain> vendorList = new ArrayList<SwimVendorDomain>();
 			
 			if (vendorResponse!=null){
-				vendorResponse.add(linkTo(methodOn(VendorRestController.class).getVendorById(vendorResponse.getVendorId(), null, null)).withSelfRel());
+				vendorResponse.add(linkTo(methodOn(VendorRestController.class).getVendorById(vendorResponse.getVendorId(), null, null, globalTransactionId)).withSelfRel());
 				vendorList.add(vendorResponse);
 				response.setData(vendorList);
 				response.setResponseCode(0);
@@ -279,15 +284,15 @@ public class VendorRestController {
 					e.getCause().getMessage(),
 					servletRequest.getRemoteAddr(),
 					"Ha ocurrido un problema: " + e.getMessage(), 
-					request.getTransaction(),
+					globalTransactionId,
 					localTransactionId,
-					"", 
+					request.getTransaction(),
 					"v1", 
 					applicationName
 				)
 			);
 		}
-		response.setTransactionId(request.getTransaction());
+		response.setTransactionId(localTransactionId);
 		response.setDate(Calendar.getInstance().getTime());			
 		
 		long duration = System.currentTimeMillis() - startTime;
@@ -296,9 +301,9 @@ public class VendorRestController {
 				"",
 				servletRequest.getRemoteAddr(),
 				"Fin de POST /vendors", 
-				request.getTransaction(),
+				globalTransactionId,
 				localTransactionId,
-				"", 
+				request.getTransaction(),
 				"v1", 
 				applicationName,
 				duration,
@@ -312,33 +317,33 @@ public class VendorRestController {
 	@RequestMapping(method = RequestMethod.PUT, value = "/vendors/{id}",
 			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
 			consumes={MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public ResponseMessage updateVendor(@RequestBody SwimVendorDomain.RequestMessage request, @PathVariable String id, HttpServletRequest servletRequest, HttpServletResponse servletResponse) {
+	public ResponseMessage updateVendor(@RequestBody SwimVendorDomain.RequestMessage request, @PathVariable String id, HttpServletRequest servletRequest, HttpServletResponse servletResponse,
+			@RequestHeader(name="${general.global-transaction-header}", defaultValue="none", required=false) String globalTransactionId) {
 		servletResponse.setStatus(HttpServletResponse.SC_CREATED);
 		ResponseMessage response = new ResponseMessage();
 		
 		String localTransactionId=UUID.randomUUID().toString();
+		if(globalTransactionId.equals("none"))
+			globalTransactionId = localTransactionId;
 		long startTime = System.currentTimeMillis();		
 		logger.startTrace(new TransactionLogInfoTrace(
 				request.toString(),
 				"",
 				servletRequest.getRemoteAddr(),
 				"Inicio de PUT /vendors/"+id,
-				request.getTransaction(),
+				globalTransactionId,
 				localTransactionId,
-				"", 
+				request.getTransaction(),
 				"v1", 
 				applicationName
 			)
 		);		
 		
 		try{
-			if(request.getTransaction().isEmpty())
-				request.setTransaction(localTransactionId);
-			
 			if (vendorService.exists(id)){
 				SwimVendorDomain vendorResponse = vendorService.save(request.getData());
 				ArrayList<SwimVendorDomain> vendorList = new ArrayList<SwimVendorDomain>();
-				vendorResponse.add(linkTo(methodOn(VendorRestController.class).getVendorById(vendorResponse.getVendorId(), null, null)).withSelfRel());
+				vendorResponse.add(linkTo(methodOn(VendorRestController.class).getVendorById(vendorResponse.getVendorId(), null, null, globalTransactionId)).withSelfRel());
 				vendorList.add(vendorResponse);
 				response.setData(vendorList);
 				response.setResponseCode(0);
@@ -366,9 +371,9 @@ public class VendorRestController {
 					e.getCause().getMessage(),
 					servletRequest.getRemoteAddr(),
 					"Ha ocurrido un problema: " + e.getMessage(), 
-					request.getTransaction(),
+					globalTransactionId,
 					localTransactionId,
-					"", 
+					request.getTransaction(), 
 					"v1", 
 					applicationName
 				)
@@ -383,9 +388,9 @@ public class VendorRestController {
 				"",
 				servletRequest.getRemoteAddr(),
 				"Fin de PUT /vendors/"+id,
-				request.getTransaction(),
+				globalTransactionId,
 				localTransactionId,
-				"", 
+				request.getTransaction(), 
 				"v1", 
 				applicationName,
 				duration,
@@ -398,20 +403,23 @@ public class VendorRestController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/vendors/{id}",
 			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	public ResponseMessage getVendorById(@PathVariable String id, HttpServletRequest servletRequest, HttpServletResponse servletResponse) {
+	public ResponseMessage getVendorById(@PathVariable String id, HttpServletRequest servletRequest, HttpServletResponse servletResponse,
+			@RequestHeader(name="${general.global-transaction-header}", defaultValue="none", required=false) String globalTransactionId) {
 		servletResponse.setStatus(HttpServletResponse.SC_OK);
 		ResponseMessage response = new ResponseMessage();
 		SwimVendorDomain vendor=vendorService.findOne(id); 
 		
 		String localTransactionId=UUID.randomUUID().toString();
+		if(globalTransactionId.equals("none"))
+			globalTransactionId = localTransactionId;
 		long startTime = System.currentTimeMillis();		
 		logger.startTrace(new TransactionLogInfoTrace(
 				"",
 				"",
 				servletRequest.getRemoteAddr(),
 				"Inicio de GET /vendors/"+id,
-				localTransactionId, 
-				localTransactionId, 
+				globalTransactionId,
+				localTransactionId,
 				"", 
 				"v1", 
 				applicationName
@@ -420,7 +428,7 @@ public class VendorRestController {
 		
 		if (vendor!=null){
 			ArrayList<SwimVendorDomain> vendorList = new ArrayList<SwimVendorDomain>();
-			vendor.add(linkTo(methodOn(VendorRestController.class).getVendorById(vendor.getVendorId(), null, servletResponse)).withSelfRel());
+			vendor.add(linkTo(methodOn(VendorRestController.class).getVendorById(vendor.getVendorId(), null, servletResponse, globalTransactionId)).withSelfRel());
 			vendorList.add(vendor);
 			response.setData(vendorList);
 			response.setResponseCode(0);
@@ -444,7 +452,7 @@ public class VendorRestController {
 				"",
 				servletRequest.getRemoteAddr(),
 				"Fin de GET /vendors/"+id,
-				localTransactionId, 
+				globalTransactionId, 
 				localTransactionId, 
 				"", 
 				"v1", 
@@ -458,19 +466,22 @@ public class VendorRestController {
 	}
 	
 	@RequestMapping(method = RequestMethod.DELETE, value = "/vendors/{id}")
-	public ResponseMessage deleteVendor(@PathVariable String id, HttpServletRequest servletRequest, HttpServletResponse servletResponse) {
+	public ResponseMessage deleteVendor(@PathVariable String id, HttpServletRequest servletRequest, HttpServletResponse servletResponse,
+			@RequestHeader(name="${general.global-transaction-header}", defaultValue="none", required=false) String globalTransactionId) {
 		servletResponse.setStatus(HttpServletResponse.SC_NO_CONTENT);
 		ResponseMessage response = new ResponseMessage();
 		
 		String localTransactionId=UUID.randomUUID().toString();
+		if(globalTransactionId.equals("none"))
+			globalTransactionId = localTransactionId;
 		long startTime = System.currentTimeMillis();		
 		logger.startTrace(new TransactionLogInfoTrace(
 				id,
 				"",
 				servletRequest.getRemoteAddr(),
 				"Inicio de DELETE /vendors/"+id,
-				localTransactionId, 
-				localTransactionId, 
+				globalTransactionId,
+				localTransactionId,
 				"", 
 				"v1", 
 				applicationName
@@ -503,7 +514,7 @@ public class VendorRestController {
 					e.getCause().getMessage(),
 					servletRequest.getRemoteAddr(),
 					"Ha ocurrido un problema: " + e.getMessage(), 
-					localTransactionId, 
+					globalTransactionId, 
 					localTransactionId, 
 					"", 
 					"v1", 
@@ -520,7 +531,7 @@ public class VendorRestController {
 				"",
 				servletRequest.getRemoteAddr(),
 				"Fin de DELETE /vendors/"+id,
-				localTransactionId, 
+				globalTransactionId, 
 				localTransactionId, 
 				"", 
 				"v1", 

@@ -26,7 +26,7 @@ public class TransactionLogEndTrace {
 	private String externalReferenceId;
 	private String serviceVersion;
 	private String applicationId;
-	private Long responseTime;
+	private Long elapsedTime;
 	private Short responseStatusCode;
 	private String serverLocation;
 
@@ -35,7 +35,7 @@ public class TransactionLogEndTrace {
 	
 	public TransactionLogEndTrace(String detail, String lookupData, String endUserLocation,
 			String message, String globalReferenceId, String localReferenceId,
-			String externalReferenceId, String serviceVersion, String applicationId, Long responseTime,
+			String externalReferenceId, String serviceVersion, String applicationId, Long elapsedTime,
 			Integer responseStatusCode) {
 		super();
 //		this.createdDate = Calendar.getInstance().getTime();
@@ -48,7 +48,7 @@ public class TransactionLogEndTrace {
 		this.externalReferenceId = externalReferenceId;
 		this.serviceVersion = serviceVersion;
 		this.applicationId = applicationId;
-		this.responseTime = responseTime;
+		this.elapsedTime = elapsedTime;
 		this.responseStatusCode = responseStatusCode.shortValue();
 	}
 	
@@ -148,12 +148,12 @@ public class TransactionLogEndTrace {
 		this.applicationId = applicationId;
 	}
 
-	public Long getResponseTime() {
-		return responseTime;
+	public Long getElapsedTime() {
+		return elapsedTime;
 	}
 
-	public void setResponseTime(Long responseTime) {
-		this.responseTime = responseTime;
+	public void setElapsedTime(Long elapsedTime) {
+		this.elapsedTime = elapsedTime;
 	}
 
 	public Short getResponseStatusCode() {
@@ -197,7 +197,7 @@ public class TransactionLogEndTrace {
 		sb.append(", ");
 		sb.append("applicationId=" + this.applicationId);
 		sb.append(", ");
-		sb.append("responseTime=" + this.responseTime);
+		sb.append("elapsedTime=" + this.elapsedTime);
 		sb.append(", ");
 		sb.append("responseStatusCode=" + this.responseStatusCode);
 		sb.append(", ");
